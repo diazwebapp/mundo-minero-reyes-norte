@@ -1,0 +1,206 @@
+---
+---
+
+<section id="nosotros">
+	<div class="container">
+		<div class="about-grid">
+			<div class="about-content">
+				<span class="section-label">Nosotros</span>
+				<h2>Compromiso con la innovación tecnológica</h2>
+				<p class="lead">
+					<strong>Reyes del Norte es una empresa peruana especializada en la distribución y
+					comercialización de equipos y herramientas para la industria minera.</strong>
+				</p>
+				<p>
+					Contamos con certificaciones internacionales de calidad, estando comprometidos con
+					satisfacer las más exigentes necesidades en la administración de operaciones mineras.
+					Trabajamos en conjunto con nuestros clientes para alcanzar objetivos de garantía,
+					seguridad y tiempos establecidos.
+				</p>
+				<p>
+					Garantizamos personal altamente calificado y a la vanguardia de las innovaciones
+					tecnológicas mediante capacitación constante. Como distribuidores autorizados de
+					equipos y repuestos, ofrecemos productos de gran calidad y alto rendimiento a
+					precios competitivos.
+				</p>
+				<div class="stats">
+					<div class="stat-item">
+						<div class="stat-number">30+</div>
+						<div class="stat-label">Años de experiencia</div>
+					</div>
+				</div>
+				<ul class="features">
+					<li>Compromiso con la excelencia</li>
+					<li>Innovación constante para responder a las necesidades del mercado</li>
+					<li>Sostenibilidad como eje central en nuestras operaciones</li>
+				</ul>
+			</div>
+			<div class="about-cta">
+				<h3>Contáctenos</h3>
+				<p>Más de 500 clientes respaldan la calidad de nuestros productos y servicios.</p>
+				<div class="cta-buttons">
+					<a href="tel:+584144013973" class="btn btn-primary">+58 414 401 3973</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	#nosotros {
+		padding: 6rem 2rem;
+		background: #f8f9fa;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.about-grid {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		gap: 4rem;
+		align-items: start;
+	}
+
+	.section-label {
+		color: #e74c3c;
+		font-weight: 600;
+		text-transform: uppercase;
+		font-size: 0.875rem;
+		letter-spacing: 1px;
+	}
+
+	h2 {
+		font-size: 2.5rem;
+		color: #1a1a2e;
+		margin: 1rem 0 2rem;
+		line-height: 1.3;
+	}
+
+	.lead {
+		font-size: 1.125rem;
+		margin-bottom: 1.5rem;
+	}
+
+	p {
+		color: #4a5568;
+		line-height: 1.8;
+		margin-bottom: 1rem;
+	}
+
+	.stats {
+		margin: 2rem 0;
+		padding: 2rem;
+		background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+		border-radius: 12px;
+		color: white;
+	}
+
+	.stat-number {
+		font-size: 3rem;
+		font-weight: 700;
+		margin-bottom: 0.5rem;
+	}
+
+	.stat-label {
+		font-size: 1rem;
+		opacity: 0.9;
+	}
+
+	.features {
+		list-style: none;
+		padding: 0;
+		margin: 2rem 0;
+	}
+
+	.features li {
+		padding: 0.75rem 0;
+		padding-left: 2rem;
+		position: relative;
+		color: #2d3748;
+	}
+
+	.features li::before {
+		content: '✓';
+		position: absolute;
+		left: 0;
+		color: #e74c3c;
+		font-weight: bold;
+		font-size: 1.25rem;
+	}
+
+	.about-cta {
+		background: white;
+		padding: 2.5rem;
+		border-radius: 12px;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+		position: sticky;
+		top: 2rem;
+	}
+
+	.about-cta h3 {
+		font-size: 1.75rem;
+		color: #1a1a2e;
+		margin-bottom: 1rem;
+	}
+
+	.cta-buttons {
+		margin-top: 1.5rem;
+	}
+
+	.phone-text {
+		text-align: center;
+		margin: 1rem 0;
+		font-size: 0.875rem;
+		color: #718096;
+	}
+
+	.btn {
+		display: block;
+		width: 100%;
+		padding: 1rem;
+		border-radius: 8px;
+		text-decoration: none;
+		font-weight: 600;
+		text-align: center;
+		transition: all 0.3s ease;
+	}
+
+	.btn-primary {
+		background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+		color: white;
+	}
+
+	.btn-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+	}
+
+	.btn-outline {
+		background: white;
+		color: #1a1a2e;
+		border: 2px solid #e2e8f0;
+	}
+
+	.btn-outline:hover {
+		border-color: #e74c3c;
+		color: #e74c3c;
+	}
+
+	@media (max-width: 968px) {
+		.about-grid {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+
+		.about-cta {
+			position: static;
+		}
+
+		h2 {
+			font-size: 2rem;
+		}
+	}
+</style>

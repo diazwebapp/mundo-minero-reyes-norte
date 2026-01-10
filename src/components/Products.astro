@@ -1,0 +1,263 @@
+---
+const productCategories = [
+	{
+		id: 'perforacion',
+		title: 'Equipos de Perforación',
+		description: 'Diseñados para maximizar la eficiencia en operaciones subterráneas y de superficie, ofreciendo precisión y durabilidad en condiciones desafiantes.',
+		features: ['Scooptrams', 'Perforadoras neumáticas', 'Taladros especializados', 'Sistemas de control avanzados']
+	},
+	{
+		id: 'cargadores',
+		title: 'Cargadores y Dumpers',
+		description: 'Equipos robustos para transporte y carga de material en operaciones mineras, con capacidades desde 1 hasta 6 toneladas.',
+		features: ['Dumpers eléctricos', 'Dumpers diesel', 'Cargadores frontales', 'Sistemas hidráulicos de alta presión']
+	},
+	{
+		id: 'herramientas',
+		title: 'Herramientas y Accesorios',
+		description: 'Amplio catálogo de herramientas neumáticas, brocas, barras y accesorios para complementar sus operaciones mineras.',
+		features: ['Martillos neumáticos', 'Brocas de perforación', 'Barras y barretillas', 'Sistemas de ventilación']
+	}
+];
+
+const specificProducts = [
+	{
+		category: 'Perforadoras',
+		items: ['BBC120', 'Leopardo BBC34', 'Puma BBC16', 'RH 656', 'RH 658', 'YT28']
+	},
+	{
+		category: 'Scooptrams',
+		items: ['2.5 yardas', '1.5 yardas con powershift', '1.5 yardas', '0.75 yardas']
+	},
+	{
+		category: 'Ventiladores',
+		items: ['Axial 30000 CFM', 'Axial 35000 CFM', 'Portátil 30000 CFM', 'Portátil 32000 CFM']
+	},
+	{
+		category: 'Winches',
+		items: ['Winche de arrastre', 'Winche de izaje', 'Winche eléctrico']
+	},
+	{
+		category: 'Compresoras',
+		items: ['Atlas Copco XA76', 'LIUTECH 185-535 CFM', 'XAHS400-PACE 375 CFM', 'XAS300-100']
+	},
+	{
+		category: 'Lámparas Mineras',
+		items: ['Gloria KJ3.5LM', 'Oldham 6A inalámbrica', 'Komba RD400', 'Strahl KL10m']
+	}
+];
+---
+
+<section id="productos">
+	<div class="container">
+		<div class="section-header">
+			<span class="section-label">Productos</span>
+			<h2>Soluciones para la Industria Minera y Construcción</h2>
+		</div>
+
+		<div class="product-tabs">
+			{productCategories.map((category, index) => (
+				<div class="tab-content" data-tab={category.id}>
+					<div class="product-card">
+						<div class="product-number">{String(index + 1).padStart(2, '0')}</div>
+						<h3>{category.title}</h3>
+						<p>{category.description}</p>
+						<ul class="feature-list">
+							{category.features.map(feature => (
+								<li>{feature}</li>
+							))}
+						</ul>
+						<a href="#contacto" class="btn-link">Contáctenos →</a>
+					</div>
+				</div>
+			))}
+		</div>
+
+		<div class="product-grid">
+			{specificProducts.map(product => (
+				<div class="product-item">
+					<h4>{product.category}</h4>
+					<ul>
+						{product.items.map(item => (
+							<li>{item}</li>
+						))}
+					</ul>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	#productos {
+		padding: 6rem 2rem;
+		background: white;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.section-header {
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.section-label {
+		color: #e74c3c;
+		font-weight: 600;
+		text-transform: uppercase;
+		font-size: 0.875rem;
+		letter-spacing: 1px;
+	}
+
+	h2 {
+		font-size: 2.5rem;
+		color: #1a1a2e;
+		margin-top: 1rem;
+		line-height: 1.3;
+	}
+
+	.product-tabs {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		gap: 2rem;
+		margin-bottom: 4rem;
+	}
+
+	.product-card {
+		background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+		padding: 2.5rem;
+		border-radius: 12px;
+		border: 1px solid #e2e8f0;
+		transition: all 0.3s ease;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.product-card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 4px;
+		height: 0;
+		background: linear-gradient(180deg, #e74c3c 0%, #c0392b 100%);
+		transition: height 0.3s ease;
+	}
+
+	.product-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	}
+
+	.product-card:hover::before {
+		height: 100%;
+	}
+
+	.product-number {
+		font-size: 3rem;
+		font-weight: 700;
+		color: #e74c3c;
+		opacity: 0.2;
+		line-height: 1;
+		margin-bottom: 1rem;
+	}
+
+	h3 {
+		font-size: 1.5rem;
+		color: #1a1a2e;
+		margin-bottom: 1rem;
+	}
+
+	h4 {
+		font-size: 1.25rem;
+		color: #1a1a2e;
+		margin-bottom: 1rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 2px solid #e74c3c;
+	}
+
+	p {
+		color: #4a5568;
+		line-height: 1.6;
+		margin-bottom: 1.5rem;
+	}
+
+	.feature-list {
+		list-style: none;
+		padding: 0;
+		margin: 1.5rem 0;
+	}
+
+	.feature-list li {
+		padding: 0.5rem 0;
+		padding-left: 1.5rem;
+		position: relative;
+		color: #2d3748;
+	}
+
+	.feature-list li::before {
+		content: '•';
+		position: absolute;
+		left: 0;
+		color: #e74c3c;
+		font-weight: bold;
+		font-size: 1.5rem;
+	}
+
+	.btn-link {
+		color: #e74c3c;
+		text-decoration: none;
+		font-weight: 600;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		transition: gap 0.3s ease;
+	}
+
+	.btn-link:hover {
+		gap: 1rem;
+	}
+
+	.product-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2rem;
+		margin-top: 3rem;
+		padding-top: 3rem;
+		border-top: 2px solid #e2e8f0;
+	}
+
+	.product-item {
+		background: #f8f9fa;
+		padding: 2rem;
+		border-radius: 8px;
+	}
+
+	.product-item ul {
+		list-style: none;
+		padding: 0;
+	}
+
+	.product-item li {
+		padding: 0.5rem 0;
+		color: #4a5568;
+		font-size: 0.9rem;
+	}
+
+	@media (max-width: 768px) {
+		h2 {
+			font-size: 2rem;
+		}
+
+		.product-tabs {
+			grid-template-columns: 1fr;
+		}
+
+		.product-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
