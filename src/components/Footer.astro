@@ -1,14 +1,16 @@
 ---
+import { fichaTecnica } from "../local-data/ficha-tecnica";
+const { informacion_general, datos_contacto, domicilio_fiscal } = fichaTecnica;
 ---
 
 <footer>
 	<div class="footer-container">
 		<div class="footer-grid">
 			<div class="footer-section">
-				<h3>Reyes del Norte</h3>
+				<h3>{informacion_general.nombre_corto}</h3>
 				<p>
 					Especialistas en distribución y comercialización de equipos para la industria minera
-					desde 1994.
+					desde 2020.
 				</p>
 			</div>
 
@@ -24,10 +26,12 @@
 			<div class="footer-section">
 				<h4>Contacto</h4>
 				<ul>
-					<li><a href="tel:+584144013973">+58 414 401 3973</a></li>
-					<li><a href="mailto:diazwebapp@gmail.com">diazwebapp@gmail.com</a></li>
-					<li>Jr. Iquique #177 Breña</li>
-					<li>Lima, Perú</li>
+					<li>
+						<a href={`https://wa.me/${datos_contacto.telefono_ventas}`}>{datos_contacto.telefono_ventas}</a>
+					</li>
+					<li><a href={`mailto:${datos_contacto.correo_electronico}`}>{datos_contacto.correo_electronico}</a></li>
+					<li>{domicilio_fiscal.direccion}</li>
+					<li>{domicilio_fiscal.distrito}, Perú</li>
 				</ul>
 			</div>
 
@@ -39,7 +43,7 @@
 		</div>
 
 		<div class="footer-bottom">
-			<p>&copy; Reyes del Norte. Todos los derechos reservados.</p>
+			<p>&copy; {informacion_general.nombre_corto}. Todos los derechos reservados.</p>
 		</div>
 	</div>
 </footer>

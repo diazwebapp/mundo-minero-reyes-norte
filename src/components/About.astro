@@ -1,4 +1,6 @@
 ---
+import { fichaTecnica } from "../local-data/ficha-tecnica";
+const {datos_contacto} = fichaTecnica
 ---
 
 <section id="nosotros">
@@ -25,7 +27,7 @@
 				</p>
 				<div class="stats">
 					<div class="stat-item">
-						<div class="stat-number">30+</div>
+						<div class="stat-number">5+</div>
 						<div class="stat-label">Años de experiencia</div>
 					</div>
 				</div>
@@ -37,9 +39,9 @@
 			</div>
 			<div class="about-cta">
 				<h3>Contáctenos</h3>
-				<p>Más de 500 clientes respaldan la calidad de nuestros productos y servicios.</p>
+				<p>Más de 200 clientes respaldan la calidad de nuestros productos y servicios.</p>
 				<div class="cta-buttons">
-					<a href="tel:+584144013973" class="btn btn-primary">+58 414 401 3973</a>
+					<a href={`https://wa.me/${datos_contacto.telefono_ventas}`} target="_blank" rel="noopener noreferrer" class="btn btn-primary">{datos_contacto.telefono_ventas}</a>
 				</div>
 			</div>
 		</div>

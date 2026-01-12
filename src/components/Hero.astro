@@ -1,4 +1,6 @@
 ---
+import { fichaTecnica } from "../local-data/ficha-tecnica";
+const {informacion_general} = fichaTecnica
 ---
 
 <section id="hero">
@@ -6,7 +8,7 @@
 		<div class="hero-text">
 			<h1>Liderando la Excelencia en la Industria Minera</h1>
 			<p class="hero-subtitle">
-				Reyes del Norte, su socio estratégico en equipos y soluciones para minería desde 2020.
+				{informacion_general.nombre_corto}, su socio estratégico en equipos y soluciones para minería desde 2020.
 				Innovación, calidad y compromiso en cada proyecto.
 			</p>
 			<div class="hero-buttons">
