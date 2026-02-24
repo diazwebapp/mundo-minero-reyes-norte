@@ -1,0 +1,160 @@
+---
+import { categorias, productos } from '../local-data/database';
+import type { Categoria, Producto } from '../local-data/database.types';
+import Layout from '../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  return productos.map(producto => {
+    const categoria = categorias.find(c => c.id === producto.categoria_id);
+    return {
+      params: {
+        categoria: categoria?.slug || 'sin-categoria',
+        producto: producto.slug,
+      },
+      props: { producto, categoria },
+    };
+  });
+}
+
+interface Props {
+  producto: Producto;
+  categoria: Categoria;
+}
+
+const { producto, categoria } = Astro.props;
+
+const specs = Object.entries(producto).filter(([key, value]) => 
+  value && typeof value !== 'object' && !['id', 'categoria_id', 'slug', 'imagen_portada', 'modelo_o_capacidad'].includes(key)
+);
+
+const motorSpecs = producto.motor ? Object.entries(producto.motor).filter(([, value]) => value) : [];
+---
+
+<Layout title={producto.modelo_o_capacidad}>
+  <div class="product-detail-page">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Inicio</a> / <a href={`/${categoria.slug}`}>{categoria.nombre}</a> / <span>{producto.modelo_o_capacidad}</span>
+      </div>
+      <div class="product-layout">
+        <div class="product-gallery">
+          <img src="https://via.placeholder.com/600x400/e9ecef/495057?text=Mundo+Minero" alt={`Imagen de ${producto.modelo_o_capacidad}`} class="main-image"/>
+        </div>
+        <div class="product-info">
+          <h1>{producto.modelo_o_capacidad}</h1>
+          {producto.tipo && <span class="product-type">{producto.tipo}</span>}
+          
+          <div class="specs-section">
+            <h2>Especificaciones Técnicas</h2>
+            <ul class="specs-list">
+              <!-- Motor Specs -->
+              {motorSpecs.length > 0 && motorSpecs.map(([key, value]) => (
+                <li><strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> {value}</li>
+              ))}
+              <!-- Other Specs -->
+              {specs.map(([key, value]) => (
+                <li><strong>{key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong> {value}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="contact-section">
+            <h3>¿Interesado en este producto?</h3>
+            <p>Contáctanos para obtener una cotización y más información.</p>
+            <a href="/contacto" class="btn-contact">Contactar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .product-detail-page {
+    padding: 4rem 2rem;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .breadcrumb {
+    margin-bottom: 2rem;
+    color: #6c757d;
+  }
+  .breadcrumb a {
+    color: #e74c3c;
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  .product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: flex-start;
+  }
+  .main-image {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+  h1 {
+    font-size: 2.8rem;
+    color: #1a1a2e;
+    line-height: 1.2;
+  }
+  .product-type {
+    display: inline-block;
+    background-color: #e74c3c1a;
+    color: #e74c3c;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 600;
+    margin: 1rem 0;
+  }
+  .specs-section {
+    margin-top: 2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    color: #1a1a2e;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: 1rem;
+  }
+  .specs-list {
+    list-style: none;
+    padding: 0;
+    columns: 1;
+  }
+  .specs-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .contact-section {
+    margin-top: 2.5rem;
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 12px;
+  }
+  .btn-contact {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 2rem;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  .btn-contact:hover {
+    background-color: #c0392b;
+  }
+  @media (max-width: 992px) {
+    .product-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

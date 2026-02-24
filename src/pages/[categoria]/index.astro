@@ -1,0 +1,70 @@
+---
+import { categorias, productos } from '../../local-data/database';
+import type { Categoria, Producto } from '../../local-data/database.types';
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+
+export async function getStaticPaths() {
+  return categorias.map(categoria => {
+    const productosDeCategoria = productos.filter(
+      p => p.categoria_id === categoria.id
+    );
+    return {
+      params: { categoria: categoria.slug },
+      props: { categoria, productos: productosDeCategoria },
+    };
+  });
+}
+
+interface Props {
+  categoria: Categoria;
+  productos: Producto[];
+}
+
+const { categoria, productos: productosDeCategoria } = Astro.props;
+---
+
+<Layout title={`Categoría: ${categoria.nombre}`}>
+  <section class="category-page">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Categoría</span>
+        <h1>{categoria.nombre}</h1>
+        <p class="subtitle">
+          Explora todos nuestros productos en la categoría de {categoria.nombre}.
+        </p>
+      </div>
+
+      {productosDeCategoria.length > 0 ? (
+        <div class="products-grid">
+          {productosDeCategoria.map(producto => (
+            <ProductCard producto={producto} categorySlug={categoria.slug} />
+          ))}
+        </div>
+      ) : (
+        <p class="no-products">No hay productos disponibles en esta categoría por el momento.</p>
+      )}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .category-page {
+    padding: 6rem 2rem;
+    background-color: #f8f9fa;
+    min-height: 80vh;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+</style>

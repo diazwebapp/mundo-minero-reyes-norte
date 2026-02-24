@@ -1,0 +1,93 @@
+---
+import type { Producto } from '../local-data/database.types';
+
+interface Props {
+  producto: Producto;
+  categorySlug: string;
+}
+
+const { producto, categorySlug } = Astro.props;
+---
+
+<div class="product-card">
+  <div class="product-image">
+    <!-- La propiedad 'imagen_portada' está vacía en la DB, se usa un placeholder -->
+    <img src="https://via.placeholder.com/300x200/e9ecef/495057?text=Mundo+Minero" alt={`Imagen de ${producto.modelo_o_capacidad}`} />
+  </div>
+  <div class="product-info">
+    <h4 class="product-model">{producto.modelo_o_capacidad}</h4>
+    <ul class="product-specs">
+      {producto.motor?.tipo && <li><strong>Motor:</strong> {producto.motor.tipo}</li>}
+      {producto.motor?.potencia && <li><strong>Potencia:</strong> {producto.motor.potencia}</li>}
+      {producto.caja_cambios && <li><strong>Caja:</strong> {producto.caja_cambios}</li>}
+    </ul>
+    <a href={`/${categorySlug}/${producto.slug}`} class="btn-details">Ver detalles</a>
+  </div>
+</div>
+
+<style>
+  .product-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  .product-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .product-model {
+    font-size: 1.25rem;
+    color: #1a1a2e;
+    margin: 0 0 1rem 0;
+  }
+
+  .product-specs {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    color: #4a5568;
+    flex-grow: 1;
+  }
+
+  .product-specs li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .btn-details {
+    display: inline-block;
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-details:hover {
+    background-color: #c0392b;
+  }
+</style>

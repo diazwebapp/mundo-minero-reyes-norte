@@ -7,7 +7,6 @@ const {datos_contacto, domicilio_fiscal} = fichaTecnica
 	<div class="container">
 		<div class="section-header">
 			<span class="section-label">Contáctenos</span>
-			<h2>Conecte con nuestro equipo de expertos</h2>
 			<p class="subtitle">
 				Estamos listos para responder sus consultas y brindarle soluciones técnicas adaptadas a
 				las exigencias de su requerimiento.
@@ -15,26 +14,44 @@ const {datos_contacto, domicilio_fiscal} = fichaTecnica
 		</div>
 
 		<div class="contact-grid">
-			<div class="contact-info">
-				<div class="info-section">
+			
+				<div class="datos-contac">
+					<div class="info-section">
 					<h3>Teléfonos</h3>
 					<div class="phone-grid">
-						<a href={`https://wa.me/${datos_contacto.telefono_ventas}`} class="phone-item" target="_blank" rel="noopener">
+						<a href={`https://wa.me/${datos_contacto.whatsapp}`} class="phone-item" target="_blank" rel="noopener">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
 									<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
 								</svg>
-								<span>{datos_contacto.telefono_ventas}</span>
+								<span>{datos_contacto.whatsapp}</span>
+							</a>
+					</div>
+				</div>
+				
+				<div class="info-section">
+					<h3>Redes sociales</h3>
+					<div class="phone-grid" style="margin-bottom: 5px;">
+						<a href=`https://www.instagram.com/${datos_contacto.instagram}` class="phone-item" target="_blank" rel="noopener">
+								<svg width="24px" height="24px" viewBox="0 0 2500 2500" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><radialGradient id="0" cx="332.14" cy="2511.81" r="3263.54" gradientUnits="userSpaceOnUse"><stop offset=".09" stop-color="#fa8f21"></stop><stop offset=".78" stop-color="#d82d7e"></stop></radialGradient><radialGradient id="1" cx="1516.14" cy="2623.81" r="2572.12" gradientUnits="userSpaceOnUse"><stop offset=".64" stop-color="#8c3aaa" stop-opacity="0"></stop><stop offset="1" stop-color="#8c3aaa"></stop></radialGradient></defs><path d="M833.4,1250c0-230.11,186.49-416.7,416.6-416.7s416.7,186.59,416.7,416.7-186.59,416.7-416.7,416.7S833.4,1480.11,833.4,1250m-225.26,0c0,354.5,287.36,641.86,641.86,641.86S1891.86,1604.5,1891.86,1250,1604.5,608.14,1250,608.14,608.14,895.5,608.14,1250M1767.27,582.69a150,150,0,1,0,150.06-149.94h-0.06a150.07,150.07,0,0,0-150,149.94M745,2267.47c-121.87-5.55-188.11-25.85-232.13-43-58.36-22.72-100-49.78-143.78-93.5s-70.88-85.32-93.5-143.68c-17.16-44-37.46-110.26-43-232.13-6.06-131.76-7.27-171.34-7.27-505.15s1.31-373.28,7.27-505.15c5.55-121.87,26-188,43-232.13,22.72-58.36,49.78-100,93.5-143.78s85.32-70.88,143.78-93.5c44-17.16,110.26-37.46,232.13-43,131.76-6.06,171.34-7.27,505-7.27s373.28,1.31,505.15,7.27c121.87,5.55,188,26,232.13,43,58.36,22.62,100,49.78,143.78,93.5s70.78,85.42,93.5,143.78c17.16,44,37.46,110.26,43,232.13,6.06,131.87,7.27,171.34,7.27,505.15s-1.21,373.28-7.27,505.15c-5.55,121.87-25.95,188.11-43,232.13-22.72,58.36-49.78,100-93.5,143.68s-85.42,70.78-143.78,93.5c-44,17.16-110.26,37.46-232.13,43-131.76,6.06-171.34,7.27-505.15,7.27s-373.28-1.21-505-7.27M734.65,7.57c-133.07,6.06-224,27.16-303.41,58.06C349,97.54,279.38,140.35,209.81,209.81S97.54,349,65.63,431.24c-30.9,79.46-52,170.34-58.06,303.41C1.41,867.93,0,910.54,0,1250s1.41,382.07,7.57,515.35c6.06,133.08,27.16,223.95,58.06,303.41,31.91,82.19,74.62,152,144.18,221.43S349,2402.37,431.24,2434.37c79.56,30.9,170.34,52,303.41,58.06C868,2498.49,910.54,2500,1250,2500s382.07-1.41,515.35-7.57c133.08-6.06,223.95-27.16,303.41-58.06,82.19-32,151.86-74.72,221.43-144.18s112.18-139.24,144.18-221.43c30.9-79.46,52.1-170.34,58.06-303.41,6.06-133.38,7.47-175.89,7.47-515.35s-1.41-382.07-7.47-515.35c-6.06-133.08-27.16-224-58.06-303.41-32-82.19-74.72-151.86-144.18-221.43S2150.95,97.54,2068.86,65.63c-79.56-30.9-170.44-52.1-303.41-58.06C1632.17,1.51,1589.56,0,1250.1,0S868,1.41,734.65,7.57" fill="url(#0)"></path><path d="M833.4,1250c0-230.11,186.49-416.7,416.6-416.7s416.7,186.59,416.7,416.7-186.59,416.7-416.7,416.7S833.4,1480.11,833.4,1250m-225.26,0c0,354.5,287.36,641.86,641.86,641.86S1891.86,1604.5,1891.86,1250,1604.5,608.14,1250,608.14,608.14,895.5,608.14,1250M1767.27,582.69a150,150,0,1,0,150.06-149.94h-0.06a150.07,150.07,0,0,0-150,149.94M745,2267.47c-121.87-5.55-188.11-25.85-232.13-43-58.36-22.72-100-49.78-143.78-93.5s-70.88-85.32-93.5-143.68c-17.16-44-37.46-110.26-43-232.13-6.06-131.76-7.27-171.34-7.27-505.15s1.31-373.28,7.27-505.15c5.55-121.87,26-188,43-232.13,22.72-58.36,49.78-100,93.5-143.78s85.32-70.88,143.78-93.5c44-17.16,110.26-37.46,232.13-43,131.76-6.06,171.34-7.27,505-7.27s373.28,1.31,505.15,7.27c121.87,5.55,188,26,232.13,43,58.36,22.62,100,49.78,143.78,93.5s70.78,85.42,93.5,143.78c17.16,44,37.46,110.26,43,232.13,6.06,131.87,7.27,171.34,7.27,505.15s-1.21,373.28-7.27,505.15c-5.55,121.87-25.95,188.11-43,232.13-22.72,58.36-49.78,100-93.5,143.68s-85.42,70.78-143.78,93.5c-44,17.16-110.26,37.46-232.13,43-131.76,6.06-171.34,7.27-505.15,7.27s-373.28-1.21-505-7.27M734.65,7.57c-133.07,6.06-224,27.16-303.41,58.06C349,97.54,279.38,140.35,209.81,209.81S97.54,349,65.63,431.24c-30.9,79.46-52,170.34-58.06,303.41C1.41,867.93,0,910.54,0,1250s1.41,382.07,7.57,515.35c6.06,133.08,27.16,223.95,58.06,303.41,31.91,82.19,74.62,152,144.18,221.43S349,2402.37,431.24,2434.37c79.56,30.9,170.34,52,303.41,58.06C868,2498.49,910.54,2500,1250,2500s382.07-1.41,515.35-7.57c133.08-6.06,223.95-27.16,303.41-58.06,82.19-32,151.86-74.72,221.43-144.18s112.18-139.24,144.18-221.43c30.9-79.46,52.1-170.34,58.06-303.41,6.06-133.38,7.47-175.89,7.47-515.35s-1.41-382.07-7.47-515.35c-6.06-133.08-27.16-224-58.06-303.41-32-82.19-74.72-151.86-144.18-221.43S2150.95,97.54,2068.86,65.63c-79.56-30.9-170.44-52.1-303.41-58.06C1632.17,1.51,1589.56,0,1250.1,0S868,1.41,734.65,7.57" fill="url(#1)"></path></g></svg>
+								<span>{datos_contacto.instagram}</span>
+							</a>
+					</div>
+					
+					<div class="phone-grid">
+						<a href=`https://www.facebook.com/${datos_contacto.facebook}` class="phone-item" target="_blank" rel="noopener">
+								<svg width="24px" height="24px" viewBox="126.445 2.281 589 589" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><circle cx="420.945" cy="296.781" r="294.5" fill="#3c5a9a"></circle><path d="M516.704 92.677h-65.239c-38.715 0-81.777 16.283-81.777 72.402.189 19.554 0 38.281 0 59.357H324.9v71.271h46.174v205.177h84.847V294.353h56.002l5.067-70.117h-62.531s.14-31.191 0-40.249c0-22.177 23.076-20.907 24.464-20.907 10.981 0 32.332.032 37.813 0V92.677h-.032z" fill="#ffffff"></path></g></svg>
+								<span>{datos_contacto.facebook}</span>
 							</a>
 					</div>
 				</div>
 
 				<div class="info-section">
 					<h3>Correo Electrónico</h3>
-					<a href="mailto:diazwebapp@gmail.com" class="email-link">
-						diazwebapp@gmail.com
+					<a href=`mailto:${datos_contacto.correo_electronico}` class="email-link">
+						{datos_contacto.correo_electronico}
 					</a>
 				</div>
-
+			
 				<div class="info-section">
 					<h3>Dirección</h3>
 					<p class="address">{domicilio_fiscal.direccion} {domicilio_fiscal.zona} {domicilio_fiscal.distrito}</p>
@@ -44,30 +61,11 @@ const {datos_contacto, domicilio_fiscal} = fichaTecnica
 					<h3>Horario de Atención</h3>
 					<p class="schedule">Lunes - Sábado: 08:00 am - 18:00 pm</p>
 				</div>
+				</div>
+			<div class="img-tienda">
+				<img src="/src/assets/tienda.png" alt="foto de la tienda">
 			</div>
 
-			<div class="contact-form-container">
-				<h3>Ponte en contacto con nosotros</h3>
-				<form class="contact-form">
-					<div class="form-group">
-						<label for="name">Nombre completo</label>
-						<input type="text" id="name" name="name" required />
-					</div>
-					<div class="form-group">
-						<label for="email">Correo electrónico</label>
-						<input type="email" id="email" name="email" required />
-					</div>
-					<div class="form-group">
-						<label for="phone">Teléfono</label>
-						<input type="tel" id="phone" name="phone" required />
-					</div>
-					<div class="form-group">
-						<label for="message">Mensaje</label>
-						<textarea id="message" name="message" rows="5" required></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary">Enviar mensaje</button>
-				</form>
-			</div>
 		</div>
 	</div>
 </section>
@@ -78,7 +76,12 @@ const {datos_contacto, domicilio_fiscal} = fichaTecnica
 		background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
 		color: white;
 	}
-
+	.img-tienda img{
+		box-shadow:2px 0px 25px black;
+		overflow: hidden;
+		max-width: 400px;
+		border-radius:10px
+	}
 	.container {
 		max-width: 1200px;
 		margin: 0 auto;
@@ -115,7 +118,6 @@ const {datos_contacto, domicilio_fiscal} = fichaTecnica
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 3rem;
-		align-items: start;
 	}
 
 	.info-section {
@@ -172,73 +174,6 @@ const {datos_contacto, domicilio_fiscal} = fichaTecnica
 		color: rgba(255, 255, 255, 0.9);
 		line-height: 1.6;
 		margin: 0;
-	}
-
-	.contact-form-container {
-		background: rgba(255, 255, 255, 0.05);
-		padding: 2.5rem;
-		border-radius: 12px;
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		backdrop-filter: blur(10px);
-	}
-
-	.contact-form-container h3 {
-		font-size: 1.5rem;
-		margin-bottom: 2rem;
-	}
-
-	.form-group {
-		margin-bottom: 1.5rem;
-	}
-
-	label {
-		display: block;
-		margin-bottom: 0.5rem;
-		font-weight: 500;
-		color: rgba(255, 255, 255, 0.9);
-	}
-
-	input, textarea {
-		width: 100%;
-		padding: 0.875rem;
-		border-radius: 8px;
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		background: rgba(255, 255, 255, 0.05);
-		color: white;
-		font-family: inherit;
-		font-size: 1rem;
-		transition: all 0.3s ease;
-	}
-
-	input:focus, textarea:focus {
-		outline: none;
-		border-color: #e74c3c;
-		background: rgba(255, 255, 255, 0.08);
-	}
-
-	input::placeholder, textarea::placeholder {
-		color: rgba(255, 255, 255, 0.4);
-	}
-
-	.btn {
-		width: 100%;
-		padding: 1rem;
-		border-radius: 8px;
-		border: none;
-		font-weight: 600;
-		font-size: 1rem;
-		cursor: pointer;
-		transition: all 0.3s ease;
-	}
-
-	.btn-primary {
-		background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-		color: white;
-	}
-
-	.btn-primary:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
 	}
 
 	@media (max-width: 968px) {

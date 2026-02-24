@@ -37,6 +37,9 @@ export interface DatosContacto {
   telefono_movil: string;
   telefono_ventas: string;
   correo_electronico: string;
+  instagram?: string;
+  facebook?: string;
+  whatsapp?: string;
 }
 
 export interface TributoAfecto {

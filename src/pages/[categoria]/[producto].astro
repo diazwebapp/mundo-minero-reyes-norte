@@ -1,0 +1,53 @@
+---
+import { productos, categorias } from '../../local-data/database';
+import type { Producto, Categoria } from '../../local-data/database.types';
+import Layout from '../../layouts/Layout.astro';
+
+
+
+export async function getStaticPaths() {
+  return productos.map(producto => {
+    const categoria:Categoria | undefined = categorias.find(c => c.id === producto.categoria_id);
+    return {
+      params: {
+        categoria: categoria?.slug,
+        producto: producto.slug,
+      },
+      props: { producto, categoria },
+    };
+  });
+}
+
+interface Props {
+  producto: Producto;
+  categoria: Categoria
+}
+
+const { producto, categoria } = Astro.props;
+---
+
+<Layout title={producto.modelo_o_capacidad}>
+  <section class="product-page">
+    <div class="container">
+      <h1>{categoria.nombre} {producto.modelo_o_capacidad}</h1>
+      <p>Aquí irá la descripción detallada y especificaciones del producto.</p>
+      <!-- Puedes añadir más detalles del producto como imágenes, precio, etc. -->
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .product-page {
+    padding: 8rem 2rem 4rem;
+    min-height: 80vh;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+</style>

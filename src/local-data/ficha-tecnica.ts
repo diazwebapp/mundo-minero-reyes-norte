@@ -4,7 +4,7 @@ export const fichaTecnica: FichaTecnica = {
   "informacion_general": {
     "ruc": "20612464571",
     "nombre_o_razon_social": "MUNDO MINERO LOS REYES DEL NORTE E.I.R.L.",
-    "nombre_corto": "MUNDO MINERO LOS REYES DEL NORTE",
+    "nombre_corto": "MM LOS REYES DEL NORTE",
     "nombre_comercial": "MUNDO MINERO",
     "tipo_contribuyente": "07 EMPRESA INDIVIDUAL DE RESP. LTDA",
     "estado_contribuyente": "ACTIVO",
@@ -17,7 +17,7 @@ export const fichaTecnica: FichaTecnica = {
     }
   },
   "domicilio_fiscal": {
-    "direccion": "AV. AMERICA SUR Nro. 838",
+    "direccion": "AV. AMERICA SUR Nro. 836",
     "zona": "URB. PALERMO",
     "distrito": "TRUJILLO",
     "provincia": "TRUJILLO",
@@ -31,10 +31,13 @@ export const fichaTecnica: FichaTecnica = {
     "comercio_exterior": "IMPORTADOR/EXPORTADOR"
   },
   "datos_contacto": {
-    "telefono_fijo": "+5144213259",
-    "telefono_movil": "+5144930870866",
-    "telefono_ventas" : "+51910689427",
-    "correo_electronico": "mmlosreyesdelnorte@gmail.com"
+    "telefono_fijo": "+51920310887",
+    "telefono_movil": "+51920310887",
+    "telefono_ventas" : "+51920310887",
+    "correo_electronico": "mmreyesdelnorte@gmail.com",
+    "facebook":"mmreyesdelnorte",
+    "instagram":"mmreyesdelnorte",
+    "whatsapp":"+51920310887"
   },
   "aspectos_legales_tributarios": {
     "partida_registral": "11551571",
