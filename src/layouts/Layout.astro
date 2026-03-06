@@ -47,20 +47,30 @@ import Footer from '../components/Footer.astro';
 	}
 
 	html,
+	body::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.5) ;
+	}
 	body {
 		margin: 0;
+		padding: 0;
 		width: 100%;
 		min-height: 100%;
 		font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+		background: url(https://wallpapers.com/images/hd/mining-1600-x-900-background-iwxnde0lnhq4g6lw.jpg);
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+		position: relative;
 	}
 
-	body {
-		background: var(--color-background);
-		color: var(--color-text);
-		overflow-x: hidden;
-	}
 
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 600;
@@ -89,18 +99,9 @@ import Footer from '../components/Footer.astro';
 		right: 0;
 		z-index: 1000;
 		transition: all 0.3s ease;
-		background: var(--color-header-bg);
-		backdrop-filter: blur(10px);
+		backdrop-filter: blur(5px);
 	}
 
-	#header.scrolled {
-		background: var(--color-header-bg-scrolled);
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-	}
-
-	.navbar {
-		padding: 1rem 2rem;
-	}
 
 	.nav-container {
 		max-width: 1200px;
@@ -111,21 +112,6 @@ import Footer from '../components/Footer.astro';
 		gap: 2rem;
 	}
 
-	.logo {
-		text-decoration: none;
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.logo-text {
-		font-size: 1.5rem;
-		font-weight: 700;
-		background: linear-gradient(135deg, var(--color-text-light) 0%, var(--color-primary) 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
 
 	.nav-links {
 		display: flex;
@@ -164,11 +150,6 @@ import Footer from '../components/Footer.astro';
 		width: 100%;
 	}
 
-	.nav-contact {
-		display: flex;
-		align-items: center;
-	}
-
 	.contact-button {
 		padding: 0.75rem 1.5rem;
 		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
@@ -185,35 +166,6 @@ import Footer from '../components/Footer.astro';
 		box-shadow: 0 4px 15px color-mix(in srgb, var(--color-primary) 40%, transparent);
 	}
 
-	.mobile-menu-toggle {
-		display: none;
-		flex-direction: column;
-		gap: 4px;
-		background: none;
-		border: none;
-		cursor: pointer;
-		padding: 0.5rem;
-	}
-
-	.mobile-menu-toggle span {
-		width: 25px;
-		height: 3px;
-		background: var(--color-text-light);
-		transition: all 0.3s ease;
-		border-radius: 3px;
-	}
-
-	.mobile-menu-toggle.active span:nth-child(1) {
-		transform: rotate(45deg) translate(5px, 5px);
-	}
-
-	.mobile-menu-toggle.active span:nth-child(2) {
-		opacity: 0;
-	}
-
-	.mobile-menu-toggle.active span:nth-child(3) {
-		transform: rotate(-45deg) translate(7px, -6px);
-	}
 
 	/* Footer Styles */
 	footer {
@@ -287,42 +239,4 @@ import Footer from '../components/Footer.astro';
 		margin: 0;
 	}
 
-	@media (max-width: 968px) {
-		.mobile-menu-toggle {
-			display: flex;
-		}
-
-		.nav-links {
-			position: fixed;
-			top: 70px;
-			left: 0;
-			right: 0;
-			background: var(--color-header-bg-mobile);
-			flex-direction: column;
-			padding: 2rem;
-			gap: 1.5rem;
-			transform: translateY(-100%);
-			opacity: 0;
-			visibility: hidden;
-			transition: all 0.3s ease;
-			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-		}
-
-		.nav-links.active {
-			transform: translateY(0);
-			opacity: 1;
-			visibility: visible;
-		}
-
-		.nav-contact {
-			display: none;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.footer-grid {
-			grid-template-columns: 1fr;
-			gap: 2rem;
-		}
-	}
 </style>
