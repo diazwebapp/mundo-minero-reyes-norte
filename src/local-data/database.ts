@@ -18,37 +18,37 @@ export const categorias: Categoria[] = [
       "id": "cat_3",
       "nombre": "Scoop / Mini Cargador",
       "slug": slugify("scoop-mini-cargador"),
-      "imagen": "/images/categorias/scoop-mini-cargador.jpg"
+      "imagen": "/images/categorias/scoop.webp"
     },
     {
       "id": "cat_4",
       "nombre": "Mucking Loader",
       "slug": slugify("Mucking Loader"),
-      "imagen": "/images/categorias/mucking-loader.jpg"
+      "imagen": "/images/categorias/mucking-loader.webp"
     },
     {
       "id": "cat_5",
       "nombre": "Grupos Electrógenos",
       "slug": slugify("grupos Electrogenos"),
-      "imagen": "/images/categorias/generador-diesel.jpg"
+      "imagen": "/images/categorias/electrogenos.webp"
     },
     {
       "id": "cat_6",
       "nombre": "Perforación y Arrastre",
       "slug": slugify("perforacion y Arrastre"),
-      "imagen": "/images/categorias/equipos-neumaticos-y-de-arrastre.jpg"
+      "imagen": "/images/categorias/arrastre.png"
     },
     {
       "id": "cat_7",
       "nombre": "Ventilación Industrial",
       "slug": slugify("Ventilación Industrial"),
-      "imagen": "/images/categorias/ventilacion-industrial.jpg"
+      "imagen": "/images/categorias/ventiladores.webp"
     },
     {
       "id": "cat_8",
       "nombre": "Carretillas Eléctricas",
       "slug": slugify("Carretillas Eléctricas"),
-      "imagen": "/images/categorias/carretillas-electricas.jpg"
+      "imagen": "/images/categorias/carretilla.webp"
     }
   ]
   
