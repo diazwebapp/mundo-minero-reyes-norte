@@ -6,19 +6,19 @@ export const categorias: Categoria[] = [
       "id": "cat_1",
       "nombre": "Mini Dumper Diésel",
       "slug": slugify("Mini Dumper Diésel"),
-      "imagen": "/images/categorias/mini-dumper-diesel.jpg"
+      "imagen": "/images/categorias/mini-dumper-diesel.webp"
     },
     {
       "id": "cat_2",
       "nombre": "Mini Dumper Eléctrico",
       "slug": slugify("Mini Dumper Eléctrico"),
-      "imagen": "/images/categorias/mini-dumper-electrico.jpg"
+      "imagen": "/images/categorias/mini-dumper-electrico.webp"
     },
     {
       "id": "cat_3",
-      "nombre": "Maquinaria de Carga Frontal (Scoop / Mini Cargador)",
-      "slug": slugify("Maquinaria de Carga Frontal"),
-      "imagen": "/images/categorias/maquinaria-de-carga-frontal.jpg"
+      "nombre": "Scoop / Mini Cargador",
+      "slug": slugify("scoop-mini-cargador"),
+      "imagen": "/images/categorias/scoop-mini-cargador.jpg"
     },
     {
       "id": "cat_4",
@@ -28,14 +28,14 @@ export const categorias: Categoria[] = [
     },
     {
       "id": "cat_5",
-      "nombre": "Generador Diésel",
-      "slug": slugify("Generador Diésel"),
+      "nombre": "Grupos Electrógenos",
+      "slug": slugify("grupos Electrogenos"),
       "imagen": "/images/categorias/generador-diesel.jpg"
     },
     {
       "id": "cat_6",
-      "nombre": "Equipos Neumáticos y de Arrastre",
-      "slug": slugify("Equipos Neumáticos y de Arrastre"),
+      "nombre": "Perforación y Arrastre",
+      "slug": slugify("perforacion y Arrastre"),
       "imagen": "/images/categorias/equipos-neumaticos-y-de-arrastre.jpg"
     },
     {

@@ -4,7 +4,7 @@ export const fichaTecnica: FichaTecnica = {
   "informacion_general": {
     "ruc": "20612464571",
     "nombre_o_razon_social": "MUNDO MINERO LOS REYES DEL NORTE E.I.R.L.",
-    "nombre_corto": "MM LOS REYES DEL NORTE",
+    "nombre_corto": "MUNDO MINERO LOS REYES DEL NORTE",
     "nombre_comercial": "MUNDO MINERO",
     "tipo_contribuyente": "07 EMPRESA INDIVIDUAL DE RESP. LTDA",
     "estado_contribuyente": "ACTIVO",
