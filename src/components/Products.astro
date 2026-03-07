@@ -5,65 +5,42 @@ import { Image } from 'astro:assets';
 ---
 
 <section id="productos">
-	<div class="container">
-		<div class="section-header">
-			<h2 class="section-label">Productos</h2>
-			<p class="subtitle">
-				Explora nuestro catálogo de maquinaria pesada, equipos y accesorios diseñados para superar los
-				desafíos más exigentes de la industria.
-			</p>
-		</div>
+	
+	<div class="section-header">
+		<h2 class="section-label">Productos</h2>
+		<p class="subtitle">
+			Explora nuestro catálogo de maquinaria pesada, equipos y accesorios diseñados para superar los
+			desafíos más exigentes de la industria.
+		</p>
+	</div>
 
 		<div class="categories-grid">
 			{categorias.map(categoria => (
 				<div class="category-section">
-					<h3 class="category-title">{categoria.nombre}</h3>
-						<div class="image-container">
-							<Image src={categoria.imagen} alt={categoria.nombre} loading="lazy" width={200} height={200} />
-						</div>
-					
-					<div class="category-footer">
-						<a href={`/${categoria.slug}`} class="btn-more-products">Ver todos →</a>
+
+					<div class="image-container">
+						<Image src={categoria.imagen} alt={categoria.nombre} loading="lazy" width={200} height={200} />
 					</div>
+					<h3>{categoria.nombre}</h3>
+					<a href={`/${categoria.slug}`} class="btn">Ver todos →</a>
 				</div>
 			))}
 		</div>
-	</div>
+	
 </section>
 
 <style>
 	#productos {
-		padding: 6rem 2rem;
+		padding: 5rem 2rem;
 	}
-
-	.container {
-		max-width: 1200px;
-		width: 100%;
-		margin: 0 auto;
+	.subtitle, h2{
+		padding:2rem 1rem;
+		text-align:center;
 	}
-
-	.section-header {
-		text-align: center;
-		margin-bottom: 4rem;
-	}
-
-	.section-label {
-		color: #e74c3c;
-		font-weight: 600;
-		text-transform: uppercase;
-		font-size: 0.875rem;
-		letter-spacing: 1px;
-	}
-
 	h2 {
-		font-size: 2.5rem;
-		margin-top: 1rem;
+		padding-bottom:0;
 	}
 
-	.subtitle {
-		max-width: 600px;
-		margin: 1rem auto 0;
-	}
 
 	.categories-grid {
 		display: flex;
@@ -75,71 +52,20 @@ import { Image } from 'astro:assets';
 	.category-section {
 		padding: 1.5rem;
 		border-radius: 16px;
-		background:var(--darkh);
+		box-shadow: 0px 0px 2px var(--plata);
+		backdrop-filter: blur(5px);
+		background-color: rgba(37, 37, 37, 0.359);
 	}
-
-	.category-title {
-		font-size: 1.75rem;
-		color: #1a1a2e;
-		margin-bottom: 2rem;
-		padding-bottom: 1rem;
-		display: inline-block;
-	}
-
-	
-	.category-footer {
-		text-align: right;
-		margin-top: 2rem;
+	.category-section h3 {
+		margin: 1rem 0;
 	}
 
 	.image-container {
 		position: relative;
 		width: 200px;
 		height: 200px;
-		background-size: 200% 100%;
-		animation: loading 1.5s infinite;
-		text-align:center;
+		margin: 0 auto;
 	}
-
-	.image-container img {
-		opacity: 0;
-		transition: opacity 0.3s ease;
-	}
-
-	.image-container img.loaded {
-		opacity: 1;
-	}
-
-	@keyframes loading {
-		0% { background-position: 200% 0; }
-		100% { background-position: -200% 0; }
-	}
-
-	@media (max-width: 768px) {
-		h2 {
-			font-size: 2rem;
-		}
-
-		.category-section {
-			padding: 1.5rem;
-		}
-
-		.category-title {
-			font-size: 1.5rem;
-		}
-	}
+	
 </style>
 
-<script>
-	document.addEventListener('DOMContentLoaded', () => {
-		document.querySelectorAll('.image-container img').forEach(img => {
-			img.addEventListener('load', () => {
-				img.classList.add('loaded');
-			});
-			// En caso de error, mostrar la imagen de todos modos
-			img.addEventListener('error', () => {
-				img.classList.add('loaded');
-			});
-		});
-	});
-</script>
