@@ -3,6 +3,7 @@ import { categorias, productos } from '../../local-data/database';
 import type { Categoria, Producto } from '../../local-data/database.types';
 import Layout from '../../layouts/Layout.astro';
 import ProductCard from '../../components/ProductCard.astro';
+import { Image } from 'astro:assets';
 
 export async function getStaticPaths() {
   return categorias.map(categoria => {

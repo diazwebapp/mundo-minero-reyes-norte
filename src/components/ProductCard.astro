@@ -12,7 +12,7 @@ const { producto, categorySlug } = Astro.props;
 <div class="product-card">
   <div class="product-image">
     <!-- La propiedad 'imagen_portada' está vacía en la DB, se usa un placeholder -->
-    <img src="https://via.placeholder.com/300x200/e9ecef/495057?text=Mundo+Minero" alt={`Imagen de ${producto.modelo_o_capacidad}`} />
+				<Image src={categoria.imagen} alt={categoria.nombre} loading="lazy" width={200} height={200} />
   </div>
   <div class="product-info">
     <h4 class="product-model">{producto.modelo_o_capacidad}</h4>
