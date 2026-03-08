@@ -58,7 +58,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "1.5 TN",
       "slug": slugify("Mini Dumper Diésel 1.5 TN"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "motor": {
         "tipo": "Diésel",
         "potencia": "22 HP",
@@ -73,7 +73,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "2.5 TN CV900",
       "slug": slugify("Mini Dumper Diésel 2.5 TN CV900"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "motor": {
         "tipo": "Diésel",
         "potencia": "28 HP",
@@ -87,7 +87,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "3.5 TN",
       "slug": slugify("Mini Dumper Diésel 3.5 TN"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "motor": {
         "tipo": "Diésel",
         "potencia": "32 HP"
@@ -101,7 +101,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "5-6 TN",
       "slug": slugify("Mini Dumper Diésel 5-6 TN"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "motor": {
         "tipo": "Diésel - Yunnei 490 Turbo",
         "potencia": "75 HP",
@@ -115,7 +115,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "7-8 TN",
       "slug": slugify("Mini Dumper Diésel 7-8 TN"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "motor": {
         "tipo": "Diésel - Yunnei 4102 Turbo",
         "potencia": "102 HP",
@@ -130,7 +130,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_2",
       "modelo_o_capacidad": "1 TN",
       "slug": slugify("Mini Dumper Eléctrico 1 TN"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "motor": {
         "tipo": "Eléctrico",
         "potencia": "3000W"
@@ -157,7 +157,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_2",
       "modelo_o_capacidad": "1.5 TN Sistema datai",
       "slug": slugify("Mini Dumper Eléctrico 1.5 TN Sistema datai"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "motor": {
         "tipo": "Eléctrico",
         "potencia": "4000W Sistema hermético a prueba de agua y Sistema de 6 fases."
@@ -171,7 +171,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_3",
       "modelo_o_capacidad": "GDDC - 300 KG.",
       "slug": slugify("Mini Cargador Eléctrico GDDC 300 KG"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "tipo": "Mini Cargador Eléctrico",
       "motor": {
         "tipo": "Eléctrico",
@@ -185,7 +185,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_3",
       "modelo_o_capacidad": "CHWJ-0.6",
       "slug": slugify("Scoop CHWJ-0.6"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "tipo": "Scoop",
       "motor": {
         "modelo": "DEUTZ BF4L914",
@@ -199,7 +199,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_3",
       "modelo_o_capacidad": "CHWJ-1",
       "slug": slugify("Scoop CHWJ-1"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "tipo": "Scoop",
       "motor": {
         "modelo": "DEUTZ BF4L914",
@@ -213,7 +213,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_4",
       "modelo_o_capacidad": "50/60T",
       "slug": slugify("Mucking Loader 50-60T"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "eficiencia": "60m³/hora",
       "motor": {
         "diesel": "Changchal ZS1115 (24HP)",
@@ -226,7 +226,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_5",
       "modelo_o_capacidad": "10KW",
       "slug": slugify("Generador Diésel 10KW"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "motor": {
         "marca": "Isuzu",
         "rpm": "1800 RPM"
@@ -239,7 +239,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_5",
       "modelo_o_capacidad": "30KW",
       "slug": slugify("Generador Diésel 30KW"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "motor": {
         "marca": "Perkinks",
         "modelo": "1004G"
@@ -252,7 +252,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_6",
       "modelo_o_capacidad": "YT 29 EPIROX",
       "slug": slugify("Neumática YT 29 EPIROX"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "tipo": "Neumática",
       "peso": "29-32 Kg",
       "consumo_aire": "565 L/s",
@@ -263,7 +263,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_6",
       "modelo_o_capacidad": "500 KG.",
       "slug": slugify("Winche de Arrastre 500 KG"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "tipo": "Winche de Arrastre",
       "motor_potencia": "4.0 KW",
       "voltaje": "220V",
@@ -274,7 +274,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_7",
       "modelo_o_capacidad": "YWF2E-350 (14\") 1HP",
       "slug": slugify("Ventilador Axial YWF2E-350 14 pulgadas 1HP"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "tipo": "Axial",
       "flujo_aire": "4900/5400 m³/h",
       "tension": "220-240 V"
@@ -284,7 +284,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_7",
       "modelo_o_capacidad": "YWF2E-400 (16\") 2HP",
       "slug": slugify("Ventilador Axial YWF2E-400 16 pulgadas 2HP"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "tipo": "Axial",
       "flujo_aire": "6500/7100 m³/h",
       "tension": "220-240 V"
@@ -294,7 +294,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_8",
       "modelo_o_capacidad": "500 KG.",
       "slug": slugify("Carretilla Eléctrica 500 KG"),
-      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "https://mmreyesdelnorte.com/images/productos/mini-dumper-diesel-1.5tn.png",
       "tipo": "Carretilla Eléctrica",
       "motor_potencia": "1000 W",
       "baterias": "1 batería 60 V/32A",
