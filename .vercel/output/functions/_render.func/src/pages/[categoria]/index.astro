@@ -1,0 +1,87 @@
+---
+import { categorias, productos } from '../../local-data/database';
+import type { Categoria, Producto } from '../../local-data/database.types';
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import type { ProductItemListSchema } from '../../local-data/schemas';
+import { BASE_URL } from '../../components/slugify';
+
+export async function getStaticPaths() {
+  return categorias.map(categoria => {
+    const productosDeCategoria = productos.filter(
+      p => p.categoria_id === categoria.id
+    );
+    return {
+      params: { categoria: categoria.slug },
+      props: { categoria, productCat: productosDeCategoria },
+    };
+  });
+}
+
+interface Props {
+  categoria: Categoria;
+  productCat: Producto[];
+}
+
+
+const { categoria, productCat: productosDeCategoria } = Astro.props ;
+
+const categorySchema:ProductItemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: categoria.nombre,
+  url: BASE_URL + categoria.slug,
+  numberOfItems: productosDeCategoria.length,
+  itemListElement: productosDeCategoria.map((producto, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: producto.nombre,
+    image: producto.imagen_portada,
+    url: BASE_URL + categoria.slug + producto.slug
+  }))
+};
+---
+
+<Layout title={`Categoría: ${categoria.nombre}`} description={`Explora todos nuestros productos en la categoría de ${categoria.nombre}.`} canonical={categoria.slug} schemas={[categorySchema]}>
+  <section class="category-page">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Categoría</span>
+        <h1>{categoria.nombre}</h1>
+        <p class="subtitle">
+          Explora todos nuestros productos en la categoría de {categoria.nombre}.
+        </p>
+      </div>
+
+      {productosDeCategoria.length > 0 ? (
+        <div class="products-grid">
+          {productosDeCategoria.map(producto => (
+            <ProductCard producto={producto} categorySlug={categoria.slug} />
+          ))}
+        </div>
+      ) : (
+        <p class="no-products">No hay productos disponibles en esta categoría por el momento.</p>
+      )}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .category-page {
+    padding: 6rem 2rem;
+    min-height: 80vh;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+</style>

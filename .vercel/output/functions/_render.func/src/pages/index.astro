@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Hero from '../components/Hero.astro'
+import Categories from '../components/Categories.astro'
+import { categorias } from '../local-data/database.ts';
+import type { ProductItemListSchema } from '../local-data/schemas'
+import { BASE_URL } from '../components/slugify';
+
+const categoriasSchema:ProductItemListSchema= {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Categorías de maquinaria y equipos de mineria",
+  "url": BASE_URL,
+  "numberOfItems": categorias.length,
+  "itemListElement": categorias.map((categoria, index) => ({
+	"@type": "ListItem",
+	"position": index + 1,
+	"name": categoria.nombre,
+	"url": BASE_URL+categoria.slug,
+	"image": categoria.imagen
+  }))
+}
+---
+
+<Layout title="Home" description="Maquinaria y equipos para minería. MUNDO MINERO LOS REYES DEL NORTE, Lideres en equipos de extracción minera." canonical="/" schemas={[categoriasSchema]}> >
+	<Hero/>
+	<Categories categories={categorias}/>
+</Layout>
