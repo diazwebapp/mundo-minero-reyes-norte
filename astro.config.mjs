@@ -5,6 +5,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
     image: {
     // Esto permite que Astro optimice imágenes de estos sitios
+    service: passthroughImageService(),
     remotePatterns: [
       {
         protocol: 'https',
