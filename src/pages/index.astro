@@ -2,11 +2,23 @@
 import Layout from '../layouts/Layout.astro'
 import Hero from '../components/Hero.astro'
 import Products from '../components/Products.astro'
-import About from '../components/About.astro'
-import Contact from '../components/Contact.astro'
+import type { OrganizationSchema } from '../local-data/schemas';
+import { slugify } from '../components/slugify';
+
+const schemaOrganization:OrganizationSchema={
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "@id":slugify("https://mmreyesdelnorte.com/"),
+    name:"Kuromiland",
+    url:slugify("https://mmreyesdelnorte.com/"),
+    logo:"https://mmreyesdelnorte.com/favicon.svg",
+    email:"diazwebapp@gmail.com"
+}
+
+const schemas=[schemaOrganization]
 ---
 
-<Layout title="mundo minero - reyes del norte" >
+<Layout title="Home" description="Bienvenido a mundo minero los reyes norte" canonical="/" schemas={schemas}>
 	<Hero/>
 	<Products/>
 </Layout>
