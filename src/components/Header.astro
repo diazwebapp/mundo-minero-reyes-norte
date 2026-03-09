@@ -6,8 +6,8 @@ import { BASE_URL } from "./slugify";
 ---
 
 <header id="header">
+	<div class="container">
 	<nav class="navbar">
-		<div class="nav-container">
 			<a href={BASE_URL} class="logo">
 				<Image src={BASE_URL + "white-blue-logo.png"} title="Mundo Minero Reyes Norte" alt="Mundo Minero Reyes Norte" width="100" height="100" />
 			</a>
@@ -26,17 +26,16 @@ import { BASE_URL } from "./slugify";
 					{fichaTecnica.datos_contacto.telefono_ventas}
 				</a>
 			</div>
-		</div>
-	</nav>
+		</nav>
+	</div>
 </header>
 
 <style>
-	
-
-	svg.whatsapp {
-		flex-shrink: 0;
-		color: #25d366;
+	.container{
+		padding: 0 0.7rem;
 	}
+
+	
 	.nav-contact{
 		display:none;
 	}

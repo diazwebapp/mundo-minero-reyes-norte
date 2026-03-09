@@ -47,8 +47,8 @@ const categorySchema:ProductItemListSchema = {
 ---
 
 <Layout title={`Categoría: ${categoria.nombre}`} description={`Explora todos nuestros productos en la categoría de ${categoria.nombre}.`} canonical={`${BASE_URL}${categoria.slug}/`} schemas={[categorySchema]}>
-  <section class="category-page">
-    <div class="container">
+  <section class="container">
+    
       <div class="section-header">
         <span class="section-label">Categoría</span>
         <h1>{categoria.nombre}</h1>
@@ -66,18 +66,13 @@ const categorySchema:ProductItemListSchema = {
       ) : (
         <p class="no-products">No hay productos disponibles en esta categoría por el momento.</p>
       )}
-    </div>
+    
   </section>
 </Layout>
 
 <style>
-  .category-page {
-    padding: 6rem 2rem;
-    min-height: 80vh;
-  }
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
+  .container{
+    padding-top:calc(var(--hheader) + 1rem);
   }
   .section-header {
     text-align: center;
@@ -85,7 +80,7 @@ const categorySchema:ProductItemListSchema = {
   }
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 1rem;
   }
 </style>

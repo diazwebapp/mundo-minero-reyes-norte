@@ -24,7 +24,7 @@ const { categories } = Astro.props as CategoriesProps;
 				<div class="category-section">
 
 					<div class="image-container">
-						<Image src={categoria.imagen} title={categoria.nombre} alt={categoria.nombre} loading="lazy" width={200} height={200} />
+						<Image src={categoria.imagen} title={categoria.nombre} alt={categoria.nombre} loading="lazy" width={280} height={280} />
 					</div>
 					<h3>{categoria.nombre}</h3>
 					<a href={`${BASE_URL}${categoria.slug}/`} class="btn">Ver todos →</a>
@@ -36,10 +36,10 @@ const { categories } = Astro.props as CategoriesProps;
 
 <style>
 	#productos {
-		padding: 5rem 2rem;
+		padding: 4rem 0.7rem;
 	}
 	.subtitle, h2{
-		padding:2rem 1rem;
+		padding:2rem 0.5rem;
 		text-align:center;
 	}
 	h2 {
@@ -48,14 +48,14 @@ const { categories } = Astro.props as CategoriesProps;
 
 
 	.categories-grid {
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: center;
-		gap: 2rem;
+		display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+		gap: 1rem;
 	}
 
 	.category-section {
-		padding: 1.5rem;
+		padding: 0.7rem;
 		border-radius: 16px;
 		box-shadow: 0px 0px 2px var(--plata);
 		backdrop-filter: blur(5px);
@@ -63,12 +63,13 @@ const { categories } = Astro.props as CategoriesProps;
 	}
 	.category-section h3 {
 		margin: 1rem 0;
+		text-align: center;
 	}
 
 	.image-container {
 		position: relative;
-		width: 200px;
-		height: 200px;
+		width: 300px;
+		height: 300px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
