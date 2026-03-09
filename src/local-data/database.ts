@@ -72,7 +72,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "1.5 TN",
       "slug": slugify("Mini Dumper Diésel 1.5 TN"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tnn.png",
       "motor": {
         "tipo": "Diésel",
         "potencia": "22 HP",
