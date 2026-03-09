@@ -27,7 +27,7 @@ const { categories } = Astro.props as CategoriesProps;
 						<Image src={categoria.imagen} title={categoria.nombre} alt={categoria.nombre} loading="lazy" width={200} height={200} />
 					</div>
 					<h3>{categoria.nombre}</h3>
-					<a href={BASE_URL+categoria.slug} class="btn">Ver todos →</a>
+					<a href={`${BASE_URL}${categoria.slug}/`} class="btn">Ver todos →</a>
 				</div>
 			))}
 		</div>

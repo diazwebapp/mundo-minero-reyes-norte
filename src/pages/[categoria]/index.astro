@@ -6,43 +6,37 @@ import ProductCard from '../../components/ProductCard.astro';
 import type { ProductItemListSchema } from '../../local-data/schemas';
 import { BASE_URL } from '../../components/slugify';
 
-export async function getStaticPaths() {
-  return categorias.map(categoria => {
-    const productosDeCategoria = productos.filter(
-      p => p.categoria_id === categoria.id
-    );
-    return {
-      params: { categoria: categoria.slug },
-      props: { categoria, productCat: productosDeCategoria },
-    };
-  });
+// Obtener parámetro dinámicamente (funciona con SSR)
+// quitamos cualquier barra final que el router pudiera dar
+let { categoria: categoriaSlug } = Astro.params;
+categoriaSlug = categoriaSlug?.replace(/\/+$/,'');
+console.log('Categoría solicitada:', categoriaSlug);
+// Buscar categoría por slug (sin barras)
+const categoria = categorias.find(cat => cat.slug === categoriaSlug);
+if (!categoria) {
+  return Astro.redirect('/404');
 }
 
-interface Props {
-  categoria: Categoria;
-  productCat: Producto[];
-}
-
-
-const { categoria, productCat: productosDeCategoria } = Astro.props ;
+// Obtener productos de esa categoría
+const productosDeCategoria = productos.filter(p => p.categoria_id === categoria.id);
 
 const categorySchema:ProductItemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: categoria.nombre,
-  url: BASE_URL + categoria.slug,
+  url: `${BASE_URL}${categoria.slug}/`,
   numberOfItems: productosDeCategoria.length,
   itemListElement: productosDeCategoria.map((producto, index) => ({
     '@type': 'ListItem',
     position: index + 1,
     name: producto.nombre,
     image: producto.imagen_portada,
-    url: BASE_URL + categoria.slug + producto.slug
+    url: `${BASE_URL}${categoria.slug}/${producto.slug}/`
   }))
 };
 ---
 
-<Layout title={`Categoría: ${categoria.nombre}`} description={`Explora todos nuestros productos en la categoría de ${categoria.nombre}.`} canonical={categoria.slug} schemas={[categorySchema]}>
+<Layout title={`Categoría: ${categoria.nombre}`} description={`Explora todos nuestros productos en la categoría de ${categoria.nombre}.`} canonical={`${BASE_URL}${categoria.slug}/`} schemas={[categorySchema]}>
   <section class="category-page">
     <div class="container">
       <div class="section-header">

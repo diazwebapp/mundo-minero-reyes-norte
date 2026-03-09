@@ -5,32 +5,23 @@ import type { ProductSchema } from '../../local-data/schemas';
 import Layout from '../../layouts/Layout.astro';
 import { BASE_URL } from '../../components/slugify';
 
-export async function getStaticPaths() {
-  return productos.map(producto => {
-    const categoria:Categoria | undefined = categorias.find(c => c.id === producto.categoria_id);
-    return {
-      params: {
-        categoria: categoria?.slug,
-        producto: producto.slug,
-      },
-      props: { producto, categoria },
-    };
-  });
-}
+// Obtener parámetros dinámicamente (funciona con SSR) y normalizarlos
+let { categoria: categoriaSlug, producto: productoSlug } = Astro.params;
+categoriaSlug = categoriaSlug?.replace(/\/+$/,'');
+productoSlug = productoSlug?.replace(/\/+$/,'');
 
-interface Props {
-  producto: Producto;
-  categoria: Categoria
-}
 
-const { producto, categoria } = Astro.props;
+const producto = productos.find(p => p.slug === productoSlug);
+if (!producto) {
+  return Astro.redirect('/404');
+}
 
 const productSchema: ProductSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
-  "name": `${categoria.nombre} ${producto.modelo_o_capacidad}`,
+  "name": `${producto.nombre}`,
   "description": producto.description,
-  "url": `${BASE_URL}${categoria.slug}${producto.slug}`,
+  "url": `${BASE_URL}${categoriaSlug}/${producto.slug}/`,
   "image": [producto.imagen_portada],
   "brand": {
     "@type": "Brand",
@@ -46,8 +37,15 @@ const productSchema: ProductSchema = {
 };
 ---
 
-<Layout title={producto.nombre} description={producto.description} canonical={BASE_URL+categoria.slug+producto.slug} schemas={[productSchema]}>
-  <section>
+<Layout title={producto.nombre} description={producto.description} canonical={`${BASE_URL}${categoriaSlug}/${producto.slug}/`} schemas={[productSchema]}>
+  <section class="container">
    <h1>{producto.nombre}</h1>
   </section>
 </Layout>
+
+<style>
+  .container{
+    padding: calc(var(--hheader) + 2rem) 2rem 0 2rem;
+  }
+  }
+</style>

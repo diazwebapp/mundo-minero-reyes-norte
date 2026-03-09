@@ -22,7 +22,7 @@ const { producto, categorySlug } = Astro.props;
       {producto.motor?.potencia && <li><strong>Potencia:</strong> {producto.motor.potencia}</li>}
       {producto.caja_cambios && <li><strong>Caja:</strong> {producto.caja_cambios}</li>}
     </ul>
-    <a href={BASE_URL+categorySlug+producto.slug} class="btn-details">Ver detalles</a>
+    <a href={`${BASE_URL}${categorySlug}/${producto.slug}/`} class="btn-details">Ver detalles</a>
   </div>
 </div>
 
