@@ -5,13 +5,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
     image: {
     // Esto permite que Astro optimice imágenes de estos sitios
-    service: passthroughImageService(),
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'mmreyesdelnorte.com', // El dominio donde están las fotos
-        pathname: '/images/**',     // Opcional: limitar a una carpeta específica
-      },
       {
         protocol: 'https',
         hostname: 'astro.build',
