@@ -8,30 +8,30 @@ const BASE_URL = import.meta.env.DEV
 export const categorias: Categoria[] = [
     {
       "id": "cat_1",
-      "nombre": "Mini Dumper Diésel",
+      "nombre": "Mini Dumpers Diésel",
       "description": "Equipos robustos y confiables para transporte de material en minas, con motores diésel eficientes.",
-      "slug": slugify("Mini Dumper Diésel"),
+      "slug": slugify("Mini Dumpers Diésel"),
       "imagen": BASE_URL+"/images/categorias/mini-dumper-diesel.webp"
     },
     {
       "id": "cat_2",
-      "nombre": "Mini Dumper Eléctrico",
+      "nombre": "Mini Dumpers Eléctricos",
       "description": "Soluciones limpias y silenciosas para obra subterránea, 100% eléctricas.",
-      "slug": slugify("Mini Dumper Eléctrico"),
+      "slug": slugify("Mini Dumpers Eléctricos"),
       "imagen": BASE_URL+"/images/categorias/mini-dumper-electrico.webp"
     },
     {
       "id": "cat_3",
-      "nombre": "Scoop / Mini Cargador",
+      "nombre": "Scoops / Mini Cargadores",
       "description": "Carga y maniobra de material en espacios reducidos con alto rendimiento.",
-      "slug": slugify("scoop-mini-cargador"),
+      "slug": slugify("scoops-mini-cargadores"),
       "imagen": BASE_URL+"/images/categorias/scoop.webp"
     },
     {
       "id": "cat_4",
-      "nombre": "Mucking Loader",
+      "nombre": "Mucking Loaders",
       "description": "Máxima productividad en extracción de escombros con velocidad y potencia.",
-      "slug": slugify("Mucking Loader"),
+      "slug": slugify("Mucking Loaders"),
       "imagen": BASE_URL+"/images/categorias/mucking-loader.webp"
     },
     {
