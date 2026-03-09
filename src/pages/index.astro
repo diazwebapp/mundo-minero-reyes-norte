@@ -13,11 +13,15 @@ const categoriasSchema:ProductItemListSchema= {
   "url": BASE_URL,
   "numberOfItems": categorias.length,
   "itemListElement": categorias.map((categoria, index) => ({
-	"@type": "ListItem",
-	"position": index + 1,
-	"name": categoria.nombre,
-	"url": `${BASE_URL}${categoria.slug}/`,
-	"image": categoria.imagen
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Product",
+      "name": categoria.nombre,
+      "description": categoria.description,
+      "url": `${BASE_URL}${categoria.slug}/`,
+      "image": `${BASE_URL}images/${categoria.imagen}`
+    }
   }))
 }
 ---

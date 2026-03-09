@@ -1,5 +1,7 @@
 ---
 import { fichaTecnica } from "../local-data/ficha-tecnica";
+import { paginas } from "../local-data/database";
+import { BASE_URL } from "./slugify";
 const { informacion_general, datos_contacto, domicilio_fiscal } = fichaTecnica;
 ---
 
@@ -17,9 +19,9 @@ const { informacion_general, datos_contacto, domicilio_fiscal } = fichaTecnica;
 			<div class="footer-section">
 				<h4>Enlaces Rápidos</h4>
 				<ul>
-					<li><a href="#nosotros">Nosotros</a></li>
-					<li><a href="#productos">Productos</a></li>
-					<li><a href="#contacto">Contacto</a></li>
+					{paginas.map(pagina => (
+						<li><a href={pagina.slug ? BASE_URL + pagina.slug : BASE_URL}>{pagina.nombre}</a></li>
+					))}
 				</ul>
 			</div>
 

@@ -1,12 +1,8 @@
 ---
 import { fichaTecnica } from "../local-data/ficha-tecnica";
+import { paginas } from "../local-data/database";
 import { Image } from 'astro:assets';
 import { BASE_URL } from "./slugify";
-const navLinks = [
-	{ href: '#nosotros', label: 'Nosotros' },
-	{ href: '#productos', label: 'Productos' },
-	{ href: '#contacto', label: 'Contacto' }
-];
 ---
 
 <header id="header">
@@ -17,8 +13,8 @@ const navLinks = [
 			</a>
 
 			<ul class="nav-links">
-				{navLinks.map(link => (
-					<li><a href={link.href}>{link.label}</a></li>
+				{paginas.map(pagina => (
+					<li><a href={pagina.slug ? BASE_URL + pagina.slug : BASE_URL}>{pagina.nombre}</a></li>
 				))}
 			</ul>
 

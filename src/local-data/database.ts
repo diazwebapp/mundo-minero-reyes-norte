@@ -1,5 +1,5 @@
 import { slugify } from "../components/slugify";
-import type { Categoria, Producto } from "./database.types";
+import type { Categoria, Producto, Pagina } from "./database.types";
 
 const BASE_URL = import.meta.env.DEV 
   ? '' 
@@ -352,3 +352,34 @@ export const productos: Producto[] = [
       "dimensiones_globales": "Largo: 1.26 m., Ancho: 0.65 m., Alto: 1.00 m."
     }
   ]
+
+export const paginas: Pagina[] = [
+  {
+    "id": "pag_1",
+    "nombre": "Inicio",
+    "slug": "",
+    "imagen": BASE_URL + "/images/paginas/inicio.webp",
+    "description": "Página de inicio - Mundo Minero Los Reyes del Norte"
+  },
+  {
+    "id": "pag_2",
+    "nombre": "Nosotros",
+    "slug": "#nosotros",
+    "imagen": BASE_URL + "/images/paginas/nosotros.webp",
+    "description": "Conoce más sobre Mundo Minero Los Reyes del Norte, especialistas en equipos mineros."
+  },
+  {
+    "id": "pag_3",
+    "nombre": "Productos",
+    "slug": "#productos",
+    "imagen": BASE_URL + "/images/paginas/productos.webp",
+    "description": "Catálogo completo de equipos y maquinaria para la industria minera."
+  },
+  {
+    "id": "pag_4",
+    "nombre": "Contacto",
+    "slug": "#contacto",
+    "imagen": BASE_URL + "/images/paginas/contacto.webp",
+    "description": "Ponte en contacto con nuestro equipo de ventas."
+  }
+]

@@ -1,5 +1,14 @@
 
 
+// Tipos para las páginas estáticas
+export interface Pagina {
+  id: string;
+  nombre: string;
+  slug: string;
+  imagen: string;
+  description: string;
+}
+
 // Tipos para las categorías (Tabla de categorías)
 export interface Categoria {
   id: string;
