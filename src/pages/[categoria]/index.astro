@@ -3,6 +3,8 @@ import { categorias, productos } from '../../local-data/database';
 import type { Categoria, Producto } from '../../local-data/database.types';
 import Layout from '../../layouts/Layout.astro';
 import ProductCard from '../../components/ProductCard.astro';
+import type { ProductItemListSchema } from '../../local-data/schemas';
+import { BASE_URL } from '../../components/slugify';
 
 export async function getStaticPaths() {
   return categorias.map(categoria => {
@@ -11,20 +13,36 @@ export async function getStaticPaths() {
     );
     return {
       params: { categoria: categoria.slug },
-      props: { categoria, productos: productosDeCategoria },
+      props: { categoria, productCat: productosDeCategoria },
     };
   });
 }
 
 interface Props {
   categoria: Categoria;
-  productos: Producto[];
+  productCat: Producto[];
 }
 
-const { categoria, productos: productosDeCategoria } = Astro.props;
+
+const { categoria, productCat: productosDeCategoria } = Astro.props ;
+
+const categorySchema:ProductItemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: categoria.nombre,
+  url: BASE_URL + categoria.slug,
+  numberOfItems: productosDeCategoria.length,
+  itemListElement: productosDeCategoria.map((producto, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: producto.nombre,
+    image: producto.imagen_portada,
+    url: BASE_URL + categoria.slug + producto.slug
+  }))
+};
 ---
 
-<Layout title={`Categoría: ${categoria.nombre}`}>
+<Layout title={`Categoría: ${categoria.nombre}`} description={`Explora todos nuestros productos en la categoría de ${categoria.nombre}.`} canonical={categoria.slug} schemas={[categorySchema]}>
   <section class="category-page">
     <div class="container">
       <div class="section-header">

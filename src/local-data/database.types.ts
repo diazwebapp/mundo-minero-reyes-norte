@@ -4,9 +4,11 @@
 export interface Categoria {
   id: string;
   nombre: string;
+  description: string; // breve texto SEO y persuasivo
   slug: string;
   imagen: string;
 }
+
 
 // Tipos para el objeto Motor (Sus propiedades varían según si es diésel o eléctrico)
 export interface Motor {
@@ -24,6 +26,8 @@ export interface Motor {
 export interface Producto {
   id: string;
   categoria_id: string;
+  nombre: string;
+  description: string; // texto corto, enfocado en SEO
   modelo_o_capacidad: string;
   slug: string;
   imagen_portada: string; // URL o path de la imagen

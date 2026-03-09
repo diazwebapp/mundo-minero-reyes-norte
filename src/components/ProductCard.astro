@@ -1,5 +1,6 @@
 ---
 import type { Producto } from '../local-data/database.types';
+import { BASE_URL } from './slugify';
 import { Image } from 'astro:assets';
 
 interface Props {
@@ -12,17 +13,16 @@ const { producto, categorySlug } = Astro.props;
 
 <div class="product-card">
   <div class="product-image">
-    <!-- La propiedad 'imagen_portada' está vacía en la DB, se usa un placeholder -->
-				<Image src={producto.imagen_portada} alt={producto.modelo_o_capacidad} loading="lazy" width={200} height={200} />
+				<Image src={producto.imagen_portada} alt={producto.nombre} title={producto.nombre} loading="lazy" width={200} height={200} />
   </div>
   <div class="product-info">
-    <h4 class="product-model">{producto.modelo_o_capacidad}</h4>
+    <h4 class="product-model">{producto.nombre}</h4>
     <ul class="product-specs">
       {producto.motor?.tipo && <li><strong>Motor:</strong> {producto.motor.tipo}</li>}
       {producto.motor?.potencia && <li><strong>Potencia:</strong> {producto.motor.potencia}</li>}
       {producto.caja_cambios && <li><strong>Caja:</strong> {producto.caja_cambios}</li>}
     </ul>
-    <a href={`/${categorySlug}/${producto.slug}`} class="btn-details">Ver detalles</a>
+    <a href={BASE_URL+categorySlug+producto.slug} class="btn-details">Ver detalles</a>
   </div>
 </div>
 

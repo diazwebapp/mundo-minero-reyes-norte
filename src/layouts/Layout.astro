@@ -2,6 +2,7 @@
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import type { OrganizationSchema } from '../local-data/schemas';
 type Props={
     title:string
     description:string
@@ -13,6 +14,29 @@ type Props={
 }
 
 const {title,description,lang="es",searchConsoleCode,canonical,filtro,schemas} = Astro.props as Props
+
+const company : OrganizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Mundo Minero Los Reyes del Norte',
+  url: 'https://mmreyesdelnorte.com',
+  logo: 'https://mmreyesdelnorte.com/favicon.svg',
+  sameAs: [
+	'https://www.facebook.com/mmlosreyesdelnorte',
+	'https://www.instagram.com/mmreyesdelnorte',
+	'https://www.tiktok.com/@mmreyesdlnorte'
+  ],
+  description: 'Maquinaria y equipos para minería. MUNDO MINERO LOS REYES DEL NORTE, Lideres en equipos de extracción minera.',
+  address: {
+	'@type': 'PostalAddress',
+	streetAddress: 'AV. AMERICA SUR Nro. 836',
+	addressLocality: 'trujillo',
+	addressRegion: 'La Libertad',
+	postalCode: '',
+	addressCountry: 'PE'
+  },
+  foundingDate: '2004-01-01'
+};
 ---
 <html lang="en">
 	<head>
@@ -30,6 +54,7 @@ const {title,description,lang="es",searchConsoleCode,canonical,filtro,schemas} =
 		<meta property="og:url" content={canonical}>
 		<meta property="og:title" content={title}>
 		<meta property="og:description" content={description}>
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(company)} > </script>
 		{
 			schemas.map((schema)=>{
 					return (

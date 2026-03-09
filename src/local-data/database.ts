@@ -2,55 +2,63 @@ import { slugify } from "../components/slugify";
 import type { Categoria, Producto } from "./database.types";
 
 const BASE_URL = import.meta.env.DEV 
-  ? 'https://fuzzy-space-orbit-67p4jqjrxr7257vq.github.dev' 
+  ? '' 
   : 'https://mmreyesdelnorte.com';
 
 export const categorias: Categoria[] = [
     {
       "id": "cat_1",
       "nombre": "Mini Dumper Diésel",
+      "description": "Equipos robustos y confiables para transporte de material en minas, con motores diésel eficientes.",
       "slug": slugify("Mini Dumper Diésel"),
       "imagen": BASE_URL+"/images/categorias/mini-dumper-diesel.webp"
     },
     {
       "id": "cat_2",
       "nombre": "Mini Dumper Eléctrico",
+      "description": "Soluciones limpias y silenciosas para obra subterránea, 100% eléctricas.",
       "slug": slugify("Mini Dumper Eléctrico"),
       "imagen": BASE_URL+"/images/categorias/mini-dumper-electrico.webp"
     },
     {
       "id": "cat_3",
       "nombre": "Scoop / Mini Cargador",
+      "description": "Carga y maniobra de material en espacios reducidos con alto rendimiento.",
       "slug": slugify("scoop-mini-cargador"),
       "imagen": BASE_URL+"/images/categorias/scoop.webp"
     },
     {
       "id": "cat_4",
       "nombre": "Mucking Loader",
+      "description": "Máxima productividad en extracción de escombros con velocidad y potencia.",
       "slug": slugify("Mucking Loader"),
       "imagen": BASE_URL+"/images/categorias/mucking-loader.webp"
     },
     {
       "id": "cat_5",
       "nombre": "Grupos Electrógenos",
+      "description": "Generadores diésel versátiles para energía confiable en campo.",
       "slug": slugify("grupos Electrogenos"),
       "imagen": BASE_URL+"/images/categorias/electrogenos.webp"
     },
     {
       "id": "cat_6",
       "nombre": "Perforación y Arrastre",
+      "description": "Herramientas neumáticas y winches robustos para perforar y arrastrar carga.",
       "slug": slugify("perforacion y Arrastre"),
       "imagen": BASE_URL+"/images/categorias/arrastre.png"
     },
     {
       "id": "cat_7",
       "nombre": "Ventilación Industrial",
+      "description": "Sistemas de flujo de aire potentes para mantener condiciones seguras.",
       "slug": slugify("Ventilación Industrial"),
       "imagen": BASE_URL+"/images/categorias/ventiladores.webp"
     },
     {
       "id": "cat_8",
       "nombre": "Carretillas Eléctricas",
+      "description": "Movilidad eléctrica ligera para transporte interno eficiente.",
       "slug": slugify("Carretillas Eléctricas"),
       "imagen": BASE_URL+"/images/categorias/carretilla.webp"
     }
@@ -59,6 +67,8 @@ export const categorias: Categoria[] = [
 export const productos: Producto[] = [
     {
       "id": "prod_1",
+      "nombre": "Mini Dumper Diésel 1.5 TN",
+      "description": "Mini Dumper Diésel 1.5 TN ideal para transporte de carga liviana con motor de 22 HP.",
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "1.5 TN",
       "slug": slugify("Mini Dumper Diésel 1.5 TN"),
@@ -74,6 +84,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_2",
+      "nombre": "Mini Dumper Diésel 2.5 TN CV900",
+      "description": "Mini Dumper Diésel 2.5 TN CV900 con motor de 28 HP y transmisión por fajas para trabajos exigentes.",
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "2.5 TN CV900",
       "slug": slugify("Mini Dumper Diésel 2.5 TN CV900"),
@@ -88,6 +100,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_3",
+      "nombre": "Mini Dumper Diésel 3.5 TN",
+      "description": "Mini Dumper Diésel 3.5 TN de diseño compacto y motor 32 HP para maniobras eficientes.",
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "3.5 TN",
       "slug": slugify("Mini Dumper Diésel 3.5 TN"),
@@ -102,6 +116,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_4",
+      "nombre": "Mini Dumper Diésel 5-6 TN",
+      "description": "Mini Dumper Diésel 5-6 TN con motor turbo de 75 HP y tracción 4x4 para terrenos difíciles.",
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "5-6 TN",
       "slug": slugify("Mini Dumper Diésel 5-6 TN"),
@@ -116,6 +132,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_5",
+      "nombre": "Mini Dumper Diésel 7-8 TN",
+      "description": "Mini Dumper Diésel 7-8 TN con 102 HP y caja de cambios reforzada para cargas pesadas.",
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "7-8 TN",
       "slug": slugify("Mini Dumper Diésel 7-8 TN"),
@@ -131,6 +149,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_6",
+      "nombre": "Mini Dumper Eléctrico 1 TN",
+      "description": "Mini Dumper Eléctrico 1 TN silencioso y ecológico, perfecto para galerías subterráneas.",
       "categoria_id": "cat_2",
       "modelo_o_capacidad": "1 TN",
       "slug": slugify("Mini Dumper Eléctrico 1 TN"),
@@ -145,6 +165,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_7",
+      "nombre": "Mini Dumper Eléctrico 1.5 TN",
+      "description": "Mini Dumper Eléctrico 1.5 TN con batería de 6 celdas y autonomía de horas prolongadas.",
       "categoria_id": "cat_2",
       "modelo_o_capacidad": "1.5 TN",
       "slug": slugify("Mini Dumper Eléctrico 1.5 TN"),
@@ -158,6 +180,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_8",
+      "nombre": "Mini Dumper Eléctrico 1.5 TN Sistema datai",
+      "description": "Mini Dumper Eléctrico 1.5 TN Sistema datai con 4000W y protección hermética para ambientes húmedos.",
       "categoria_id": "cat_2",
       "modelo_o_capacidad": "1.5 TN Sistema datai",
       "slug": slugify("Mini Dumper Eléctrico 1.5 TN Sistema datai"),
@@ -172,6 +196,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_9",
+      "nombre": "Mini Cargador Eléctrico GDDC 300 KG",
+      "description": "Mini Cargador Eléctrico GDDC 300 KG con doble motor para máxima potencia en espacios reducidos.",
       "categoria_id": "cat_3",
       "modelo_o_capacidad": "GDDC - 300 KG.",
       "slug": slugify("Mini Cargador Eléctrico GDDC 300 KG"),
@@ -186,6 +212,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_10",
+      "nombre": "Scoop CHWJ-0.6",
+      "description": "Scoop CHWJ-0.6 con motor DEUTZ 60kw y volúmen 0.6m³ para carga ligera.",
       "categoria_id": "cat_3",
       "modelo_o_capacidad": "CHWJ-0.6",
       "slug": slugify("Scoop CHWJ-0.6"),
@@ -200,6 +228,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_11",
+      "nombre": "Scoop CHWJ-1",
+      "description": "Scoop CHWJ-1 con motor DEUTZ 66KW y volumen 1.5 yards para mayor capacidad.",
       "categoria_id": "cat_3",
       "modelo_o_capacidad": "CHWJ-1",
       "slug": slugify("Scoop CHWJ-1"),
@@ -214,6 +244,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_12",
+      "nombre": "Mucking Loader 50/60TN",
+      "description": "Mucking Loader 50/60TN eficiente a 60m³/hora con motores eléctricos y diésel combinados.",
       "categoria_id": "cat_4",
       "modelo_o_capacidad": "50/60TN",
       "slug": slugify("Mucking Loader 50-60TN"),
@@ -227,6 +259,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_13",
+      "nombre": "Generador Diésel 10KW",
+      "description": "Generador Diésel 10KW Isuzu para energía estable en sitios remotos, monofase y trifase.",
       "categoria_id": "cat_5",
       "modelo_o_capacidad": "10KW",
       "slug": slugify("Generador Diésel 10KW"),
@@ -240,6 +274,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_14",
+      "nombre": "Generador Diésel 30KW",
+      "description": "Generador Diésel 30KW Perkins 1004G, robusto y flexible en voltajes 220‑380V.",
       "categoria_id": "cat_5",
       "modelo_o_capacidad": "30KW",
       "slug": slugify("Generador Diésel 30KW"),
@@ -253,6 +289,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_15",
+      "nombre": "Neumática YT 29 EPIROX",
+      "description": "Neumática YT 29 EPIROX, ligera y poderosa (29‑32Kg) para perforaciones hasta 6m.",
       "categoria_id": "cat_6",
       "modelo_o_capacidad": "YT 29 EPIROX",
       "slug": slugify("Neumática YT 29 EPIROX"),
@@ -264,6 +302,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_16",
+      "nombre": "Winche de Arrastre 500 KG",
+      "description": "Winche de Arrastre 500 KG con motor 4.0KW y cable de 100m para operaciones de arrastre confiables.",
       "categoria_id": "cat_6",
       "modelo_o_capacidad": "500 KG.",
       "slug": slugify("Winche de Arrastre 500 KG"),
@@ -275,6 +315,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_17",
+      "nombre": "Ventilador Axial YWF2E-350 (14\") 1HP",
+      "description": "Ventilador Axial YWF2E-350 14\" 1HP con flujo 4900‑5400 m³/h para ventilación industrial.",
       "categoria_id": "cat_7",
       "modelo_o_capacidad": "YWF2E-350 (14\") 1HP",
       "slug": slugify("Ventilador Axial YWF2E-350 14 pulgadas 1HP"),
@@ -285,6 +327,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_18",
+      "nombre": "Ventilador Axial YWF2E-400 (16\") 2HP",
+      "description": "Ventilador Axial YWF2E-400 16\" 2HP con flujo 6500‑7100 m³/h para grandes espacios.",
       "categoria_id": "cat_7",
       "modelo_o_capacidad": "YWF2E-400 (16\") 2HP",
       "slug": slugify("Ventilador Axial YWF2E-400 16 pulgadas 2HP"),
@@ -295,6 +339,8 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_19",
+      "nombre": "Carretilla Eléctrica 500 KG",
+      "description": "Carretilla Eléctrica 500 KG con motor 1000W y batería 60V para logística interna eficiente.",
       "categoria_id": "cat_8",
       "modelo_o_capacidad": "500 KG.",
       "slug": slugify("Carretilla Eléctrica 500 KG"),

@@ -1,7 +1,13 @@
 ---
-import { categorias } from '../local-data/database.ts';
+import type { Categoria } from '../local-data/database.types';
 import { Image } from 'astro:assets';
+import { BASE_URL } from './slugify';
 
+interface CategoriesProps {
+	categories: Categoria[];
+}
+
+const { categories } = Astro.props as CategoriesProps;
 ---
 
 <section id="productos">
@@ -9,20 +15,19 @@ import { Image } from 'astro:assets';
 	<div class="section-header">
 		<h2 class="section-label">Productos</h2>
 		<p class="subtitle">
-			Explora nuestro catálogo de maquinaria pesada, equipos y accesorios diseñados para superar los
-			desafíos más exigentes de la industria.
+			Categorías de maquinaria y equipos de mineria.
 		</p>
 	</div>
 
 		<div class="categories-grid">
-			{categorias.map(categoria => (
+			{categories.map(categoria => (
 				<div class="category-section">
 
 					<div class="image-container">
-						<Image src={categoria.imagen} alt={categoria.nombre} loading="lazy" width={200} height={200} />
+						<Image src={categoria.imagen} title={categoria.nombre} alt={categoria.nombre} loading="lazy" width={200} height={200} />
 					</div>
 					<h3>{categoria.nombre}</h3>
-					<a href={categoria.slug} class="btn">Ver todos →</a>
+					<a href={BASE_URL+categoria.slug} class="btn">Ver todos →</a>
 				</div>
 			))}
 		</div>

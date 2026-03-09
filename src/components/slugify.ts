@@ -1,9 +1,9 @@
-const BASE_URL = import.meta.env.DEV 
-  ? 'https://fuzzy-space-orbit-67p4jqjrxr7257vq.github.dev/' 
+export const BASE_URL = import.meta.env.DEV 
+  ? '/' 
   : 'https://mmreyesdelnorte.com/';
 
 export function slugify(text: string): string {
-  return BASE_URL + text
+  return text
     .toString()
     .normalize('NFD') // Separa las letras de los acentos (e.g., "é" -> "e" + "´")
     .replace(/[\u0300-\u036f]/g, '') // Elimina los acentos (diacríticos)

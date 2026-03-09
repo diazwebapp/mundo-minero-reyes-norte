@@ -1,9 +1,9 @@
 ---
 import { productos, categorias } from '../../local-data/database';
 import type { Producto, Categoria } from '../../local-data/database.types';
+import type { ProductSchema } from '../../local-data/schemas';
 import Layout from '../../layouts/Layout.astro';
-
-
+import { BASE_URL } from '../../components/slugify';
 
 export async function getStaticPaths() {
   return productos.map(producto => {
@@ -24,30 +24,30 @@ interface Props {
 }
 
 const { producto, categoria } = Astro.props;
+
+const productSchema: ProductSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": `${categoria.nombre} ${producto.modelo_o_capacidad}`,
+  "description": producto.description,
+  "url": `${BASE_URL}${categoria.slug}${producto.slug}`,
+  "image": [producto.imagen_portada],
+  "brand": {
+    "@type": "Brand",
+    "name": 'Mundo Minero Los Reyes Norte'
+  },
+  offers: {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "Consultar",
+    "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition"
+  }
+};
 ---
 
-<Layout title={producto.modelo_o_capacidad}>
-  <section class="product-page">
-    <div class="container">
-      <h1>{categoria.nombre} {producto.modelo_o_capacidad}</h1>
-      <p>Aquí irá la descripción detallada y especificaciones del producto.</p>
-      <!-- Puedes añadir más detalles del producto como imágenes, precio, etc. -->
-    </div>
+<Layout title={producto.nombre} description={producto.description} canonical={BASE_URL+categoria.slug+producto.slug} schemas={[productSchema]}>
+  <section>
+   <h1>{producto.nombre}</h1>
   </section>
 </Layout>
-
-<style>
-  .product-page {
-    padding: 8rem 2rem 4rem;
-    min-height: 80vh;
-  }
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-  }
-</style>
