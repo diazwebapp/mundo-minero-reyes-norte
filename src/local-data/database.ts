@@ -201,7 +201,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_3",
       "modelo_o_capacidad": "GDDC - 300 KG.",
       "slug": slugify("Mini Cargador Eléctrico GDDC 300 KG"),
-      "imagen_portada": BASE_URL+"/images/productos/Mini-Cargador-Electrico-300kg-GDDC.png",
+      "imagen_portada": BASE_URL+"/images/productos/mini-cargador-gddc.png",
       "tipo": "Mini Cargador Eléctrico",
       "motor": {
         "tipo": "Eléctrico",

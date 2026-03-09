@@ -8,11 +8,6 @@ export default defineConfig({
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'mmreyesdelnorte.com', // El dominio donde están las fotos
-        pathname: '/images/**',     // Opcional: limitar a una carpeta específica
-      },
-      {
-        protocol: 'https',
         hostname: 'astro.build',
       },
     ],
