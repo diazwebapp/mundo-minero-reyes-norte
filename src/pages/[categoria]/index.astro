@@ -29,9 +29,19 @@ const categorySchema:ProductItemListSchema = {
   itemListElement: productosDeCategoria.map((producto, index) => ({
     '@type': 'ListItem',
     position: index + 1,
-    name: producto.nombre,
-    image: producto.imagen_portada,
-    url: `${BASE_URL}${categoria.slug}/${producto.slug}/`
+    "item": {
+      '@type': 'Product',
+      name: producto.nombre,
+      description: producto.description,
+      url: `${BASE_URL}${categoria.slug}/${producto.slug}/`,
+      image: `${BASE_URL}images/${producto.imagen_portada}`,
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'USD',
+        price: "consultar",
+        availability: 'https://schema.org/InStock'
+      }
+    }
   }))
 };
 ---

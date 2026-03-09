@@ -4,10 +4,13 @@ type itemReviewedType = "Product" | "LocalBusiness" | "Organization" | "Service"
 export type ListItem = {
   "@type": "ListItem";
   position: number;
-  name: string;
-  url: string;
-  image?: string; // Opcional, pero muy recomendado para SEO
-  mainEntityOfPage?: string;
+  item: {
+    "@type": "Product";
+    name: string;
+    image: string;
+    url: string;
+    // Puedes agregar description?: string o offers?: any si los tienes
+  };
 };
 
 // 2. Tipo principal para la página de categoría
