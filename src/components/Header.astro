@@ -1,6 +1,7 @@
 ---
 import { fichaTecnica } from "../local-data/ficha-tecnica";
 import { Image } from 'astro:assets';
+import { BASE_URL } from "./slugify";
 const navLinks = [
 	{ href: '#nosotros', label: 'Nosotros' },
 	{ href: '#productos', label: 'Productos' },
@@ -11,8 +12,8 @@ const navLinks = [
 <header id="header">
 	<nav class="navbar">
 		<div class="nav-container">
-			<a href="/" class="logo">
-				<Image src="/white-blue-logo.png" title="Mundo Minero Reyes Norte" alt="Mundo Minero Reyes Norte" width="100" height="100" />
+			<a href={BASE_URL} class="logo">
+				<Image src={BASE_URL + "/white-blue-logo.png"} title="Mundo Minero Reyes Norte" alt="Mundo Minero Reyes Norte" width="100" height="100" />
 			</a>
 
 			<ul class="nav-links">
