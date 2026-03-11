@@ -137,7 +137,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "7-8 TN",
       "slug": slugify("Mini Dumper Diésel 7-8 TN"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-8tn.png",
+      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-6tn.png",
       "motor": {
         "tipo": "Diésel - Yunnei 4102 Turbo",
         "potencia": "102 HP",
@@ -170,7 +170,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_2",
       "modelo_o_capacidad": "1.5 TN",
       "slug": slugify("Mini Dumper Eléctrico 1.5 TN"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.webp",
+      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png",
       "motor": {
         "tipo": "Eléctrico",
         "potencia": "3000W"
@@ -185,7 +185,7 @@ export const productos: Producto[] = [
       "categoria_id": "cat_2",
       "modelo_o_capacidad": "1.5 TN Sistema datai",
       "slug": slugify("Mini Dumper Eléctrico 1.5 TN Sistema datai"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.webp",
+      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png",
       "motor": {
         "tipo": "Eléctrico",
         "potencia": "4000W Sistema hermético a prueba de agua y Sistema de 6 fases."
@@ -358,7 +358,7 @@ export const paginas: Pagina[] = [
     "id": "pag_1",
     "nombre": "Inicio",
     "slug": "",
-    "imagen": BASE_URL + "/images/paginas/inicio.webp",
+    "imagen": BASE_URL + "/images/paginas/inicio.png",
     "description": "Página de inicio - Mundo Minero Los Reyes del Norte"
   },
   {
