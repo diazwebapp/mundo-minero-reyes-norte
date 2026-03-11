@@ -16,7 +16,7 @@ const { producto, categorySlug } = Astro.props;
 				<Image src={producto.imagen_portada} alt={producto.nombre} title={producto.nombre} loading="lazy" width={350} height={350} />
   </div>
   <div class="product-info">
-    <h4 class="product-model">{producto.nombre}</h4>
+    <strong class="product-model">{producto.nombre}</strong>
     <ul class="product-specs">
       {producto.motor?.tipo && <li><strong>Motor:</strong> {producto.motor.tipo}</li>}
       {producto.motor?.potencia && <li><strong>Potencia:</strong> {producto.motor.potencia}</li>}
