@@ -34,7 +34,10 @@ import { BASE_URL } from "./slugify";
 	.container{
 		padding: 0 0.7rem;
 	}
-
+	#header{
+		background:linear-gradient(180deg, var(--darkh) 50%, rgba(0,0,0,.05) 100%);
+		backdrop-filter: blur(10px);
+	}
 	
 	.nav-contact{
 		display:none;
@@ -45,6 +48,7 @@ import { BASE_URL } from "./slugify";
 	@media (min-width: 768px) {
 		.logo {
 			display: block;
+			width: 80px;
 		}
 		.nav-contact {
 			display: flex;
