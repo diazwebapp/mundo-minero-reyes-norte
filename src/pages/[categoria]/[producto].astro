@@ -96,8 +96,8 @@ const specsFiltered = specs.filter(spec => spec.value);
             src={producto.imagen_portada} 
             alt={producto.nombre} 
             title={producto.nombre}
-            width={200}
-            height={200}
+            width={400}
+            height={400}
             class="product-image"
           />
         </div>
@@ -227,23 +227,15 @@ const specsFiltered = specs.filter(spec => spec.value);
   }
 
   .product-image-wrapper {
-    background: var(--darkh);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 0.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
-    border: 1px solid rgba(231, 76, 60, 0.3);
   }
 
   .product-image {
-    max-width: 400px;
+    width: 100%;
+    max-width: 800px;
     height: auto;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
     border-radius: 12px;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
-    object-fit: contain;
   }
 
   .product-sidebar {
@@ -439,7 +431,12 @@ const specsFiltered = specs.filter(spec => spec.value);
   }
 @media (min-width: 768px) {
     .product-hero {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 400px 1fr;
     }
   }
+@media (min-width: 962px) {
+  .product-hero {
+    grid-template-columns: 1fr 400px;
+  }
+}
 </style>
