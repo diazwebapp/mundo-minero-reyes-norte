@@ -75,7 +75,7 @@ const specs: Spec[] = [
 const specsFiltered = specs.filter(spec => spec.value);
 ---
 
-<Layout title={producto.nombre} description={producto.description} canonical={`${BASE_URL}${categoriaSlug}/${producto.slug}/`} schemas={[productSchema]}>
+<Layout urlimage={producto.imagen_portada} title={producto.nombre} description={producto.description} canonical={`${BASE_URL}${categoriaSlug}/${producto.slug}/`} schemas={[productSchema]}>
   <section class="container">
       
       <!-- Breadcrumb Navigation -->
