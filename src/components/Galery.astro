@@ -19,6 +19,7 @@ const galleryId = Math.random().toString(36).substring(7);
       src={images[0]} 
       alt={alt} 
       loading="eager"
+      fetchpriority="high"
       class="galery-featured"
       data-featured
       width={854}
@@ -71,7 +72,7 @@ const galleryId = Math.random().toString(36).substring(7);
     <Image 
       src={images[0]} 
       alt={alt} 
-      loading="eager"
+      loading="lazy"
       class="modal-image"
       data-modal-image
       width={854}
