@@ -443,7 +443,7 @@ export const paginas: Pagina[] = [
   {
     "id": "pag_4",
     "nombre": "Contacto",
-    "slug": "#contacto",
+    "slug": "nosotros/#contacto",
     "imagen_portada": BASE_URL + "/images/paginas/contacto.webp",
     "description": "Ponte en contacto con nuestro equipo de ventas."
   }
