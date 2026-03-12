@@ -12,16 +12,27 @@ const { producto, categorySlug } = Astro.props;
 ---
 
 <div class="product-card">
+  <!-- overlay anchor covers entire card without wrapping markup -->
+  <a
+    href={`${BASE_URL}${categorySlug}/${producto.slug}/`}
+    class="stretched-link"
+    aria-label={`Ver detalles de ${producto.nombre}`}
+  >
+  <span class="sr-only">Ver detalles de {producto.nombre}</span>
+</a>
+
   <div class="product-image">
-				<Image src={producto.imagen_portada} alt={producto.nombre} title={producto.nombre} loading="lazy" width={350} height={350} />
+    <Image src={producto.imagen_portada} alt={producto.nombre} title={producto.nombre} loading="lazy" width={350} height={350} />
   </div>
+
   <div class="product-info">
     <strong class="product-model">{producto.nombre}</strong>
     <ul class="product-specs">
       {producto.motor?.tipo && <li><strong>Motor:</strong> {producto.motor.tipo}</li>}
       {producto.motor?.potencia && <li><strong>Potencia:</strong> {producto.motor.potencia}</li>}
     </ul>
-    <a href={`${BASE_URL}${categorySlug}/${producto.slug}/`} class="btn">Ver detalles</a>
+    <!-- visible button is now just a span, click handled by overlay link -->
+    <span class="btn">Ver detalles</span>
   </div>
 </div>
 
@@ -34,6 +45,7 @@ const { producto, categorySlug } = Astro.props;
     display: flex;
     flex-direction: column;
     backdrop-filter: blur(10px);
+    position: relative;
   }
 .product-image {
 		position: relative;
@@ -43,10 +55,10 @@ const { producto, categorySlug } = Astro.props;
 		align-items: center;
 		margin: 0 auto;
 	}
-  .product-card:hover {
+  /* .product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 1px 2px var(--dark);
-  }
+  } */
 
   .product-info {
     padding: .8rem;
@@ -70,5 +82,28 @@ const { producto, categorySlug } = Astro.props;
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
   }
+/* overlay anchor covering card */
+.stretched-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    /* no visible content – aria-label above handles accessibility */
+}
 
+.btn {
+    position: relative;
+    z-index: 2;
+    pointer-events: none; /* allow overlay link to receive clicks */
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
 </style>
