@@ -2,7 +2,7 @@ import { slugify } from "../components/slugify";
 import type { Categoria, Producto, Pagina } from "./database.types";
 
 const BASE_URL = import.meta.env.DEV 
-  ? '' 
+  ? 'https://fuzzy-space-orbit-67p4jqjrxr7257vq-4321.app.github.dev' 
   : 'https://mmreyesdelnorte.com';
 
 export const categorias: Categoria[] = [
@@ -11,56 +11,56 @@ export const categorias: Categoria[] = [
       "nombre": "Mini Dumpers Diésel",
       "description": "Equipos robustos y confiables para transporte de material en minas, con motores diésel eficientes.",
       "slug": slugify("Mini Dumpers Diésel"),
-      "imagen": BASE_URL+"/images/categorias/mini-dumper-diesel.webp"
+      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png"
     },
     {
       "id": "cat_2",
       "nombre": "Mini Dumpers Eléctricos",
       "description": "Soluciones limpias y silenciosas para obra subterránea, 100% eléctricas.",
       "slug": slugify("Mini Dumpers Eléctricos"),
-      "imagen": BASE_URL+"/images/categorias/mini-dumper-electrico.webp"
+      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png"
     },
     {
       "id": "cat_3",
       "nombre": "Scoops / Mini Cargadores",
       "description": "Carga y maniobra de material en espacios reducidos con alto rendimiento.",
       "slug": slugify("scoops-mini-cargadores"),
-      "imagen": BASE_URL+"/images/categorias/scoop.webp"
+      "imagen_portada": BASE_URL+"/images/productos/scoop-chwj.png"
     },
     {
       "id": "cat_4",
       "nombre": "Mucking Loaders",
       "description": "Máxima productividad en extracción de escombros con velocidad y potencia.",
       "slug": slugify("Mucking Loaders"),
-      "imagen": BASE_URL+"/images/categorias/mucking-loader.webp"
+      "imagen_portada": BASE_URL+"/images/productos/mucking-loader-60tn.png"
     },
     {
       "id": "cat_5",
       "nombre": "Grupos Electrógenos",
       "description": "Generadores diésel versátiles para energía confiable en campo.",
       "slug": slugify("grupos Electrogenos"),
-      "imagen": BASE_URL+"/images/categorias/electrogenos.webp"
+      "imagen_portada": BASE_URL+"/images/productos/electrogenos.png"
     },
     {
       "id": "cat_6",
       "nombre": "Perforación y Arrastre",
       "description": "Herramientas neumáticas y winches robustos para perforar y arrastrar carga.",
       "slug": slugify("perforacion y Arrastre"),
-      "imagen": BASE_URL+"/images/categorias/arrastre.png"
+      "imagen_portada": BASE_URL+"/images/productos/arrastre.png"
     },
     {
       "id": "cat_7",
       "nombre": "Ventilación Industrial",
       "description": "Sistemas de flujo de aire potentes para mantener condiciones seguras.",
       "slug": slugify("Ventilación Industrial"),
-      "imagen": BASE_URL+"/images/categorias/ventiladores.webp"
+      "imagen_portada": BASE_URL+"/images/productos/ventiladores.png"
     },
     {
       "id": "cat_8",
       "nombre": "Carretillas Eléctricas",
       "description": "Movilidad eléctrica ligera para transporte interno eficiente.",
       "slug": slugify("Carretillas Eléctricas"),
-      "imagen": BASE_URL+"/images/categorias/carretilla.webp"
+      "imagen_portada": BASE_URL+"/images/productos/carretilla.png"
     }
   ]
   
@@ -423,28 +423,28 @@ export const paginas: Pagina[] = [
     "id": "pag_1",
     "nombre": "Inicio",
     "slug": "",
-    "imagen": BASE_URL + "/images/paginas/inicio.png",
+    "imagen_portada": BASE_URL + "/images/paginas/inicio.png",
     "description": "Página de inicio - Mundo Minero Los Reyes del Norte"
   },
   {
     "id": "pag_2",
     "nombre": "Nosotros",
-    "slug": "#nosotros",
-    "imagen": BASE_URL + "/images/paginas/nosotros.webp",
+    "slug": "nosotros",
+    "imagen_portada": BASE_URL + "/images/paginas/nosotros.webp",
     "description": "Conoce más sobre Mundo Minero Los Reyes del Norte, especialistas en equipos mineros."
   },
   {
     "id": "pag_3",
     "nombre": "Productos",
     "slug": "#productos",
-    "imagen": BASE_URL + "/images/paginas/productos.webp",
+    "imagen_portada": BASE_URL + "/images/paginas/productos.webp",
     "description": "Catálogo completo de equipos y maquinaria para la industria minera."
   },
   {
     "id": "pag_4",
     "nombre": "Contacto",
     "slug": "#contacto",
-    "imagen": BASE_URL + "/images/paginas/contacto.webp",
+    "imagen_portada": BASE_URL + "/images/paginas/contacto.webp",
     "description": "Ponte en contacto con nuestro equipo de ventas."
   }
 ]

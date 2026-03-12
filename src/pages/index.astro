@@ -21,7 +21,7 @@ const categoriasSchema:ProductItemListSchema= {
       "name": categoria.nombre,
       "description": categoria.description,
       "url": `${BASE_URL}${categoria.slug}/`,
-      "image": `${BASE_URL}images/${categoria.imagen}`
+      "image": `${BASE_URL}images/${categoria.imagen_portada}`
     }
   }))
 }
@@ -30,5 +30,4 @@ const categoriasSchema:ProductItemListSchema= {
 <Layout title="Home" description="Maquinaria y equipos para minería. MUNDO MINERO LOS REYES DEL NORTE, Lideres en equipos de extracción minera." canonical={BASE_URL} schemas={[categoriasSchema]}>
 	<Hero/>
 	<Categories categories={categorias}/>
-  <About/>
 </Layout>

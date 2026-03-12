@@ -1,37 +1,58 @@
 ---
-import type { Producto } from '../local-data/database.types';
+import type { Categoria, Producto } from '../local-data/database.types';
 import { BASE_URL } from './slugify';
 import { Image } from 'astro:assets';
 
 interface Props {
-  producto: Producto;
-  categorySlug: string;
+  producto: Producto | Categoria;
+  categorySlug?: string;
 }
 
-const { producto, categorySlug } = Astro.props;
+const { producto, categorySlug } = Astro.props as Props;
+
+/**
+ * discriminador: sólo los `Producto` tienen `categoria_id`
+ */
+function isProducto(x: Producto | Categoria): x is Producto {
+  return (x as Producto).categoria_id !== undefined;
+}
 ---
 
 <div class="product-card">
-  <!-- overlay anchor covers entire card without wrapping markup -->
   <a
-    href={`${BASE_URL}${categorySlug}/${producto.slug}/`}
+    href={`${BASE_URL}${categorySlug ? `${categorySlug}/` : ''}${producto.slug}/`}
     class="stretched-link"
     aria-label={`Ver detalles de ${producto.nombre}`}
   >
-  <span class="sr-only">Ver detalles de {producto.nombre}</span>
-</a>
+    <span class="sr-only">Ver detalles de {producto.nombre}</span>
+  </a>
 
   <div class="product-image">
-    <Image src={producto.imagen_portada} alt={producto.nombre} title={producto.nombre} loading="lazy" width={350} height={350} />
+    <Image
+      src={producto.imagen_portada}
+      alt={producto.nombre}
+      title={producto.nombre}
+      loading="lazy"
+      width={350}
+      height={197}
+    />
   </div>
 
   <div class="product-info">
     <strong class="product-model">{producto.nombre}</strong>
-    <ul class="product-specs">
-      {producto.motor?.tipo && <li><strong>Motor:</strong> {producto.motor.tipo}</li>}
-      {producto.motor?.potencia && <li><strong>Potencia:</strong> {producto.motor.potencia}</li>}
-    </ul>
-    <!-- visible button is now just a span, click handled by overlay link -->
+
+    {/* sólo mostramos las specs cuando sea un Producto real */}
+    {!categorySlug && isProducto(producto) && (
+      <ul class="product-specs">
+        {producto.motor?.tipo && (
+          <li><strong>Motor:</strong> {producto.motor.tipo}</li>
+        )}
+        {producto.motor?.potencia && (
+          <li><strong>Potencia:</strong> {producto.motor.potencia}</li>
+        )}
+      </ul>
+    )}
+
     <span class="btn">Ver detalles</span>
   </div>
 </div>
@@ -55,10 +76,14 @@ const { producto, categorySlug } = Astro.props;
 		align-items: center;
 		margin: 0 auto;
 	}
-  /* .product-card:hover {
+
+  .product-image img{
+    aspect-ratio: 16/9;
+  }
+  .product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 1px 2px var(--dark);
-  } */
+  }
 
   .product-info {
     padding: .8rem;

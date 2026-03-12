@@ -5,7 +5,7 @@ export interface Pagina {
   id: string;
   nombre: string;
   slug: string;
-  imagen: string;
+  imagen_portada: string;
   description: string;
 }
 
@@ -15,7 +15,7 @@ export interface Categoria {
   nombre: string;
   description: string; // breve texto SEO y persuasivo
   slug: string;
-  imagen: string;
+  imagen_portada: string;
 }
 
 

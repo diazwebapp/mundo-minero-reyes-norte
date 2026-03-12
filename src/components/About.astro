@@ -1,23 +1,35 @@
 ---
+import { Image } from 'astro:assets';
 import { fichaTecnica } from "../local-data/ficha-tecnica";
+import { BASE_URL } from './slugify';
 ---
 
-<section id="nosotros" class="container">
+<section id="nosotros" >
+  
+  <div class="about-hero">
+    <h1 class="titulos">Mundo Minero Los Reyes del Norte</h1>
+    <p>somos especialistas en maquinaria y equipos para minería</p>
+  </div>
   <div class="about">
-    <h2>Sobre Mundo Minero Los Reyes del Norte</h2>
-
+    
     <div class="about-grid first-row">
-      <div class="logo-wrapper">
-        <img src="/white-blue-logo.png" alt="Mundo Minero Los Reyes Norte logo" class="about-logo" />
+      <div class="image-container">
+        <Image src={BASE_URL+"logo-claro.jpeg"} alt="Mundo Minero Los Reyes Norte logo" width="350" height="197" />
       </div>
+      <div class="title"><h2>Quienes somos</h2></div>
       <div class="text">
-        <p>En <strong>Mundo Minero Los Reyes del Norte</strong> somos especialistas en maquinaria y equipos para minería. Desde nuestro inicio en 2024 hemos combinado experiencia técnica con un compromiso inquebrantable por la calidad, 
+        <p>Desde nuestro inicio en 2024 hemos combinado experiencia técnica con un compromiso inquebrantable por la calidad, 
         la fiabilidad y el servicio al cliente. Nuestra razón social <em>MUNDO MINERO LOS REYES DEL NORTE E.I.R.L.</em> respalda cada proyecto que emprendemos.</p>
       </div>
     </div>
 
     <div class="about-grid second-row">
+      <div class="image-container">
+        <Image src={BASE_URL+"mision-image.jpeg"} alt="Mundo Minero Los Reyes Norte logo" width="350" height="197" />
+      </div>
+      <div class="title"><h2>Misión</h2></div>
       <div class="text">
+        
         <p>Nuestra misión es ofrecer soluciones integrales a las necesidades de extracción minera, brindando equipos de última generación, asesoría especializada y soporte continuo. 
         Contamos con un amplio catálogo de productos y servicios pensados para mejorar la productividad y seguridad en campo:</p>
 
@@ -28,15 +40,15 @@ import { fichaTecnica } from "../local-data/ficha-tecnica";
         </ul>
 
         </div>
-      <div class="images">
-        <div class="image-placeholder">Imagen 1</div>
-      </div>
+      
     </div>
     <div class="about-grid first-row">
         <div class="images">
             <div class="image-placeholder">Imagen 2</div>
         </div>
+        <div class="title"><h2>Contáctanos</h2></div>
         <div class="text">
+            
             <p>Operamos desde <strong>Trujillo, La Libertad</strong>, con domicilio en <em>{fichaTecnica.domicilio_fiscal.direccion}, {fichaTecnica.domicilio_fiscal.distrito}</em>, y nos enorgullece ser un proveedor activo y transparente en el mercado minero peruano. 
             Nuestro equipo, liderado por la gerente Venecia Macarena Flores Torres, está siempre dispuesto a acompañar a nuestros clientes en cada etapa del proceso.</p>
 
@@ -50,78 +62,93 @@ import { fichaTecnica } from "../local-data/ficha-tecnica";
 
 <style>
     .container{
-        padding: calc(var(--hheader) + 1rem) 1rem ;
+        padding: calc(var(--hheader)) 0 ;
+        max-width: unset;
+    }
+    .about-hero {
+        text-align: center;
+        height:100vh;
+        padding-top: calc(var(--hheader) + 6rem);
     }
   .about {
-    background: var(--darkh);
-    backdrop-filter: blur(10px);
-    padding: 2rem;
+    position: relative;
+    margin: auto;
+    margin-top: -40vh;
+    width: 90%;
+    max-width: 1200px;
   }
-  .about h2 {
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-    text-align:center;
-  }
+  
   .about ul {
     list-style: disc inside;
     margin: 1rem 0;
     text-align: left;
   }
-  .about a {
-    color: var(--light);
-    text-decoration: underline;
-  }
-  .about .logo-wrapper {
-    text-align: center;
-    margin-bottom: 0;
-  }
-  .about-logo {
-    max-width: 150px;
-    height: auto;
-  }
+  
   .about-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
-    margin-top: 1rem;
   }
-  .about-grid.first-row .logo-wrapper {
-    order: 1;
+  .first-row{
+    background:linear-gradient(90deg,rgb(226, 158, 9, 1) 30%,var(--dark) 30%, var(--dark) 100%);
+    padding:1rem;
   }
-  .about-grid.first-row .text {
-    order: 2;
+  .second-row{
+    background:linear-gradient(90deg,rgb(26, 3, 109) 70%,rgb(226, 158, 9) 70%, rgb(226, 158, 9) 100%);
   }
-  .about-grid.second-row .text {
-    order: 1;
+  .first-row,.second-row{
+    padding:1rem;
   }
-  .about-grid.second-row .images {
-    order: 2;
+  .title{
+    padding:1rem;
+    text-align: center;
+    font-size:1.5rem;
+  }
+  .text{
+    grid-column: 1 / span 2;
+    background-color: var(--darkh);
+    height:max-content;
+    overflow: hidden;
+    transition: height 0.5s ease;
+    backdrop-filter: blur(10px);
+  }
+  .text p, .text ul{
+    padding:1rem;
+  }
+  .open{
+    height: 200px;
+  }
+  .second-row .title{
+    order:1;
+  }
+  .second-row .image-container{
+    order:2;
+  }
+  .second-row .text{
+    order:3;
   }
   @media (min-width: 768px) {
-    .about-grid {
-      grid-template-columns: 1fr 1fr;
+    .about-hero{
+      background: url("/background-1.png") center no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        padding-right: 22%;
     }
-    .about-grid.first-row .logo-wrapper,
-    .about-grid.first-row .text,
-    .about-grid.second-row .text,
-    .about-grid.second-row .images {
-      order: unset;
-    }
+    .first-row{
+    background:linear-gradient(90deg,rgb(226, 158, 9) 30%,var(--dark) 30%, var(--dark) 100%);
+    
   }
-  .about .image-placeholder {
-    background: var(--plata);
-    color: var(--dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    border-radius: 8px;
-    font-size: 1rem;
+  .first-row,.second-row{
+    padding:3rem;
   }
-  .about .images {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  .image-container img{
+    max-width:450px;
+  }
+  .title{
+    font-size:2rem;
+  }
+  .text p{
+    font-size:1.2rem;
+  }
   }
 </style>

@@ -2,6 +2,7 @@
 import type { Categoria } from '../local-data/database.types';
 import { Image } from 'astro:assets';
 import { BASE_URL } from './slugify';
+import ProductCard from './ProductCard.astro';
 
 interface CategoriesProps {
 	categories: Categoria[];
@@ -21,14 +22,7 @@ const { categories } = Astro.props as CategoriesProps;
 
 		<div class="categories-grid">
 			{categories.map(categoria => (
-				<div class="category-section">
-
-					<div class="image-container">
-						<Image src={categoria.imagen} title={categoria.nombre} alt={categoria.nombre} loading="lazy" width={250} height={250} />
-					</div>
-					<h3>{categoria.nombre}</h3>
-					<a href={`${BASE_URL}${categoria.slug}/`} class="btn">Ver todos →</a>
-				</div>
+				<ProductCard producto={categoria} />
 			))}
 		</div>
 	

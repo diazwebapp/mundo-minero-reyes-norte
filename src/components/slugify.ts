@@ -1,5 +1,5 @@
 export const BASE_URL = import.meta.env.DEV 
-  ? '/' 
+  ? 'https://fuzzy-space-orbit-67p4jqjrxr7257vq-4321.app.github.dev/' 
   : 'https://mmreyesdelnorte.com/';
 
 export function slugify(text: string): string {
