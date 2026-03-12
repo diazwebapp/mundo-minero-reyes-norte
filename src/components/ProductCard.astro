@@ -21,7 +21,7 @@ const { producto, categorySlug } = Astro.props;
       {producto.motor?.tipo && <li><strong>Motor:</strong> {producto.motor.tipo}</li>}
       {producto.motor?.potencia && <li><strong>Potencia:</strong> {producto.motor.potencia}</li>}
     </ul>
-    <a href={`${BASE_URL}${categorySlug}/${producto.slug}/`} class="btn-details">Ver detalles</a>
+    <a href={`${BASE_URL}${categorySlug}/${producto.slug}/`} class="btn">Ver detalles</a>
   </div>
 </div>
 
@@ -71,19 +71,4 @@ const { producto, categorySlug } = Astro.props;
     font-size: 0.9rem;
   }
 
-  .btn-details {
-    display: inline-block;
-    text-align: center;
-    padding: 0.75rem 1.5rem;
-    background-color: #e74c3c;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-  }
-
-  .btn-details:hover {
-    background-color: #c0392b;
-  }
 </style>

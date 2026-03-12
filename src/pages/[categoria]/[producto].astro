@@ -6,6 +6,7 @@ import Layout from '../../layouts/Layout.astro';
 import { BASE_URL } from '../../components/slugify';
 import { Image } from 'astro:assets';
 import { fichaTecnica } from '../../local-data/ficha-tecnica';
+import Galery from '../../components/Galery.astro';
 
 // Obtener parámetros dinámicamente (funciona con SSR) y normalizarlos
 let { categoria: categoriaSlug, producto: productoSlug } = Astro.params;
@@ -90,19 +91,23 @@ const specsFiltered = specs.filter(spec => spec.value);
       <h1>{producto.nombre}</h1>
       <!-- Main Product Section -->
       <div class="product-hero">
-        <!-- Product Image -->
+        <!-- Product Image / Gallery -->
         <div class="product-image-wrapper">
-          <Image 
-            src={producto.imagen_portada} 
-            alt={producto.nombre} 
-            title={producto.nombre}
-            width={700}
-            height={700}
-            class="product-image"
-            loading="eager"
-            fetchpriority="high"
-            decoding="sync"
-          />
+          {producto.imagenes && producto.imagenes.length > 0 ? (
+            <Galery images={producto.imagenes.map(img => img.url)} alt={producto.nombre} />
+          ) : (
+            <Image 
+              src={producto.imagen_portada} 
+              alt={producto.nombre} 
+              title={producto.nombre}
+              width={700}
+              height={700}
+              class="product-image"
+              loading="eager"
+              fetchpriority="high"
+              decoding="sync"
+            />
+          )}
         </div>
         
         <!-- Product Info Sidebar -->
@@ -230,6 +235,9 @@ const specsFiltered = specs.filter(spec => spec.value);
   }
 
   .product-image-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--darkh);
   }
 
   .product-image {

@@ -40,6 +40,7 @@ export interface Producto {
   modelo_o_capacidad: string;
   slug: string;
   imagen_portada: string; // URL o path de la imagen
+  imagenes?: { id: number; url: string }[]; // galería de imágenes con identificadores
   
   // Opcional: Para sub-tipos dentro de una misma categoría (ej. Scoop, Axial)
   tipo?: string; 

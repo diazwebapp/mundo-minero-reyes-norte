@@ -1,0 +1,374 @@
+---
+// Componente de galería de imágenes interactiva.
+// Recibe un arreglo de URLs y las muestra con imagen grande + miniaturas navegables.
+import { Image } from 'astro:assets';
+
+interface Props {
+  images: string[];
+  alt?: string;   // texto alternativo opcional para cada imagen
+}
+
+const { images, alt = '' } = Astro.props as Props;
+const galleryId = Math.random().toString(36).substring(7);
+---
+
+<div class="galery-container" data-gallery-id={galleryId}>
+  <!-- Imagen Principal -->
+  <div class="galery-main" data-fullscreen-trigger>
+    <Image 
+      src={images[0]} 
+      alt={alt} 
+      loading="eager"
+      class="galery-featured"
+      data-featured
+      width={800}
+      height={600}
+    />
+    <button class="fullscreen-btn" data-fullscreen-trigger title="Ver en pantalla completa">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Miniaturas (Thumbnails) -->
+  <div class="galery-thumbs">
+    {images.map((src, index) => (
+      <button 
+        class={`thumb-item ${index === 0 ? 'active' : ''}`} 
+        data-thumb-index={index}
+        title={`${alt} ${index + 1}`}
+      >
+        <Image 
+          src={src} 
+          alt={`${alt} ${index + 1}`} 
+          loading="lazy"
+          class="thumb-image"
+          width={80}
+          height={80}
+        />
+      </button>
+    ))}
+  </div>
+</div>
+
+<!-- Modal para pantalla completa -->
+<div class="galery-modal" data-gallery-id={galleryId} data-modal>
+  <button class="modal-close" data-modal-close title="Cerrar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+  <button class="modal-prev" data-modal-prev title="Anterior">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="modal-next" data-modal-next title="Siguiente">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+  <div class="modal-content">
+    <Image 
+      src={images[0]} 
+      alt={alt} 
+      loading="eager"
+      class="modal-image"
+      data-modal-image
+      width={800}
+      height={600}
+    />
+  </div>
+</div>
+
+<script define:vars={{ galleryId, images }}>
+  const container = document.querySelector(`[data-gallery-id="${galleryId}"]`);
+  const modal = document.querySelector(`[data-gallery-id="${galleryId}"][data-modal]`);
+  let currentIndex = 0;
+
+  // Variables para detectar swipe
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const swipeThreshold = 50; // píxeles mínimos para detectar swipe
+
+  // Actualizar imagen principal y miniaturas
+  function updateGallery(index) {
+    currentIndex = Math.max(0, Math.min(index, images.length - 1));
+    
+    // Actualizar imagen featured
+    const featuredImg = container.querySelector('[data-featured]');
+    if (featuredImg) {
+      featuredImg.src = images[currentIndex];
+    }
+
+    // Actualizar miniaturas activas
+    container.querySelectorAll('.thumb-item').forEach((thumb, i) => {
+      thumb.classList.toggle('active', i === currentIndex);
+    });
+
+    // Actualizar modal image
+    const modalImg = modal.querySelector('[data-modal-image]');
+    if (modalImg) {
+      modalImg.src = images[currentIndex];
+    }
+  }
+
+  // Click en miniaturas
+  container.querySelectorAll('.thumb-item').forEach((thumb) => {
+    thumb.addEventListener('click', () => {
+      const index = parseInt(thumb.dataset.thumbIndex, 10);
+      updateGallery(index);
+    });
+  });
+
+  // Click en imagen para abrir modal
+  const fullscreenBtn = container.querySelector('[data-fullscreen-trigger]');
+  fullscreenBtn.addEventListener('click', () => {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Cerrar modal
+  modal.querySelector('[data-modal-close]').addEventListener('click', () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  });
+
+  // Navegación en modal
+  modal.querySelector('[data-modal-prev]').addEventListener('click', () => {
+    updateGallery(currentIndex - 1);
+  });
+
+  modal.querySelector('[data-modal-next]').addEventListener('click', () => {
+    updateGallery(currentIndex + 1);
+  });
+
+  // Cerrar modal con ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  });
+
+  // Navegación con flechas en modal
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('active')) return;
+    if (e.key === 'ArrowLeft') updateGallery(currentIndex - 1);
+    if (e.key === 'ArrowRight') updateGallery(currentIndex + 1);
+  });
+
+  // Detección de swipe en dispositivos táctiles
+  modal.addEventListener('touchstart', (e) => {
+    if (!modal.classList.contains('active')) return;
+    touchStartX = e.changedTouches[0].clientX;
+  }, false);
+
+  modal.addEventListener('touchend', (e) => {
+    if (!modal.classList.contains('active')) return;
+    touchEndX = e.changedTouches[0].clientX;
+    handleSwipe();
+  }, false);
+
+  function handleSwipe() {
+    const diff = touchStartX - touchEndX;
+    
+    // Swipe hacia la izquierda (deslizar a la izquierda) -> siguiente imagen
+    if (diff > swipeThreshold) {
+      updateGallery(currentIndex + 1);
+    }
+    
+    // Swipe hacia la derecha (deslizar a la derecha) -> imagen anterior
+    if (diff < -swipeThreshold) {
+      updateGallery(currentIndex - 1);
+    }
+  }
+</script>
+
+<style>
+  .galery-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Imagen Principal */
+  .galery-main {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--darkh, #1a1a1a);
+  }
+
+  .galery-featured {
+    aspect-ratio: 16/9;
+    display: block;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+
+  .fullscreen-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+  }
+
+  .fullscreen-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  /* Miniaturas */
+  .galery-thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 80px);
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .thumb-item {
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+    background: none;
+    padding: 0;
+  }
+
+  .thumb-item:hover {
+    transform: scale(1.05);
+  }
+
+  .thumb-item.active {
+    border-color: #e74c3c;
+  }
+
+  .thumb-image {
+    aspect-ratio:1/1;
+    object-fit: cover;
+    display: block;
+    border-radius: 6px;
+  }
+
+  /* Modal Pantalla Completa */
+  .galery-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .galery-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal-content {
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-image {
+    max-width: 1200px;
+    object-fit: contain;
+    aspect-ratio: 16/9;
+  }
+
+  /* Botones del Modal */
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 1001;
+  }
+
+  .modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .modal-prev,
+  .modal-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 1001;
+  }
+
+  .modal-prev:hover,
+  .modal-next:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .modal-prev {
+    left: 20px;
+  }
+
+  .modal-next {
+    right: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .galery-thumbs {
+      grid-template-columns: repeat(auto-fit, 60px);
+    }
+
+    .thumb-image {
+      height: 60px;
+    }
+
+    .modal-prev,
+    .modal-next {
+      width: 40px;
+      height: 40px;
+    }
+
+    .modal-close {
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>
