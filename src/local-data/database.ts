@@ -75,6 +75,10 @@ export const productos: Producto[] = [
       "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png",
       "imagenes": [
         { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png" },
+        { "id": 2, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn-1.png" },
+        { "id": 3, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn-2.png" },
+        { "id": 4, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn-3.png" },
+        { "id": 5, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn-4.png" },
       ],
       "motor": {
         "tipo": "Diésel",
@@ -95,6 +99,10 @@ export const productos: Producto[] = [
       "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn.png",
       "imagenes": [
         { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn.png" },
+        { "id": 2, "url": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn-1.png" },
+        { "id": 3, "url": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn-2.png" },
+        { "id": 4, "url": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn-3.png" },
+        { "id": 5, "url": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn-4.png" },
       ],
       "motor": {
         "tipo": "Diésel",
