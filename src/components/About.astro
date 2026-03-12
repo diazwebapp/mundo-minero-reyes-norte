@@ -13,21 +13,30 @@ import { BASE_URL } from './slugify';
   <div class="about">
     
     <div class="about-grid first-row">
+      <div class="wave">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       <div class="image-container">
         <Image src={BASE_URL+"logo-claro.jpeg"} alt="Mundo Minero Los Reyes Norte logo" width="350" height="197" loading="lazy" />
       </div>
-      <div class="title"><h2>Quienes somos</h2></div>
+      <div class="title">
+       
+    <h2>Quienes somos</h2></div>
       <div class="text">
         <p>Desde nuestro inicio en 2024 hemos combinado experiencia técnica con un compromiso inquebrantable por la calidad, 
-        la fiabilidad y el servicio al cliente. Nuestra razón social <em>MUNDO MINERO LOS REYES DEL NORTE E.I.R.L.</em> respalda cada proyecto que emprendemos.</p>
+        la fiabilidad y el servicio al cliente. Nuestra razón social MUNDO MINERO LOS REYES DEL NORTE E.I.R.L. respalda cada proyecto que emprendemos.</p>
       </div>
+       
     </div>
 
     <div class="about-grid second-row">
-      <div class="image-container">
-        <Image src={"/mision-image.jpeg"} alt="Mundo Minero Los Reyes Norte logo" width="350" height="197" loading="lazy" />
-      </div>
       <div class="title"><h2>Misión</h2></div>
+      <div class="image-container">
+        <Image src={"/mision-image.jpeg"} alt="Mundo Minero Los Reyes Norte logo" width="400" height="225" loading="lazy" />
+      </div>
+      
       <div class="text">
         
         <p>Nuestra misión es ofrecer soluciones integrales a las necesidades de extracción minera, brindando equipos de última generación, asesoría especializada y soporte continuo. 
@@ -49,7 +58,7 @@ import { BASE_URL } from './slugify';
         <div class="title"><h2>Contáctanos</h2></div>
         <div class="text">
             
-            <p>Operamos desde <strong>Trujillo, La Libertad</strong>, con domicilio en <em>{fichaTecnica.domicilio_fiscal.direccion}, {fichaTecnica.domicilio_fiscal.distrito}</em>, y nos enorgullece ser un proveedor activo y transparente en el mercado minero peruano. 
+            <p>Operamos desde <strong>Trujillo, La Libertad</strong>, con domicilio en {fichaTecnica.domicilio_fiscal.direccion}, {fichaTecnica.domicilio_fiscal.distrito}, y nos enorgullece ser un proveedor activo y transparente en el mercado minero peruano. 
             Nuestro equipo, liderado por la gerente Venecia Macarena Flores Torres, está siempre dispuesto a acompañar a nuestros clientes en cada etapa del proceso.</p>
 
             <p><strong>Contáctanos:</strong> <a href={`https://wa.me/${fichaTecnica.datos_contacto.telefono_ventas}`} target="_blank" rel="noopener">{fichaTecnica.datos_contacto.telefono_ventas}</a> 
@@ -61,71 +70,52 @@ import { BASE_URL } from './slugify';
 </section>
 
 <style>
+
     .container{
         padding: calc(var(--hheader)) 0 ;
         max-width: unset;
     }
     .about-hero {
         text-align: center;
-        height:100vh;
+        height:50vh;
         padding-top: calc(var(--hheader) + 6rem);
     }
-  .about {
-    position: relative;
-    margin: auto;
-    margin-top: -40vh;
-    width: 90%;
-    max-width: 1200px;
-  }
-  
-  .about ul {
-    list-style: disc inside;
-    margin: 1rem 0;
-    text-align: left;
-  }
-  
-  .about-grid {
-    display: grid;
+    .about {
+      position: relative;
+      margin: auto;
+      max-width: 1200px;
+    }
+    .wave{
+      display:none;
+    }
+  .about-grid{
+    display:grid;
     grid-template-columns: 1fr 1fr;
-    align-items: center;
+    background:var(--dark);
   }
-  .first-row{
-    background:linear-gradient(90deg,rgb(226, 158, 9, 1) 30%,var(--dark) 30%, var(--dark) 100%);
+  .image-container{
     padding:1rem;
-  }
-  .second-row{
-    background:linear-gradient(90deg,rgb(26, 3, 109) 70%,rgb(226, 158, 9) 70%, rgb(226, 158, 9) 100%);
-  }
-  .first-row,.second-row{
-    padding:1rem;
-  }
-  .title{
-    padding:1rem;
-    text-align: center;
-    font-size:1.5rem;
-  }
-  .text{
-    grid-column: 1 / span 2;
-    background-color: var(--darkh);
-    height:max-content;
-    overflow: hidden;
-    transition: height 0.5s ease;
-    backdrop-filter: blur(10px);
-  }
-  .text p, .text ul{
-    padding:1rem;
-  }
-  .open{
-    height: 200px;
-  }
-  .second-row .title{
-    order:1;
+    background:linear-gradient(90deg, #d47405 70%, black 70%, black 100%);
+    z-index:3;
   }
   .second-row .image-container{
-    order:2;
+    padding:1rem;
+    background:linear-gradient(90deg, black 30%,#d47405 30%, #d47405 100%);
   }
-  .second-row .text{
-    order:3;
+  .image-container img{
+    position:relative;
+  }
+  .title{
+    background-color:black;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    font-size:1.3rem;
+    text-align:center;
+  }
+  .text{
+    grid-column: span 2;
+    padding:2rem;
   }
   @media (min-width: 768px) {
     .about-hero{
@@ -134,16 +124,72 @@ import { BASE_URL } from './slugify';
         background-size: cover;
         padding-right: 22%;
     }
-    .first-row{
-    background:linear-gradient(90deg,rgb(226, 158, 9) 30%,var(--dark) 30%, var(--dark) 100%);
-    
+    .first-row:first-child {
+      position: relative;
+      overflow: hidden;
+      margin-bottom:10px;
+    }
+    .first-row:first-child .image-container{
+      background:transparent;
+    }
+    .first-row:first-child .image-container img{
+      z-index:3;
+      //background:linear-gradient(90deg, #d47405 70%, transparent 70%, transparent 100%);
+      //box-shadow: 0px 10px 29px 2px #d47405;
+    }
+    .first-row .title, .first-row .text{
+      z-index:3;
+      background:transparent;
+    }
+.wave{
+  display:block;
+}
+.first-row .wave {
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: #d47405;
+  box-shadow: inset 0 0 50px var(--dark);
+  transition: 0.5s;
+  z-indez:2;
+}
+.first-row .wave span {
+  content: "";
+  position: absolute;
+  width: 130%;
+  height: 400%;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -75%);
+  background: #000;
+}
+
+.first-row .wave span:nth-child(1) {
+  border-radius: 45%;
+  background: rgba(0,0,0, 1);
+  animation: animate 5s linear infinite;
+}
+
+.first-row .wave span:nth-child(2) {
+  border-radius: 40%;
+  background: rgba(0,0,0, 0.5);
+  animation: animate 10s linear infinite;
+}
+.first-row .wave span:nth-child(3) {
+  border-radius: 42.5%;
+  background: rgba(0,0,0, 0.5);
+  animation: animate 15s linear infinite;
+}
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
   }
-  .first-row,.second-row{
-    padding:3rem;
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
   }
-  .image-container img{
-    max-width:450px;
-  }
+}
+  
   .title{
     font-size:2rem;
   }
