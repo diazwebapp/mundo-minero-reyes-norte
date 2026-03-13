@@ -46,7 +46,7 @@ export const categorias: Categoria[] = [
       "nombre": "Perforación y Arrastre",
       "description": "Herramientas neumáticas y winches robustos para perforar y arrastrar carga.",
       "slug": slugify("perforacion y Arrastre"),
-      "imagen_portada": BASE_URL+"/images/productos/arrastre.png"
+      "imagen_portada": BASE_URL+"/images/productos/arrastre-perforacion.png"
     },
     {
       "id": "cat_7",
@@ -60,7 +60,7 @@ export const categorias: Categoria[] = [
       "nombre": "Carretillas Eléctricas",
       "description": "Movilidad eléctrica ligera para transporte interno eficiente.",
       "slug": slugify("Carretillas Eléctricas"),
-      "imagen_portada": BASE_URL+"/images/productos/carretilla.png"
+      "imagen_portada": BASE_URL+"/images/productos/carretillas-electricas.png"
     }
   ]
   
@@ -180,6 +180,10 @@ export const productos: Producto[] = [
       "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png",
       "imagenes": [
         { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png" },
+        { "id": 2, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-1.jpeg" },
+        { "id": 3, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-2.png" },
+        { "id": 4, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-3.png" }
+
       ],
       "motor": {
         "tipo": "Eléctrico",
@@ -199,6 +203,9 @@ export const productos: Producto[] = [
       "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png",
       "imagenes": [
         { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png" },
+        { "id": 2, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-1.jpeg" },
+        { "id": 3, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-2.png" },
+        { "id": 4, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-3.png" }
       ],
       "motor": {
         "tipo": "Eléctrico",
@@ -217,6 +224,9 @@ export const productos: Producto[] = [
       "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png",
       "imagenes": [
         { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png" },
+        { "id": 2, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-1.jpeg" },
+        { "id": 3, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-2.png" },
+        { "id": 4, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-3.png" }
       ],
       "motor": {
         "tipo": "Eléctrico",
@@ -308,9 +318,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_5",
       "modelo_o_capacidad": "10KW",
       "slug": slugify("Generador Diésel 10KW"),
-      "imagen_portada": BASE_URL+"/images/productos/Generador-Diesel-10KW.png",
+      "imagen_portada": BASE_URL+"/images/productos/grupo-electrogeno-10kw.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/Generador-Diesel-10KW.png" },
+        { "id": 1, "url": BASE_URL+"/images/productos/grupo-electrogeno-10kw.png" },
       ],
       "motor": {
         "marca": "Isuzu",
@@ -326,9 +336,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_5",
       "modelo_o_capacidad": "30KW",
       "slug": slugify("Generador Diésel 30KW"),
-      "imagen_portada": BASE_URL+"/images/productos/Generador-Diesel-30KW.png",
+      "imagen_portada": BASE_URL+"/images/productos/grupo-electrogeno-30kw.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/Generador-Diesel-30KW.png" },
+        { "id": 1, "url": BASE_URL+"/images/productos/grupo-electrogeno-30kw.png" },
       ],
       "motor": {
         "marca": "Perkinks",
@@ -372,13 +382,13 @@ export const productos: Producto[] = [
     {
       "id": "prod_17",
       "nombre": "Ventilador Axial YWF2E-350 (14\") 1HP",
-      "description": "Ventilador Axial YWF2E-350 14\" 1HP con flujo 4900‑5400 m³/h para ventilación industrial.",
+      "description": "Ventilador Axial YWF2E-350 14\" 1HP con flujo 4900/5400 m³/h para ventilación industrial.",
       "categoria_id": "cat_7",
       "modelo_o_capacidad": "YWF2E-350 (14\") 1HP",
       "slug": slugify("Ventilador Axial YWF2E-350 14 pulgadas 1HP"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": BASE_URL+"/images/productos/ventilador-1hp.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png" },
+        { "id": 1, "url": BASE_URL+"/images/productos/ventilador-1hp.png" },
       ],
       "tipo": "Axial",
       "flujo_aire": "4900/5400 m³/h",
@@ -387,13 +397,13 @@ export const productos: Producto[] = [
     {
       "id": "prod_18",
       "nombre": "Ventilador Axial YWF2E-400 (16\") 2HP",
-      "description": "Ventilador Axial YWF2E-400 16\" 2HP con flujo 6500‑7100 m³/h para grandes espacios.",
+      "description": "Ventilador Axial YWF2E-400 16\" 2HP con flujo 6500/7100 m³/h para grandes espacios.",
       "categoria_id": "cat_7",
       "modelo_o_capacidad": "YWF2E-400 (16\") 2HP",
       "slug": slugify("Ventilador Axial YWF2E-400 16 pulgadas 2HP"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": BASE_URL+"/images/productos/ventilador-2hp.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png" },
+        { "id": 1, "url": BASE_URL+"/images/productos/ventilador-2hp.png" },
       ],
       "tipo": "Axial",
       "flujo_aire": "6500/7100 m³/h",
@@ -406,9 +416,12 @@ export const productos: Producto[] = [
       "categoria_id": "cat_8",
       "modelo_o_capacidad": "500 KG.",
       "slug": slugify("Carretilla Eléctrica 500 KG"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": BASE_URL+"/images/productos/carretilla-electrica-500kg-1.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png" },
+        { "id": 1, "url": BASE_URL+"/images/productos/carretilla-electrica-500kg-1.png"},
+        { "id": 2, "url": BASE_URL+"/images/productos/carretilla-electrica-500kg-2.png" },
+        { "id": 3, "url": BASE_URL+"/images/productos/carretilla-electrica-500kg-3.png" },
+        { "id": 4, "url": BASE_URL+"/images/productos/carretilla-electrica-500kg-4.png" },
       ],
       "tipo": "Carretilla Eléctrica",
       "motor_potencia": "1000 W",
