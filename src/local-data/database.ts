@@ -238,20 +238,20 @@ export const productos: Producto[] = [
     },
     {
       "id": "prod_9",
-      "nombre": "Mini Cargador Eléctrico GDDC 300 KG",
-      "description": "Mini Cargador Eléctrico GDDC 300 KG con doble motor para máxima potencia en espacios reducidos.",
+      "nombre": "Mini Cargador Eléctrico petrolero 700 KG",
+      "description": "Mini Cargador Eléctrico petrolero 700 KG con motor de 29hp,para máxima potencia en espacios reducidos.",
       "categoria_id": "cat_3",
-      "modelo_o_capacidad": "GDDC - 300 KG.",
-      "slug": slugify("Mini Cargador Eléctrico GDDC 300 KG"),
+      "modelo_o_capacidad": "petrolero - 700 KG.",
+      "slug": slugify("Mini Cargador Eléctrico petrolero 700 KG"),
       "imagen_portada": BASE_URL+"/images/productos/mini-cargador-electrico.png",
       "imagenes": [
         { "id": 1, "url": BASE_URL+"/images/productos/mini-cargador-electrico.png" },
-        { "id": 2, "url": BASE_URL+"/images/productos/mini-cargador-electrico-300kg-2.jpeg" },
+        { "id": 2, "url": BASE_URL+"/images/productos/mini-cargador-electrico-700kg-2.jpeg" },
       ],
       "tipo": "Mini Cargador Eléctrico",
       "motor": {
         "tipo": "Eléctrico",
-        "potencia": "Doble motor 2200W y Posterior"
+        "potencia": "motor 29hp"
       },
       "baterias": "5 baterías líquidas 12V 100Amp",
       "altura_max_pala": "1.87 m."
