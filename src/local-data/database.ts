@@ -246,6 +246,7 @@ export const productos: Producto[] = [
       "imagen_portada": BASE_URL+"/images/productos/mini-cargador-electrico.png",
       "imagenes": [
         { "id": 1, "url": BASE_URL+"/images/productos/mini-cargador-electrico.png" },
+        { "id": 2, "url": BASE_URL+"/images/productos/mini-cargador-electrico-300kg-2.jpeg" },
       ],
       "tipo": "Mini Cargador Eléctrico",
       "motor": {
