@@ -1,0 +1,263 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import { categorias, productos } from "../../local-data/database"
+import ProductCard from "../../components/ProductCard.astro"
+import { BASE_URL } from "../../components/slugify"
+import type { Article, OrganizationSchema } from "../../local-data/schemas"
+import { fichaTecnica } from "../../local-data/ficha-tecnica"
+import Image from "astro/components/Image.astro"
+
+
+const grupoElectrogenos = categorias.find(categoria => categoria.id === "cat_5")
+const productosGrupoElectrogenos = productos.filter(producto => producto.categoria_id === "cat_5")
+
+const organization: OrganizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": fichaTecnica.informacion_general.nombre_corto,
+    "url": BASE_URL,
+    "logo": `${BASE_URL}logo-claro.jpeg`,
+    "sameAs": [
+        "https://www.facebook.com/mmlosreyesdelnorte",
+        "https://www.instagram.com/mmreyesdelnorte",
+    ]
+}
+
+const schemaArticle: Article = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": grupoElectrogenos?.nombre || "Grupos Electrógenos",
+    "image": [grupoElectrogenos?.imagen_portada || `${BASE_URL}/default-image.jpg`],
+    "datePublished": "2024-01-01",
+    "dateModified": "2024-01-01",
+    "author": {
+       "@type": "Person",
+        "name": "MM Reyes del norte",
+        "url": BASE_URL
+    },
+    "publisher":organization,
+    "description": "Descubre todo lo que necesitas saber sobre grupos electrógenos, desde tipos y comparativas hasta consejos de compra. Encuentra el generador eléctrico perfecto para tus necesidades."
+}
+
+---
+
+<Layout title={grupoElectrogenos?.nombre || "Grupos Electrógenos"} description="Descubre todo lo que necesitas saber sobre grupos electrógenos, desde tipos y comparativas hasta consejos de compra. Encuentra el generador eléctrico perfecto para tus necesidades." canonical="" schemas={[schemaArticle]}>
+    <main class="grupos-electrogenos">
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="titulo">Venta de Grupos Electrógenos Diesel</h1>
+        <p>
+            Un <strong>grupo electrógeno</strong> garantiza el suministro eléctrico en cualquier circunstancia. Contar con un <strong>equipo electrógeno</strong> fiable te permite mantener la operatividad frente a cortes o lugares sin electricidad. 
+        </p>
+        <a href="#listado" class="btn">Ver Catálogo</a>
+        </div>
+    </section>
+    <section id="listado" class="container">
+        <h2>Generadores Eléctricos según tu Necesidad</h2>
+        <p>
+            Si buscas un <strong>generador de energía eléctrica</strong>, la elección depende directamente de la potencia y el entorno <strong>(minería, construcción, residencial)</strong> donde se ubicará la <strong>planta eléctrica</strong>. 
+        </p>
+        <div class="product-grid">
+            {productosGrupoElectrogenos.length > 0 ? (
+        <div class="products-grid">
+          {productosGrupoElectrogenos.map(producto => (
+            <ProductCard producto={producto} categorySlug={grupoElectrogenos?.slug} />
+          ))}
+        </div>
+      ) : (
+        <p class="no-products">No hay productos disponibles en esta categoría por el momento.</p>
+      )}
+        </div>
+    </section>
+    <!-- <section>
+        
+        <ul>
+            <li><strong>Generadores eléctricos industriales:</strong> Diseñados para alto rendimiento y uso continuo en fábricas u obras.</li>
+            <li><strong>Grupo electrógeno encapsulado:</strong> Ideal para exteriores, protegiendo los componentes de las inclemencias del tiempo.</li>
+            <li><strong>Generador eléctrico silencioso:</strong> La opción preferida para eventos o zonas residenciales donde el ruido es un factor crítico.</li>
+        </ul>
+    </section> -->
+
+    <section class="container">
+        <h2>Comparativa: ¿Qué equipo electrógeno elegir?</h2>
+        <p>
+            Al analizar un <strong>grupo electrógeno y su precio</strong>, debes considerar no solo la inversión inicial, sino también el costo operativo y el nivel de ruido (medido en decibelios).
+        </p>
+        <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Modelo</th>
+                    <th>Potencia</th>
+                    <th>Tipo</th>
+                    <th>Nivel Sonoro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>UltraSilent 5000</td>
+                    <td>5 kW</td>
+                    <td>Generador eléctrico silencioso</td>
+                    <td>Bajo</td>
+                </tr>
+                <tr>
+                    <td>IndusPower Pro</td>
+                    <td>50 kW</td>
+                    <td>Generador eléctrico industrial</td>
+                    <td>Medio/Alto</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </section>
+
+    <section class="container" >
+        <h2>Cómo elegir tu Generador Eléctrico</h2>
+        <p>
+            Antes de comprar, asegúrate de sumar el consumo de todos los aparatos que conectarás simultáneamente a tu <strong>planta eléctrica</strong>. Esto determinará la capacidad necesaria para evitar sobrecargas.
+        </p>
+        <h3>¿Buscas el mejor grupo electrógeno por precio?</h3>
+        <p>
+            Disponemos de ofertas exclusivas en toda nuestra gama de <strong>generadores eléctricos</strong>. Haz clic a continuación para descubrir la opción que mejor se adapta a tu presupuesto y necesidades técnicas.
+        </p>
+        <div class="cta-container">
+            <a href="#" class="button">Ver Ofertas en Grupos Electrógenos</a>
+        </div>
+    </section>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "¿Qué es un grupo electrógeno silencioso?",
+        "abstract": "Es un equipo diseñado con una cabina insonorizada para reducir las emisiones de ruido durante su funcionamiento.",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Un generador eléctrico silencioso incorpora paneles de aislamiento acústico y sistemas de escape especiales, lo que lo hace ideal para entornos donde el silencio es primordial, como hospitales o zonas residenciales."
+        }
+      }, {
+        "@type": "Question",
+        "name": "¿Cómo influye el precio en la elección de un equipo electrógeno?",
+        "abstract": "El precio suele reflejar la potencia, la marca y las funcionalidades adicionales de insonorización.",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El precio de un grupo electrógeno varía según su potencia (kVA) y si es un modelo abierto o encapsulado. Los modelos industriales y silenciosos suelen tener un costo mayor debido a su tecnología avanzada y durabilidad."
+        }
+      }]
+    }
+    </script>
+</main>
+
+<style>
+    section{
+        padding-top:var(--hheader);
+        padding-bottom:2rem;
+    }
+    h2,p{
+        margin-bottom:1.5rem;
+    }
+	.hero:before{
+		content: "";
+        position:absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+        height:100%;
+        will-change: transform; 
+		background: linear-gradient(var(--darkh),var(--darkh)), url("/images/electrogenos-9-16.jpeg") center no-repeat;
+        z-index: 0;
+	}
+    .hero{
+        width:100%;
+        height:86vh;
+        display:flex;
+        padding-top:calc(var(--hheader) + 2rem);
+        align-items:center;
+        justify-content:center;
+        position: relative;
+        text-align:center;
+    }
+    .hero-content{
+        z-index:1;
+        max-width:800px;
+    }
+    .hero-content p{
+        margin:5rem auto;
+        padding: 0 1rem;
+    }
+
+	.grupos-electrogenos table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 1.5rem 0;
+		background: var(--darkh);
+		border-radius: 12px;
+		overflow: hidden;
+        backdrop-filter: blur(10px);
+	}
+
+	.grupos-electrogenos th,
+	.grupos-electrogenos td {
+		padding: 1rem 1.1rem;
+		text-align: left;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+	}
+
+	.grupos-electrogenos th {
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		background: rgba(255, 255, 255, 0.08);
+	}
+
+	.grupos-electrogenos tr:hover {
+		background: rgba(255, 255, 255, 0.08);
+	}
+
+	.grupos-electrogenos .cta-container {
+		display: flex;
+		justify-content: center;
+		margin-top: 2rem;
+	}
+
+	.grupos-electrogenos .button {
+		border: 1px solid rgba(255, 255, 255, 0.5);
+		background: rgba(255, 255, 255, 0.15);
+		color: rgba(255, 255, 255, 0.95);
+		padding: 0.85rem 1.4rem;
+		border-radius: 999px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		transition: transform 0.2s ease, background 0.2s ease;
+		box-shadow: 0 16px 30px var(--darkh);
+	}
+
+	.grupos-electrogenos .button:hover {
+		transform: translateY(-2px);
+		background: rgba(255, 255, 255, 0.24);
+	}
+    .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 768px) {
+    .hero{
+        height:95vh;
+    }
+    .hero:before{
+        background: linear-gradient(var(--darkh),var(--darkh)), url("/images/electrogenos-16-9.png") center no-repeat;
+    }
+    .hero-content p{
+        margin:5rem auto;
+    }
+  }
+</style>
+</Layout>
