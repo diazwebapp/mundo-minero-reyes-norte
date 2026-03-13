@@ -8,22 +8,22 @@ const BASE_URL = import.meta.env.DEV
 export const categorias: Categoria[] = [
     {
       "id": "cat_1",
-      "nombre": "Mini Dumpers Diésel",
-      "description": "Equipos robustos y confiables para transporte de material en minas, con motores diésel eficientes.",
-      "slug": slugify("Mini Dumpers Diésel"),
+      "nombre": "Mini Dumpers",
+      "description": "Los mini dumpers se utilizan en la industria minera como vehículos para transportar grandes volúmenes de material como rocas y minerales.",
+      "slug": slugify("Mini Dumpers"),
       "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png"
     },
-    {
+    /* {
       "id": "cat_2",
       "nombre": "Mini Dumpers Eléctricos",
       "description": "Soluciones limpias y silenciosas para obra subterránea, 100% eléctricas.",
       "slug": slugify("Mini Dumpers Eléctricos"),
       "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png"
-    },
+    }, */
     {
       "id": "cat_3",
       "nombre": "Scoops / Mini Cargadores",
-      "description": "Carga y maniobra de material en espacios reducidos con alto rendimiento.",
+      "description": "Este tipo de maquinaria tienen capacidad para manipular grandes cantidades de material a la vez y se utilizan para cargar de minerales los camiones.",
       "slug": slugify("scoops-mini-cargadores"),
       "imagen_portada": BASE_URL+"/images/productos/scoop-chwj.png"
     },
@@ -174,7 +174,7 @@ export const productos: Producto[] = [
       "id": "prod_6",
       "nombre": "Mini Dumper Eléctrico 1 TN",
       "description": "Mini Dumper Eléctrico 1 TN silencioso y ecológico, perfecto para galerías subterráneas.",
-      "categoria_id": "cat_2",
+      "categoria_id": "cat_1",
       "modelo_o_capacidad": "1 TN",
       "slug": slugify("Mini Dumper Eléctrico 1 TN"),
       "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png",
@@ -197,7 +197,7 @@ export const productos: Producto[] = [
       "id": "prod_7",
       "nombre": "Mini Dumper Eléctrico 1.5 TN",
       "description": "Mini Dumper Eléctrico 1.5 TN con batería de 6 celdas y autonomía de horas prolongadas.",
-      "categoria_id": "cat_2",
+      "categoria_id": "cat_1",
       "modelo_o_capacidad": "1.5 TN",
       "slug": slugify("Mini Dumper Eléctrico 1.5 TN"),
       "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png",
@@ -218,7 +218,7 @@ export const productos: Producto[] = [
       "id": "prod_8",
       "nombre": "Mini Dumper Eléctrico 1.5 TN Sistema datai",
       "description": "Mini Dumper Eléctrico 1.5 TN Sistema datai con 4000W y protección hermética para ambientes húmedos.",
-      "categoria_id": "cat_2",
+      "categoria_id": "cat_1",
       "modelo_o_capacidad": "1.5 TN Sistema datai",
       "slug": slugify("Mini Dumper Eléctrico 1.5 TN Sistema datai"),
       "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png",
