@@ -38,6 +38,7 @@ export interface DatosContacto {
   telefono_ventas: string;
   correo_electronico: string;
   instagram?: string;
+  tiktok?: string;
   facebook?: string;
   whatsapp?: string;
 }

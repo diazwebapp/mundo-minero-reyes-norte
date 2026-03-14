@@ -35,8 +35,9 @@ export const fichaTecnica: FichaTecnica = {
     "telefono_movil": "+51920310887",
     "telefono_ventas" : "+51920310887",
     "correo_electronico": "mmreyesdelnorte@gmail.com",
-    "facebook":"mmreyesdelnorte",
+    "facebook":"mmlosreyesdelnorte",
     "instagram":"mmreyesdelnorte",
+    "tiktok":"@mmreyesdlnorte",
     "whatsapp":"+51920310887"
   },
   "aspectos_legales_tributarios": {

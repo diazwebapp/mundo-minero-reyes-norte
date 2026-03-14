@@ -7,12 +7,12 @@ export function slugify(text: string): string {
   // añadiendo `/` explícitamente donde sea necesario.
   return text
     .toString()
+    .toLowerCase()
     .normalize('NFD') // Separa las letras de los acentos (e.g., "é" -> "e" + "´")
     .replace(/[\u0300-\u036f]/g, '') // Elimina los acentos (diacríticos)
-    .toLowerCase()
     .trim()
     .replace(/\s+/g, '-')           // Reemplaza espacios con -
-    .replace(/[^\w\-]+/g, '')       // Elimina caracteres no válidos
+    .replace(/[^\w\-#?=&]+/g, '')   // Elimina caracteres no válidos, permitiendo # ? = &
     .replace(/\-\-+/g, '-')       // Reemplaza múltiples guiones con uno solo
     ;
 }

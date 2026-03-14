@@ -1,7 +1,156 @@
 ---
 import { fichaTecnica } from "../local-data/ficha-tecnica";
-const {datos_contacto, domicilio_fiscal} = fichaTecnica
+const { datos_contacto, domicilio_fiscal, informacion_general } = fichaTecnica;
 ---
 
-<section id="contacto">
+<section id="contacto" class="contact">
+  <h2 class="contact__title">Contáctanos</h2>
+
+  <div class="contact__grid">
+    <!-- Social + email links -->
+    <div class="contact__links">
+      <article class="contact__card">
+        <img class="contact__icon" loading="lazy" width="50px" height="50px" src="/src/assets/whatsapp.gif" alt="whatsapp" />
+        <div class="contact__body">
+          <div class="contact__label">Whatsapp</div>
+          <a class="contact__value" href={`https://wa.me/${datos_contacto.whatsapp}`} target="_blank" rel="noopener">{datos_contacto.whatsapp}</a>
+        </div>
+      </article>
+
+      <article class="contact__card">
+        <img class="contact__icon" loading="lazy" width="50px" height="50px" src="/src/assets/instagram.gif" alt="Instagram" />
+        <div class="contact__body">
+          <div class="contact__label">Instagram</div>
+          <a class="contact__value" href={`https://instagram.com/${datos_contacto.instagram}`} target="_blank" rel="noopener">{datos_contacto.instagram}</a>
+        </div>
+      </article>
+
+      <article class="contact__card">
+        <img class="contact__icon" loading="lazy" width="50px" height="50px" src="/src/assets/tiktok.gif" alt="TikTok" />
+        <div class="contact__body">
+          <div class="contact__label">TikTok</div>
+          <a class="contact__value" href={`https://tiktok.com/${datos_contacto.tiktok}`} target="_blank" rel="noopener">{datos_contacto.tiktok}</a>
+        </div>
+      </article>
+
+      <article class="contact__card">
+        <img class="contact__icon" loading="lazy" width="50px" height="50px" src="/src/assets/facebook.gif" alt="Facebook" />
+        <div class="contact__body">
+          <div class="contact__label">Facebook</div>
+          <a class="contact__value" href={`https://facebook.com/${datos_contacto.facebook}`} target="_blank" rel="noopener">{datos_contacto.facebook}</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- Fiscal / legal info -->
+    <div class="contact__details">
+      <article class="contact__card contact__card--large">
+        <div class="contact__header">
+          <span class="contact__label">Dirección fiscal</span>
+        </div>
+        <p class="contact__text">{domicilio_fiscal.direccion}</p>
+        <p class="contact__text">{domicilio_fiscal.zona}, {domicilio_fiscal.distrito}</p>
+        <p class="contact__text">{domicilio_fiscal.provincia}, {domicilio_fiscal.departamento}</p>
+      </article>
+
+      <article class="contact__card contact__card--large">
+        <div class="contact__header">
+          <span class="contact__label">Razón social</span>
+        </div>
+        <p class="contact__text">{informacion_general.nombre_o_razon_social}</p>
+        <p class="contact__subtext">RUC: {informacion_general.ruc}</p>
+      </article>
+    </div>
+  </div>
 </section>
+
+<style>
+  .contact {
+    padding: 2.5rem 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .contact__title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact__grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .contact__links {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .contact__details {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .contact__card {
+    border-radius: 1rem;
+    padding: .7rem;
+    background: var(--platah);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+  }
+
+  .contact__card--large {
+    flex-direction: column;
+  }
+
+  .contact__icon {
+    margin-right: 0.75rem;
+    width: unset;
+    border-radius: 50%;
+  }
+
+  .contact__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .contact__label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .contact__value {
+    color: inherit;
+    text-decoration: none;
+    font-size: 1rem;
+    word-break: break-word;
+  }
+
+  .contact__text {
+    margin: 0.35rem 0;
+  }
+
+  .contact__subtext {
+    margin: 0.35rem 0 0;
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+
+  @media (min-width: 768px) {
+    .contact__grid {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .contact__details {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -431,6 +431,26 @@ export const productos: Producto[] = [
       "baterias": "1 batería 60 V/32A",
       "autonomia": "10-12 horas",
       "dimensiones_globales": "Largo: 1.26 m., Ancho: 0.65 m., Alto: 1.00 m."
+    },
+    {
+      "id": "prod_20",
+      "nombre": "Generador Diésel 100kw",
+      "description": "Generador Diésel 100kw A500, robusto y flexible en voltajes 220/380V.",
+      "categoria_id": "cat_5",
+      "modelo_o_capacidad": "100kw",
+      "slug": slugify("Generador Diésel 100kw"),
+      "imagen_portada": BASE_URL+"/images/productos/grupo-electrogeno-100kw.png",
+      "imagenes": [
+        { "id": 1, "url": BASE_URL+"/images/productos/grupo-electrogeno-100kw.png" },
+        { "id": 2, "url": BASE_URL+"/images/productos/grupo-electrogeno-100kw-1.png" },
+        { "id": 3, "url": BASE_URL+"/images/productos/grupo-electrogeno-100kw-2.png" },
+      ],
+      "motor": {
+        "marca": "Cummins",
+        "modelo": "6CTAA8.3-G2"
+      },
+      "fases": "Monofase y Trifase",
+      "voltaje": "230V-400V"
     }
   ]
 
@@ -438,28 +458,28 @@ export const paginas: Pagina[] = [
   {
     "id": "pag_1",
     "nombre": "Inicio",
-    "slug": "",
+    "slug": slugify("/"),
     "imagen_portada": BASE_URL + "/images/paginas/inicio.png",
     "description": "Página de inicio - Mundo Minero Los Reyes del Norte"
   },
   {
     "id": "pag_2",
     "nombre": "Nosotros",
-    "slug": "nosotros",
+    "slug": slugify("Nosotros"),
     "imagen_portada": BASE_URL + "/images/paginas/nosotros.webp",
     "description": "Conoce más sobre Mundo Minero Los Reyes del Norte, especialistas en equipos mineros."
   },
   {
     "id": "pag_3",
     "nombre": "Productos",
-    "slug": "#productos",
+    "slug": slugify("#Productos"),
     "imagen_portada": BASE_URL + "/images/paginas/productos.webp",
     "description": "Catálogo completo de equipos y maquinaria para la industria minera."
   },
   {
     "id": "pag_4",
     "nombre": "Contacto",
-    "slug": "nosotros/#contacto",
+    "slug": slugify("nosotros#Contacto"),
     "imagen_portada": BASE_URL + "/images/paginas/contacto.webp",
     "description": "Ponte en contacto con nuestro equipo de ventas."
   }

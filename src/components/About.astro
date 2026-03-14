@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { fichaTecnica } from "../local-data/ficha-tecnica";
 import { BASE_URL } from './slugify';
+import Contact from './Contact.astro';
 ---
 
 <section id="nosotros" >
@@ -51,21 +52,7 @@ import { BASE_URL } from './slugify';
         </div>
       
     </div>
-    <div id="contacto" class="about-grid first-row">
-        <div class="image-container">
-          <Image src={BASE_URL+"tienda.png"} alt="Mundo Minero Los Reyes Norte logo" width="512" height="288" loading="lazy" />
-        </div>
-        <div class="title"><h2>Contáctanos</h2></div>
-        <div class="text">
-            
-            <p>Operamos desde <strong>Trujillo, La Libertad</strong>, con domicilio en {fichaTecnica.domicilio_fiscal.direccion}, {fichaTecnica.domicilio_fiscal.distrito}, y nos enorgullece ser un proveedor activo y transparente en el mercado minero peruano. 
-            Nuestro equipo, liderado por la gerente Venecia Macarena Flores Torres, está siempre dispuesto a acompañar a nuestros clientes en cada etapa del proceso.</p>
-
-            <p><strong>Contáctanos:</strong> <a href={`https://wa.me/${fichaTecnica.datos_contacto.telefono_ventas}`} target="_blank" rel="noopener">{fichaTecnica.datos_contacto.telefono_ventas}</a> 
-            | <a href={`mailto:${fichaTecnica.datos_contacto.correo_electronico}`}>{fichaTecnica.datos_contacto.correo_electronico}</a></p>
-  
-        </div>
-    </div>
+    <Contact />
   </div>
 </section>
 
