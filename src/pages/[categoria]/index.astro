@@ -52,7 +52,7 @@ const categorySchema:ProductItemListSchema = {
     
       <div class="section-header">
         <span class="section-label">Categoría</span>
-        <h1>{categoria.nombre}</h1>
+        <h1 class="titulos" >{categoria.nombre}</h1>
         <p class="subtitle">
           Explora todos nuestros productos en la categoría de {categoria.nombre}.
         </p>
@@ -79,10 +79,7 @@ const categorySchema:ProductItemListSchema = {
     text-align: center;
     margin-bottom: 4rem;
   }
-  h1{
-    font-size: 4rem;
-    margin: 0.5rem 0;
-  }
+  
   .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
