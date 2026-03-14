@@ -465,7 +465,7 @@ export const paginas: Pagina[] = [
   {
     "id": "pag_2",
     "nombre": "Nosotros",
-    "slug": slugify("Nosotros"),
+    "slug": slugify("nosotros"),
     "imagen_portada": BASE_URL + "/images/paginas/nosotros.webp",
     "description": "Conoce más sobre Mundo Minero Los Reyes del Norte, especialistas en equipos mineros."
   },

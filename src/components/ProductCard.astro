@@ -23,7 +23,7 @@ function isCategory(x: Producto | Categoria): x is Categoria {
 
 <article class="product-card">
   <a
-    href={`${BASE_URL}${categorySlug ? `${categorySlug}/` : ''}${producto.slug}/`}
+    href={`/${categorySlug ? `${categorySlug}/` : ''}${producto.slug}/`}
     class="stretched-link"
     aria-label={`Ver detalles de ${producto.nombre}`}
   >

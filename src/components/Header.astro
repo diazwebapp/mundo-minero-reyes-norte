@@ -14,7 +14,7 @@ import { BASE_URL } from "./slugify";
 
 			<ul class="nav-links">
 				{paginas.map(pagina => (
-					<li><a href={pagina.slug ? BASE_URL + pagina.slug : BASE_URL}>{pagina.nombre}</a></li>
+					<li><a href={pagina.slug ? '/'+pagina.slug + '/' : BASE_URL}>{pagina.nombre}</a></li>
 				))}
 			</ul>
 
