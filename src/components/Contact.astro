@@ -1,4 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import whatsappGif from '../assets/whatsapp.gif';
+import instagramGif from '../assets/instagram.gif';
+import tiktokGif from '../assets/tiktok.gif';
+import facebookGif from '../assets/facebook.gif';
 import { fichaTecnica } from "../local-data/ficha-tecnica";
 const { datos_contacto, domicilio_fiscal, informacion_general } = fichaTecnica;
 ---
@@ -10,7 +15,7 @@ const { datos_contacto, domicilio_fiscal, informacion_general } = fichaTecnica;
     <!-- Social + email links -->
     <div class="contact__links">
       <article class="contact__card">
-        <img class="contact__icon" loading="lazy" width="50px" height="50px" src="/src/assets/whatsapp.gif" alt="whatsapp" />
+        <Image src={whatsappGif} alt="whatsapp" class="contact__icon" width={50} height={50} loading="lazy" />
         <div class="contact__body">
           <div class="contact__label">Whatsapp</div>
           <a class="contact__value" href={`https://wa.me/${datos_contacto.whatsapp}`} target="_blank" rel="noopener">{datos_contacto.whatsapp}</a>
@@ -18,7 +23,7 @@ const { datos_contacto, domicilio_fiscal, informacion_general } = fichaTecnica;
       </article>
 
       <article class="contact__card">
-        <img class="contact__icon" loading="lazy" width="50px" height="50px" src="/src/assets/instagram.gif" alt="Instagram" />
+        <Image src={instagramGif} alt="Instagram" class="contact__icon" width={50} height={50} loading="lazy" />
         <div class="contact__body">
           <div class="contact__label">Instagram</div>
           <a class="contact__value" href={`https://instagram.com/${datos_contacto.instagram}`} target="_blank" rel="noopener">{datos_contacto.instagram}</a>
@@ -26,7 +31,7 @@ const { datos_contacto, domicilio_fiscal, informacion_general } = fichaTecnica;
       </article>
 
       <article class="contact__card">
-        <img class="contact__icon" loading="lazy" width="50px" height="50px" src="/src/assets/tiktok.gif" alt="TikTok" />
+        <Image src={tiktokGif} alt="TikTok" class="contact__icon" width={50} height={50} loading="lazy" />
         <div class="contact__body">
           <div class="contact__label">TikTok</div>
           <a class="contact__value" href={`https://tiktok.com/${datos_contacto.tiktok}`} target="_blank" rel="noopener">{datos_contacto.tiktok}</a>
@@ -34,7 +39,7 @@ const { datos_contacto, domicilio_fiscal, informacion_general } = fichaTecnica;
       </article>
 
       <article class="contact__card">
-        <img class="contact__icon" loading="lazy" width="50px" height="50px" src="/src/assets/facebook.gif" alt="Facebook" />
+        <Image src={facebookGif} alt="Facebook" class="contact__icon" width={50} height={50} loading="lazy" />
         <div class="contact__body">
           <div class="contact__label">Facebook</div>
           <a class="contact__value" href={`https://facebook.com/${datos_contacto.facebook}`} target="_blank" rel="noopener">{datos_contacto.facebook}</a>
