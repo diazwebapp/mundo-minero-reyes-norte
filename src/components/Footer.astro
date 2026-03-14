@@ -20,7 +20,7 @@ const { informacion_general, datos_contacto, domicilio_fiscal } = fichaTecnica;
 				<h4>Enlaces Rápidos</h4>
 				<ul>
 					{paginas.map(pagina => (
-						<li><a href={pagina.slug ? BASE_URL + pagina.slug : BASE_URL}>{pagina.nombre}</a></li>
+						<li><a href={pagina.slug ? pagina.slug + '/': BASE_URL}>{pagina.nombre}</a></li>
 					))}
 				</ul>
 			</div>
