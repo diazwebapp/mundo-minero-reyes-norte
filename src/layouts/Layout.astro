@@ -198,6 +198,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		flex-shrink: 0;
 		color: #25d366;
 	}
+	.nav-icons{stroke:white;}
 	img {
 		width: 100%;
 		height: auto;
@@ -227,28 +228,36 @@ window.addEventListener('DOMContentLoaded', () => {
 		height: var(--hheader);
 	}
 
-
-	.nav-links {
-		display: flex;
-		list-style: none;
-		gap: 2rem;
-		margin: 0;
-		padding: 10px 0;
-		flex: 1;
-		justify-content: center;
-	}
-	.container {
+.container {
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 0 1rem;
 	}
-	.nav-links a {
+	.nav-links {
+		display: flex;
+		list-style: none;
+		gap: 1rem;
+		margin: 0;
+		flex: 1;
+		justify-content: center;
+		align-items:center;
+	}
+	
+	.nav-links a, .nav-links svg {
 		text-decoration: none;
 		position: relative;
 		font-weight: 100;
+		cursor:pointer;
+		display:block;
 	}
-
-
+	.nav-links a{
+		display:flex;
+		flex-flow:row;
+		padding:.15rem .2rem;
+	}
+	.nav-links a svg{
+		margin-right:10px;
+	}
 	.btn {
 		width: max-content;
 		display: flex;

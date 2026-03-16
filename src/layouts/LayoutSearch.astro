@@ -1,0 +1,237 @@
+---
+
+import Footer from '../components/Footer.astro';
+import SearchHeader from '../components/SearchHeader.astro';
+
+---
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		
+		<title>Search</title>
+		
+	</head>
+	<body>
+		<SearchHeader/>
+    <slot />
+		<Footer />
+	</body>
+</html>
+
+
+<style is:global>
+@view-transition {
+  navigation: auto;
+}
+
+/* 1. La página que se va (Old) */
+::view-transition-old(root) {
+  animation: slide-out 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 2. La página que entra (New) */
+::view-transition-new(root) {
+  animation: slide-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Animación: sale hacia la izquierda y se desvanece un poco */
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+}
+
+/* Animación: entra desde la derecha */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+	:root {
+		--hheader: 80px;
+		--light:#ffffff;
+		--dark: #000000;
+		--darkh: rgba(0, 0, 0, 0.7);
+		--plata:rgb(105, 105, 105);
+	}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  :root {
+    /* Podemos bajar un poco la saturación si el OLED es muy chillón */
+    --dark: #000000; 
+	--darkh: rgba(0, 0, 0, 0.6);
+	--plata:rgba(129, 128, 128, 0.575);
+  }
+}
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+	
+	body::before {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -2; 
+		background-color: var(--dark); 	
+		}
+	body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		min-height: 100%;
+		letter-spacing: 0.05em;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		z-index: 1; 
+		color:var(--light);
+		background: transparent;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	body::after {
+			content: "";
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100%;
+			will-change: transform; 
+			z-index: -1; 
+			background:  url(/9-16-1.webp) center no-repeat; 
+			background-size:cover;
+			}
+	h1, h2, h3, h4, h5, h6 {
+		line-height: 1.2;
+		font-weight: lighter;
+		letter-spacing: 0.08em;
+		font-family: 'Times New Roman', Times, serif;
+	}
+
+	p {
+		line-height: 1.6;
+	}
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+	
+	svg.whatsapp {
+		flex-shrink: 0;
+		color: #25d366;
+	}
+	.nav-icons{stroke:white;}
+	img {
+		width: 100%;
+		height: auto;
+	}
+.titulos{
+		font-size: clamp(2rem, 4vw, 3.5rem);
+		line-height: 1.2;
+		text-transform: uppercase;
+	}
+	/* Header Styles */
+	#header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+	}
+
+
+	
+.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 1rem;
+	}
+	
+	
+	/* Footer Styles */
+	footer {
+		padding: 4rem 2rem 2rem;
+		background: var(--darkh);
+		backdrop-filter: blur(10px);
+	}
+
+	.footer-container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.footer-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 3rem;
+		margin-bottom: 3rem;
+	}
+
+	.footer-section h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.footer-section h4 {
+		font-size: 1.125rem;
+		margin-bottom: 1rem;
+	}
+
+	.footer-section p {
+		line-height: 1.6;
+		margin: 0.5rem 0;
+	}
+
+	.footer-section ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.footer-section li {
+		margin-bottom: 0.75rem;
+	}
+
+	.footer-section a {
+		text-decoration: none;
+		transition: color 0.3s ease;
+	}
+
+	.footer-bottom {
+		padding-top: 2rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		text-align: center;
+	}
+
+	.footer-bottom p {
+		margin: 0;
+	}
+@media (min-width: 768px) {
+	body::after { 
+			background:  url(/16-9-1.webp) center no-repeat; 
+			background-size:cover;
+	}
+}
+</style>
