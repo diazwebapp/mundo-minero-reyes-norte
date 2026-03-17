@@ -1,8 +1,8 @@
 
 
 /**
- * URL base del sitio. Se usa para generar URLs absolutas para SEO (canonical, open graph, JSON-LD).
- * Asegúrate de que NO tenga una barra al final.
+ * URL base del sitio. Se usa para generar URLs absolutas.
+ * example: "https://mmreyesdelnorte.com/".
  */
 export const BASE_URL = import.meta.env.DEV
   ? import.meta.env.DEVURL
