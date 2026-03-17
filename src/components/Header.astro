@@ -2,19 +2,18 @@
 import { fichaTecnica } from "../local-data/ficha-tecnica";
 import { paginas } from "../local-data/database";
 import { Image } from 'astro:assets';
-import { BASE_URL } from "./slugify";
 ---
 
 <header id="header">
 	<div class="container">
 	<nav class="navbar">
-			<a href={BASE_URL} class="logo">
-				<Image src={BASE_URL + "white-blue-logo.png"} title="Mundo Minero Reyes Norte" alt="Mundo Minero Reyes Norte" width="100" height="100" />
+			<a href="/" class="logo" title="Ir a la página de inicio">
+				<Image src={"/white-blue-logo.png"} title="Mundo Minero Reyes Norte" alt="Mundo Minero Reyes Norte" width="100" height="100" />
 			</a>
 
 			<ul class="nav-links">
 				{paginas.map(pagina => (
-					<li><a href={pagina.slug ? '/'+pagina.slug + '/' : BASE_URL}> {pagina.nombre}</a></li>
+					<li><a href={pagina.slug}> {pagina.nombre}</a></li>
 				))}
 				<li><a href="/search" aria-label="Buscar producto" title="Buscar producto">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" viewBox="0 0 24 24"  class="nav-icons">

@@ -3,15 +3,14 @@ import { productos, categorias } from '../../local-data/database';
 import type { Producto, Categoria } from '../../local-data/database.types';
 import type { ProductSchema } from '../../local-data/schemas';
 import Layout from '../../layouts/Layout.astro';
-import { BASE_URL } from '../../components/slugify';
+import { BASE_URL } from '../../utils/config';
 import { Image } from 'astro:assets';
 import { fichaTecnica } from '../../local-data/ficha-tecnica';
 import Galery from '../../components/Galery.astro';
 
 // Obtener parámetros dinámicamente (funciona con SSR) y normalizarlos
 let { categoria: categoriaSlug, producto: productoSlug } = Astro.params;
-categoriaSlug = categoriaSlug?.replace(/\/+$/,'');
-productoSlug = productoSlug?.replace(/\/+$/,'');
+ console.log({ categoriaSlug, productoSlug })
 
 
 const producto = productos.find(p => p.slug === productoSlug);
@@ -76,7 +75,8 @@ const specs: Spec[] = [
 const specsFiltered = specs.filter(spec => spec.value);
 ---
 
-<Layout urlimage={producto.imagen_portada} title={producto.nombre} description={producto.description} canonical={`${BASE_URL}${categoriaSlug}/${producto.slug}/`} schemas={[productSchema]}>
+<!-- <Layout urlimage={producto.imagen_portada} title={producto.nombre} description={producto.description} canonical={`${BASE_URL}${categoriaSlug}/${producto.slug}/`} schemas={[productSchema]}> -->
+ <Layout >
   <section class="container">
       
       <!-- Breadcrumb Navigation -->

@@ -1,9 +1,5 @@
-import { slugify } from "../components/slugify";
+import { slugify } from "../utils/config";
 import type { Categoria, Producto, Pagina } from "./database.types";
-
-const BASE_URL = import.meta.env.DEV 
-  ? 'https://fuzzy-space-orbit-67p4jqjrxr7257vq-4321.app.github.dev' 
-  : 'https://mmreyesdelnorte.com';
 
 export const categorias: Categoria[] = [
     {
@@ -11,7 +7,7 @@ export const categorias: Categoria[] = [
       "nombre": "Mini Dumpers",
       "description": "Los mini dumpers se utilizan en la industria minera como vehículos para transportar grandes volúmenes de material como rocas y minerales.",
       "slug": slugify("Mini Dumpers"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png"
+      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png"
     },
     /* {
       "id": "cat_2",
@@ -25,42 +21,42 @@ export const categorias: Categoria[] = [
       "nombre": "Scoops / Mini Cargadores",
       "description": "Este tipo de maquinaria tienen capacidad para manipular grandes cantidades de material a la vez y se utilizan para cargar de minerales los camiones.",
       "slug": slugify("scoops-mini-cargadores"),
-      "imagen_portada": BASE_URL+"/images/productos/scoop-chwj.png"
+      "imagen_portada": "/images/productos/scoop-chwj.png"
     },
     {
       "id": "cat_4",
       "nombre": "Mucking Loaders",
       "description": "Máxima productividad en extracción de escombros con velocidad y potencia.",
       "slug": slugify("Mucking Loaders"),
-      "imagen_portada": BASE_URL+"/images/productos/mucking-loader-60tn.png"
+      "imagen_portada": "/images/productos/mucking-loader-60tn.png"
     },
     {
       "id": "cat_5",
       "nombre": "Grupos Electrógenos",
       "description": "Generadores diésel versátiles para energía confiable en campo.",
       "slug": slugify("grupos Electrogenos"),
-      "imagen_portada": BASE_URL+"/images/productos/electrogenos.png"
+      "imagen_portada": "/images/productos/electrogenos.png"
     },
     {
       "id": "cat_6",
       "nombre": "Perforación y Arrastre",
       "description": "Herramientas neumáticas y winches robustos para perforar y arrastrar carga.",
       "slug": slugify("perforacion y Arrastre"),
-      "imagen_portada": BASE_URL+"/images/productos/arrastre-perforacion.png"
+      "imagen_portada": "/images/productos/arrastre-perforacion.png"
     },
     {
       "id": "cat_7",
       "nombre": "Ventilación Industrial",
       "description": "Sistemas de flujo de aire potentes para mantener condiciones seguras.",
       "slug": slugify("Ventilación Industrial"),
-      "imagen_portada": BASE_URL+"/images/productos/ventiladores.png"
+      "imagen_portada": "/images/productos/ventiladores.png"
     },
     {
       "id": "cat_8",
       "nombre": "Carretillas Eléctricas",
       "description": "Movilidad eléctrica ligera para transporte interno eficiente.",
       "slug": slugify("Carretillas Eléctricas"),
-      "imagen_portada": BASE_URL+"/images/productos/carretillas-electricas.png"
+      "imagen_portada": "/images/productos/carretillas-electricas.png"
     }
   ]
   
@@ -72,13 +68,13 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "1.5 TN",
       "slug": slugify("Mini Dumper Diésel 1.5 TN"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png",
+      "imagen_portada": "/images/productos/mini-dumper-diesel-1.5tn.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn.png" },
-        { "id": 2, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn-1.png" },
-        { "id": 3, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn-2.png" },
-        { "id": 4, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn-3.png" },
-        { "id": 5, "url": BASE_URL+"/images/productos/mini-dumper-diesel-1.5tn-4.png" },
+        { "id": 1, "url": "/images/productos/mini-dumper-diesel-1.5tn.png" },
+        { "id": 2, "url": "/images/productos/mini-dumper-diesel-1.5tn-1.png" },
+        { "id": 3, "url": "/images/productos/mini-dumper-diesel-1.5tn-2.png" },
+        { "id": 4, "url": "/images/productos/mini-dumper-diesel-1.5tn-3.png" },
+        { "id": 5, "url": "/images/productos/mini-dumper-diesel-1.5tn-4.png" },
       ],
       "motor": {
         "tipo": "Diésel",
@@ -96,13 +92,13 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "2.5 TN CV900",
       "slug": slugify("Mini Dumper Diésel 2.5 TN CV900"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn.png",
+      "imagen_portada": "/images/productos/mini-dumper-diesel-2.5tn.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn.png" },
-        { "id": 2, "url": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn-1.png" },
-        { "id": 3, "url": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn-2.png" },
-        { "id": 4, "url": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn-3.png" },
-        { "id": 5, "url": BASE_URL+"/images/productos/mini-dumper-diesel-2.5tn-4.png" },
+        { "id": 1, "url": "/images/productos/mini-dumper-diesel-2.5tn.png" },
+        { "id": 2, "url": "/images/productos/mini-dumper-diesel-2.5tn-1.png" },
+        { "id": 3, "url": "/images/productos/mini-dumper-diesel-2.5tn-2.png" },
+        { "id": 4, "url": "/images/productos/mini-dumper-diesel-2.5tn-3.png" },
+        { "id": 5, "url": "/images/productos/mini-dumper-diesel-2.5tn-4.png" },
       ],
       "motor": {
         "tipo": "Diésel",
@@ -119,9 +115,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "3.5 TN",
       "slug": slugify("Mini Dumper Diésel 3.5 TN"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-3.5tn.png",
+      "imagen_portada": "/images/productos/mini-dumper-diesel-3.5tn.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-diesel-3.5tn.png" },
+        { "id": 1, "url": "/images/productos/mini-dumper-diesel-3.5tn.png" },
       ],
       "motor": {
         "tipo": "Diésel",
@@ -138,9 +134,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "5-6 TN",
       "slug": slugify("Mini Dumper Diésel 5-6 TN"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-6tn.png",
+      "imagen_portada": "/images/productos/mini-dumper-diesel-6tn.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-diesel-6tn.png" },
+        { "id": 1, "url": "/images/productos/mini-dumper-diesel-6tn.png" },
       ],
       "motor": {
         "tipo": "Diésel - Yunnei 490 Turbo",
@@ -157,9 +153,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "7-8 TN",
       "slug": slugify("Mini Dumper Diésel 7-8 TN"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-diesel-6tn.png",
+      "imagen_portada": "/images/productos/mini-dumper-diesel-6tn.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-diesel-6tn.png" },
+        { "id": 1, "url": "/images/productos/mini-dumper-diesel-6tn.png" },
       ],
       "motor": {
         "tipo": "Diésel - Yunnei 4102 Turbo",
@@ -177,12 +173,12 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "1 TN",
       "slug": slugify("Mini Dumper Eléctrico 1 TN"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png",
+      "imagen_portada": "/images/productos/mini-dumper-electrico-1.5tn.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png" },
-        { "id": 2, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-1.jpeg" },
-        { "id": 3, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-2.png" },
-        { "id": 4, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-3.png" }
+        { "id": 1, "url": "/images/productos/mini-dumper-electrico-1.5tn.png" },
+        { "id": 2, "url": "/images/productos/mini-dumper-electrico-1.5tn-1.jpeg" },
+        { "id": 3, "url": "/images/productos/mini-dumper-electrico-1.5tn-2.png" },
+        { "id": 4, "url": "/images/productos/mini-dumper-electrico-1.5tn-3.png" }
 
       ],
       "motor": {
@@ -200,12 +196,12 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "1.5 TN",
       "slug": slugify("Mini Dumper Eléctrico 1.5 TN"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png",
+      "imagen_portada": "/images/productos/mini-dumper-electrico-1.5tn.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png" },
-        { "id": 2, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-1.jpeg" },
-        { "id": 3, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-2.png" },
-        { "id": 4, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-3.png" }
+        { "id": 1, "url": "/images/productos/mini-dumper-electrico-1.5tn.png" },
+        { "id": 2, "url": "/images/productos/mini-dumper-electrico-1.5tn-1.jpeg" },
+        { "id": 3, "url": "/images/productos/mini-dumper-electrico-1.5tn-2.png" },
+        { "id": 4, "url": "/images/productos/mini-dumper-electrico-1.5tn-3.png" }
       ],
       "motor": {
         "tipo": "Eléctrico",
@@ -221,12 +217,12 @@ export const productos: Producto[] = [
       "categoria_id": "cat_1",
       "modelo_o_capacidad": "1.5 TN Sistema datai",
       "slug": slugify("Mini Dumper Eléctrico 1.5 TN Sistema datai"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png",
+      "imagen_portada": "/images/productos/mini-dumper-electrico-1.5tn.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn.png" },
-        { "id": 2, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-1.jpeg" },
-        { "id": 3, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-2.png" },
-        { "id": 4, "url": BASE_URL+"/images/productos/mini-dumper-electrico-1.5tn-3.png" }
+        { "id": 1, "url": "/images/productos/mini-dumper-electrico-1.5tn.png" },
+        { "id": 2, "url": "/images/productos/mini-dumper-electrico-1.5tn-1.jpeg" },
+        { "id": 3, "url": "/images/productos/mini-dumper-electrico-1.5tn-2.png" },
+        { "id": 4, "url": "/images/productos/mini-dumper-electrico-1.5tn-3.png" }
       ],
       "motor": {
         "tipo": "Eléctrico",
@@ -243,10 +239,10 @@ export const productos: Producto[] = [
       "categoria_id": "cat_3",
       "modelo_o_capacidad": "petrolero - 700 KG.",
       "slug": slugify("Mini Cargador Eléctrico petrolero 700 KG"),
-      "imagen_portada": BASE_URL+"/images/productos/mini-cargador-electrico.png",
+      "imagen_portada": "/images/productos/mini-cargador-electrico.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mini-cargador-electrico.png" },
-        { "id": 2, "url": BASE_URL+"/images/productos/mini-cargador-electrico-700kg-2.jpeg" },
+        { "id": 1, "url": "/images/productos/mini-cargador-electrico.png" },
+        { "id": 2, "url": "/images/productos/mini-cargador-electrico-700kg-2.jpeg" },
       ],
       "tipo": "Mini Cargador Eléctrico",
       "motor": {
@@ -263,9 +259,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_3",
       "modelo_o_capacidad": "CHWJ-0.6",
       "slug": slugify("Scoop CHWJ-0.6"),
-      "imagen_portada": BASE_URL+"/images/productos/scoop-chwj.png",
+      "imagen_portada": "/images/productos/scoop-chwj.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/scoop-chwj.png" },
+        { "id": 1, "url": "/images/productos/scoop-chwj.png" },
       ],
       "tipo": "Scoop",
       "motor": {
@@ -282,9 +278,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_3",
       "modelo_o_capacidad": "CHWJ-1",
       "slug": slugify("Scoop CHWJ-1"),
-      "imagen_portada": BASE_URL+"/images/productos/scoop-chwj.png",
+      "imagen_portada": "/images/productos/scoop-chwj.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/scoop-chwj.png" },
+        { "id": 1, "url": "/images/productos/scoop-chwj.png" },
       ],
       "tipo": "Scoop",
       "motor": {
@@ -301,9 +297,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_4",
       "modelo_o_capacidad": "50/60TN",
       "slug": slugify("Mucking Loader 50-60TN"),
-      "imagen_portada": BASE_URL+"/images/productos/mucking-loader-60tn.png",
+      "imagen_portada": "/images/productos/mucking-loader-60tn.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/mucking-loader-60tn.png" }
+        { "id": 1, "url": "/images/productos/mucking-loader-60tn.png" }
       ],
       "eficiencia": "60m³/hora",
       "motor": {
@@ -319,9 +315,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_5",
       "modelo_o_capacidad": "10KW",
       "slug": slugify("Generador Diésel 10KW"),
-      "imagen_portada": BASE_URL+"/images/productos/grupo-electrogeno-10kw.png",
+      "imagen_portada": "/images/productos/grupo-electrogeno-10kw.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/grupo-electrogeno-10kw.png" },
+        { "id": 1, "url": "/images/productos/grupo-electrogeno-10kw.png" },
       ],
       "motor": {
         "marca": "Isuzu",
@@ -337,9 +333,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_5",
       "modelo_o_capacidad": "30KW",
       "slug": slugify("Generador Diésel 30KW"),
-      "imagen_portada": BASE_URL+"/images/productos/grupo-electrogeno-30kw.png",
+      "imagen_portada": "/images/productos/grupo-electrogeno-30kw.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/grupo-electrogeno-30kw.png" },
+        { "id": 1, "url": "/images/productos/grupo-electrogeno-30kw.png" },
       ],
       "motor": {
         "marca": "Perkinks",
@@ -355,10 +351,10 @@ export const productos: Producto[] = [
       "categoria_id": "cat_6",
       "modelo_o_capacidad": "YT29 EPIROC",
       "slug": slugify("Neumática YT29 EPIROC"),
-      "imagen_portada": BASE_URL+"/images/productos/perforadora-yt29-1.png",
+      "imagen_portada": "/images/productos/perforadora-yt29-1.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/perforadora-yt29-1.png" },
-        { "id": 2, "url": BASE_URL+"/images/productos/perforadora-yt29-2.png" },
+        { "id": 1, "url": "/images/productos/perforadora-yt29-1.png" },
+        { "id": 2, "url": "/images/productos/perforadora-yt29-2.png" },
       ],
       "tipo": "Neumática",
       "peso": "29-32 Kg",
@@ -372,10 +368,10 @@ export const productos: Producto[] = [
       "categoria_id": "cat_6",
       "modelo_o_capacidad": "500 KG.",
       "slug": slugify("Winche de Arrastre 500 KG"),
-      "imagen_portada": BASE_URL+"/images/productos/winche-arrastre-500kg-1.png",
+      "imagen_portada": "/images/productos/winche-arrastre-500kg-1.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/winche-arrastre-500kg-1.png" },
-        { "id": 2, "url": BASE_URL+"/images/productos/winche-arrastre-500kg-2.png" },
+        { "id": 1, "url": "/images/productos/winche-arrastre-500kg-1.png" },
+        { "id": 2, "url": "/images/productos/winche-arrastre-500kg-2.png" },
       ],
       "tipo": "Winche de Arrastre",
       "motor_potencia": "4.0 KW",
@@ -389,9 +385,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_7",
       "modelo_o_capacidad": "YWF2E-350 (14\") 1HP",
       "slug": slugify("Ventilador Axial YWF2E-350 14 pulgadas 1HP"),
-      "imagen_portada": BASE_URL+"/images/productos/ventilador-1hp.png",
+      "imagen_portada": "/images/productos/ventilador-1hp.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/ventilador-1hp.png" },
+        { "id": 1, "url": "/images/productos/ventilador-1hp.png" },
       ],
       "tipo": "Axial",
       "flujo_aire": "4900/5400 m³/h",
@@ -404,9 +400,9 @@ export const productos: Producto[] = [
       "categoria_id": "cat_7",
       "modelo_o_capacidad": "YWF2E-400 (16\") 2HP",
       "slug": slugify("Ventilador Axial YWF2E-400 16 pulgadas 2HP"),
-      "imagen_portada": BASE_URL+"/images/productos/ventilador-2hp.png",
+      "imagen_portada": "/images/productos/ventilador-2hp.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/ventilador-2hp.png" },
+        { "id": 1, "url": "/images/productos/ventilador-2hp.png" },
       ],
       "tipo": "Axial",
       "flujo_aire": "6500/7100 m³/h",
@@ -419,12 +415,12 @@ export const productos: Producto[] = [
       "categoria_id": "cat_8",
       "modelo_o_capacidad": "500 KG.",
       "slug": slugify("Carretilla Eléctrica 500 KG"),
-      "imagen_portada": BASE_URL+"/images/productos/carretilla-electrica-500kg-1.png",
+      "imagen_portada": "/images/productos/carretilla-electrica-500kg-1.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/carretilla-electrica-500kg-1.png"},
-        { "id": 2, "url": BASE_URL+"/images/productos/carretilla-electrica-500kg-2.png" },
-        { "id": 3, "url": BASE_URL+"/images/productos/carretilla-electrica-500kg-3.png" },
-        { "id": 4, "url": BASE_URL+"/images/productos/carretilla-electrica-500kg-4.png" },
+        { "id": 1, "url": "/images/productos/carretilla-electrica-500kg-1.png"},
+        { "id": 2, "url": "/images/productos/carretilla-electrica-500kg-2.png" },
+        { "id": 3, "url": "/images/productos/carretilla-electrica-500kg-3.png" },
+        { "id": 4, "url": "/images/productos/carretilla-electrica-500kg-4.png" },
       ],
       "tipo": "Carretilla Eléctrica",
       "motor_potencia": "1000 W",
@@ -439,11 +435,11 @@ export const productos: Producto[] = [
       "categoria_id": "cat_5",
       "modelo_o_capacidad": "100kw",
       "slug": slugify("Generador Diésel 100kw"),
-      "imagen_portada": BASE_URL+"/images/productos/grupo-electrogeno-100kw.png",
+      "imagen_portada": "/images/productos/grupo-electrogeno-100kw.png",
       "imagenes": [
-        { "id": 1, "url": BASE_URL+"/images/productos/grupo-electrogeno-100kw.png" },
-        { "id": 2, "url": BASE_URL+"/images/productos/grupo-electrogeno-100kw-1.png" },
-        { "id": 3, "url": BASE_URL+"/images/productos/grupo-electrogeno-100kw-2.png" },
+        { "id": 1, "url": "/images/productos/grupo-electrogeno-100kw.png" },
+        { "id": 2, "url": "/images/productos/grupo-electrogeno-100kw-1.png" },
+        { "id": 3, "url": "/images/productos/grupo-electrogeno-100kw-2.png" },
       ],
       "motor": {
         "marca": "Cummins",
@@ -459,28 +455,28 @@ export const paginas: Pagina[] = [
     "id": "pag_1",
     "nombre": "Inicio",
     "slug": slugify("/"),
-    "imagen_portada": BASE_URL + "/images/paginas/inicio.png",
+    "imagen_portada": "/images/paginas/inicio.png",
     "description": "Página de inicio - Mundo Minero Los Reyes del Norte"
   },
   {
     "id": "pag_2",
     "nombre": "Nosotros",
     "slug": slugify("nosotros"),
-    "imagen_portada": BASE_URL + "/images/paginas/nosotros.webp",
+    "imagen_portada": "/images/paginas/nosotros.webp",
     "description": "Conoce más sobre Mundo Minero Los Reyes del Norte, especialistas en equipos mineros."
   },
   {
     "id": "pag_3",
     "nombre": "Productos",
     "slug": slugify("#Productos"),
-    "imagen_portada": BASE_URL + "/images/paginas/productos.webp",
+    "imagen_portada": "/images/paginas/productos.webp",
     "description": "Catálogo completo de equipos y maquinaria para la industria minera."
   },
   {
     "id": "pag_4",
     "nombre": "Contacto",
     "slug": slugify("nosotros#Contacto"),
-    "imagen_portada": BASE_URL + "/images/paginas/contacto.webp",
+    "imagen_portada": "/images/paginas/contacto.webp",
     "description": "Ponte en contacto con nuestro equipo de ventas."
   }
 ]

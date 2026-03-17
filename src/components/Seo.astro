@@ -1,0 +1,57 @@
+---
+import { BASE_URL } from '../utils/config';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical: string; // Debe ser la URL absoluta
+  image?: string; // Debe ser la URL absoluta de la imagen
+  schemas?: any[]; // Array de schemas JSON-LD
+}
+
+const {
+  title,
+  description,
+  canonical,
+  image = `${BASE_URL}/default-og-image.png`, // Imagen por defecto para redes sociales
+  schemas = [],
+} = Astro.props;
+
+const siteName = "Mundo Minero Reyes del Norte";
+const formattedTitle = `${title} | ${siteName}`;
+---
+
+<!-- SEO Básico -->
+<title>{formattedTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<!-- Open Graph (para Facebook, LinkedIn, etc.) -->
+<meta property="og:title" content={formattedTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:type" content="website" />
+<meta property="og:image" content={image} />
+<meta property="og:image:alt" content={title} />
+
+<!-- Twitter Card (para Twitter) -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={formattedTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<meta name="twitter:image:alt" content={title} />
+
+<!-- JSON-LD Schemas -->
+{
+  schemas.length > 0 && (
+    <script type="application/ld+json" set:html={JSON.stringify(schemas.length === 1 ? schemas[0] : schemas)} />
+  )
+}
+
+<!-- Favicon - Asegúrate de tener estos archivos en tu carpeta `public` -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<meta name="msapplication-TileColor" content="#004d99" />
+<meta name="theme-color" content="#ffffff" />

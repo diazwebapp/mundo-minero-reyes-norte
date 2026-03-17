@@ -1,72 +1,25 @@
 ---
 import { categorias, productos } from '../../local-data/database';
-import type { Categoria, Producto } from '../../local-data/database.types';
 import Layout from '../../layouts/Layout.astro';
-import ProductCard from '../../components/ProductCard.astro';
+import {BASE_URL} from '../../utils/config'
+console.log(BASE_URL)
 
-import type { ProductItemListSchema } from '../../local-data/schemas';
-import { BASE_URL } from '../../components/slugify';
+const { categoria: catSlug } = Astro.params;
+// 2. Limpiamos y GUARDAMOS el resultado (quitamos la barra inicial)
+catSlug?.replace(/^\//, '') || '';
 
-// Obtener parámetro dinámicamente (funciona con SSR)
-// quitamos cualquier barra final que el router pudiera dar
-let { categoria: categoriaSlug } = Astro.params;
-categoriaSlug = categoriaSlug?.replace(/\/+$/,'');
-console.log('Categoría solicitada:', categoriaSlug);
-// Buscar categoría por slug (sin barras)
-const categoria = categorias.find(cat => cat.slug === categoriaSlug);
+const categoria = categorias.find(cat => cat.slug === catSlug);
+const url = new URL(Astro.url);
+const page = parseInt(url.searchParams.get('page') || '1');
 if (!categoria) {
   return Astro.redirect('/404');
 }
 
-// Obtener productos de esa categoría
-const productosDeCategoria = productos.filter(p => p.categoria_id === categoria.id);
-
-const categorySchema:ProductItemListSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  name: categoria.nombre,
-  url: `${BASE_URL}${categoria.slug}/`,
-  numberOfItems: productosDeCategoria.length,
-  itemListElement: productosDeCategoria.map((producto, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    "item": {
-      '@type': 'Product',
-      name: producto.nombre,
-      description: producto.description,
-      url: `${BASE_URL}${categoria.slug}/${producto.slug}/`,
-      image: `${BASE_URL}images/${producto.imagen_portada}`,
-      offers: {
-        '@type': 'Offer',
-        priceCurrency: 'USD',
-        price: "0.00",
-        availability: 'https://schema.org/InStock'
-      }
-    }
-  }))
-};
 ---
 
-<Layout title={`Categoría: ${categoria.nombre}`} description={`Explora todos nuestros productos en la categoría de ${categoria.nombre}.`} canonical={`${BASE_URL}${categoria.slug}/`} schemas={[categorySchema]}>
+<Layout>
   <section class="container">
     
-      <div class="section-header">
-        <span class="section-label">Categoría</span>
-        <h1 class="titulos" >{categoria.nombre}</h1>
-        <p class="subtitle">
-          Explora todos nuestros productos en la categoría de {categoria.nombre}.
-        </p>
-      </div>
-
-      {productosDeCategoria.length > 0 ? (
-        <div class="products-grid">
-          {productosDeCategoria.map(producto => (
-            <ProductCard producto={producto} categorySlug={categoria.slug} />
-          ))}
-        </div>
-      ) : (
-        <p class="no-products">No hay productos disponibles en esta categoría por el momento.</p>
-      )}
     
   </section>
 </Layout>

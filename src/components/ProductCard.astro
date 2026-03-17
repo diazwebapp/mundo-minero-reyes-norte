@@ -1,6 +1,5 @@
 ---
 import type { Categoria, Producto } from '../local-data/database.types';
-import { BASE_URL } from './slugify';
 import { Image } from 'astro:assets';
 
 interface Props {
@@ -23,7 +22,7 @@ function isCategory(x: Producto | Categoria): x is Categoria {
 
 <article class="product-card">
   <a
-    href={`/${categorySlug ? `${categorySlug}/` : ''}${producto.slug}/`}
+    href={`/${categorySlug ? `${categorySlug}` : ''}${producto.slug}`}
     class="stretched-link"
     aria-label={`Ver detalles de ${producto.nombre}`}
   >
