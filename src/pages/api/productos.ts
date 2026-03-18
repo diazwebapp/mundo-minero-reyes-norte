@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
-import { productos } from '../../local-data/database';
-import type { Producto } from '../../local-data/database.types';
+import { productos, categorias } from '../../local-data/database';
+import type { Categoria, Producto } from '../../local-data/database.types';
+import { getPermalink } from '../../utils/config';
 
 
 export const GET: APIRoute = ({ url }) => {
@@ -28,8 +29,17 @@ const resultadosFinales = searchTerm
   ? productosFiltrados 
   : productosFiltrados.slice(0, 4);
 
-// 3. Retornar la respuesta en formato JSON
-return new Response(JSON.stringify(resultadosFinales), {
+// 3. Consultar la categoría y construir el slug completo del producto
+const productosConSlugCompleto = resultadosFinales.map((producto) => {
+  const categoria:Categoria = (categorias as any[]).find((cat) => cat.id === producto.categoria_id);
+  return {
+    ...producto,
+    slug: getPermalink([categoria.slug, producto.slug],true)
+  };
+});
+
+// 4. Retornar la respuesta en formato JSON
+return new Response(JSON.stringify(productosConSlugCompleto), {
   status: 200,
   headers: {
     'Content-Type': 'application/json',

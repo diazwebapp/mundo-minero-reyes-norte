@@ -1,7 +1,6 @@
 ---
 import { fichaTecnica } from "../local-data/ficha-tecnica";
-import { paginas } from "../local-data/database";
-import { getPermalink } from "../utils/config";
+import NavPage from "./NavPage.astro";
 const { informacion_general, datos_contacto, domicilio_fiscal } = fichaTecnica;
 ---
 
@@ -18,15 +17,7 @@ const { informacion_general, datos_contacto, domicilio_fiscal } = fichaTecnica;
 
 			<div class="footer-section">
 				<h4>Enlaces Rápidos</h4>
-				<ul>
-					{paginas.map(pagina => {
-					const permalink = getPermalink([pagina.slug],true);
-					return (
-					<li><a aria-label={pagina.nombre} href={permalink}> {pagina.nombre}</a></li>
-				)})}
-					<li><a aria-label="Productos" href="/#productos"> Productos</a></li>
-					<li><a aria-label="Contacto" href="/nosotros#contacto"> Contacto</a></li>
-				</ul>
+				<NavPage/>
 			</div>
 
 			<div class="footer-section">

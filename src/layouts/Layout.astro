@@ -93,31 +93,7 @@ const company : OrganizationSchema = {
 		<Footer />
 	</body>
 </html>
-<script>
 
-
-// Mantener la lógica de carga inicial (por si alguien entra directo con el link sucio)
-window.addEventListener('DOMContentLoaded', () => {
-  // 1. Obtenemos todos los enlaces de la página
-  const links = document.getElementsByTagName('a');
-
-  for (let a of links) {
-    // 2. Verificamos si el enlace contiene un hash (ancla)
-    if (a.hash) {
-      // 3. Limpiamos las barras "/" del hash
-      // Ejemplo: "/#productos/" -> "#productos"
-      const cleanHash = a.hash.replace(/\//g, '');
-      
-      // 4. Reconstruimos el href reemplazando el hash viejo por el limpio
-      // Esto asegura que no toquemos el resto de la URL (dominio/ruta)
-      a.href = a.href.replace(a.hash, cleanHash);
-      
-      // Opcional: Ver en consola los enlaces corregidos
-      // console.log("Enlace corregido:", a.href);
-    }
-  }
-});
-</script>
 <style is:global>
 @view-transition {
   navigation: auto; /* Habilita la transición automática entre páginas del mismo dominio */

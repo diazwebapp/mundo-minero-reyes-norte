@@ -34,5 +34,12 @@ export const getPermalink = (slugs:string[],simple:boolean=false)=>{
 
 
 export const getMediaPermalink = (slug:string)=>{
-  return BASE_URL+slug
+  // 1. Si el slug ya empieza con http, no le añadas la BASE_URL
+  if (slug.startsWith('http')) return slug;
+
+  // 2. Asegurarnos de que no haya doble barra entre la URL y el path
+  const cleanBase = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+  const cleanSlug = slug.startsWith('/') ? slug : '/' + slug;
+
+  return `${cleanBase}${cleanSlug}`;
 }

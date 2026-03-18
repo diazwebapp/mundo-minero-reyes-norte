@@ -1,8 +1,10 @@
 ---
 import { Image } from 'astro:assets';
 import { fichaTecnica } from "../local-data/ficha-tecnica";
-import { BASE_URL } from '../utils/config';
+import { BASE_URL, getMediaPermalink } from '../utils/config';
 import Contact from './Contact.astro';
+
+const srcLogoClaro = getMediaPermalink('/logo-claro.jpeg');
 ---
 
 <section id="nosotros" >
@@ -20,7 +22,7 @@ import Contact from './Contact.astro';
           <span></span>
         </div>
       <div class="image-container">
-        <Image src={BASE_URL+"logo-claro.jpeg"} alt="Mundo Minero Los Reyes Norte logo" width="512" height="288" loading="lazy" />
+        <Image src={srcLogoClaro} alt="Mundo Minero Los Reyes Norte logo" width="512" height="288" loading="lazy" />
       </div>
       <div class="title">
        

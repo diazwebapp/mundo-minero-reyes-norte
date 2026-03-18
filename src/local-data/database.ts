@@ -452,13 +452,6 @@ export const productos: Producto[] = [
 
 export const paginas: Pagina[] = [
   {
-    "id": "pag_1",
-    "nombre": "Inicio",
-    "slug": slugify("/"),
-    "imagen_portada": "/images/paginas/inicio.png",
-    "description": "Página de inicio - Mundo Minero Los Reyes del Norte"
-  },
-  {
     "id": "pag_2",
     "nombre": "Nosotros",
     "slug": slugify("nosotros"),

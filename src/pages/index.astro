@@ -7,23 +7,10 @@ import { BASE_URL } from '../utils/config.ts';
 
 const canonicalUrl = `${BASE_URL}/`;
 
-/* const categoriasSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Categorías de maquinaria y equipos para minería",
-  "url": canonicalUrl,
-  "numberOfItems": categorias.length,
-  "itemListElement": categorias.map((categoria, index) => ({
-    "@type": "ListItem",
-    "position": index + 1,
-    // Usamos las propiedades directamente en el ListItem para describir la categoría,
-    // que enlaza a otra página (que a su vez es un ItemList de productos).
-    "name": categoria.nombre,
-    "url": `${BASE_URL}${getPageUrl(categoria.slug)}`,
-  })) */
+
 ---
 
-<Layout >
+<Layout title='Home' canonical={canonicalUrl} description=''>
 	<Hero/>
 	<Categories categories={categorias}/>
 </Layout>
