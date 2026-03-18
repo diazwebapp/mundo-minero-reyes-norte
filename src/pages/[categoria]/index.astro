@@ -1,7 +1,7 @@
 ---
 import { categorias, productos } from '../../local-data/database';
 import Layout from '../../layouts/Layout.astro';
-import { getPermalink } from '../../utils/config';
+import { getMediaPermalink, getPermalink } from '../../utils/config';
 import {get_products} from '../../utils/consultas'
 import ProductCard from '../../components/ProductCard.astro';
 
@@ -19,11 +19,38 @@ if (!categoria) {
 }
 
 const permalink = getPermalink([categoria.slug]);
+const imagenCategoria = getMediaPermalink(categoria.imagen_portada)
+console.log(imagenCategoria)
 
 const catProducts = get_products(productos,1,8,categoria.id)
+
+const categorySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: categoria.nombre,
+  url: permalink,
+  numberOfItems: catProducts.length,
+  itemListElement: catProducts.map((producto, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    "item": {
+      '@type': 'Product',
+      name: producto.nombre,
+      description: producto.description,
+      url: getPermalink([categoria.slug,producto.slug]),
+      image:getMediaPermalink(producto.imagen_portada),
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'USD',
+        price: "0.00",
+        availability: 'https://schema.org/InStock'
+      }
+    }
+  }))
+};
 ---
 
-<Layout>
+<Layout title={categoria.nombre} canonical={permalink} description={categoria.description} image={imagenCategoria} >
   <section class="container">
     <div class="section-header">
         <span class="section-label">Categoría</span>

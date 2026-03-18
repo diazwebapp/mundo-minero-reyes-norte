@@ -1,13 +1,16 @@
 ---
 import type { Categoria, Producto } from '../local-data/database.types';
 import { Image } from 'astro:assets';
+import { getMediaPermalink, getPermalink } from '../utils/config';
 
 interface Props {
   producto: Producto | Categoria;
   categorySlug?: string;
 }
+const { producto, categorySlug } = Astro.props 
 
-const { producto, categorySlug } = Astro.props as Props;
+producto.imagen_portada = getMediaPermalink(producto.imagen_portada)
+
 
 /**
  * discriminador: sólo los `Producto` tienen `categoria_id`
@@ -18,11 +21,15 @@ function isProducto(x: Producto | Categoria): x is Producto {
 function isCategory(x: Producto | Categoria): x is Categoria {
   return (x as Categoria).id !== undefined;
 }
+
+const permalink = categorySlug === undefined? getPermalink([producto.slug],true) : getPermalink([categorySlug,producto.slug],true);
+
+
 ---
 
 <article class="product-card">
   <a
-    href={`/${categorySlug ? `${categorySlug}` : ''}${producto.slug}`}
+    href={permalink}
     class="stretched-link"
     aria-label={`Ver detalles de ${producto.nombre}`}
   >
@@ -44,7 +51,7 @@ function isCategory(x: Producto | Categoria): x is Categoria {
     <strong class="product-model">{producto.nombre}</strong>
 
     {/* sólo mostramos las specs cuando sea un Producto real */}
-    {!categorySlug && isProducto(producto) && (
+    {isProducto(producto) && (
       <ul class="product-specs">
         {producto.motor?.tipo && (
           <li><strong>Motor:</strong> {producto.motor.tipo}</li>
@@ -55,7 +62,7 @@ function isCategory(x: Producto | Categoria): x is Categoria {
         
       </ul>
     )}
-  {!categorySlug && isCategory(producto) && (
+  {isCategory(producto) && (
     <p>{producto.description}</p>
   )}
     <span class="btn">Ver detalles</span>

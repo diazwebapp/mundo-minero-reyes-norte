@@ -3,14 +3,13 @@ import { productos, categorias } from '../../local-data/database';
 import type { Producto, Categoria } from '../../local-data/database.types';
 import type { ProductSchema } from '../../local-data/schemas';
 import Layout from '../../layouts/Layout.astro';
-import { BASE_URL } from '../../utils/config';
+import { BASE_URL, getMediaPermalink, getPermalink } from '../../utils/config';
 import { Image } from 'astro:assets';
 import { fichaTecnica } from '../../local-data/ficha-tecnica';
 import Galery from '../../components/Galery.astro';
 
 // Obtener parámetros dinámicamente (funciona con SSR) y normalizarlos
 let { categoria: categoriaSlug, producto: productoSlug } = Astro.params;
- console.log({ categoriaSlug, productoSlug })
 
 
 const producto = productos.find(p => p.slug === productoSlug);
@@ -18,13 +17,16 @@ if (!producto) {
   return Astro.redirect('/404');
 }
 
+const canonical = getPermalink([categoriaSlug || "",productoSlug || ""]);
+const portada = getMediaPermalink(producto.imagen_portada)
+
 const productSchema: ProductSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
   "name": `${producto.nombre}`,
   "description": producto.description,
-  "url": `${BASE_URL}${categoriaSlug}/${producto.slug}/`,
-  "image": [producto.imagen_portada],
+  "url": canonical,
+  "image": [portada],
   "brand": {
     "@type": "Brand",
     "name": 'Mundo Minero Los Reyes Norte'
@@ -75,8 +77,8 @@ const specs: Spec[] = [
 const specsFiltered = specs.filter(spec => spec.value);
 ---
 
-<!-- <Layout urlimage={producto.imagen_portada} title={producto.nombre} description={producto.description} canonical={`${BASE_URL}${categoriaSlug}/${producto.slug}/`} schemas={[productSchema]}> -->
- <Layout >
+<Layout image={portada} title={producto.nombre} description={producto.description} canonical={canonical} schemas={[productSchema]}> 
+
   <section class="container">
       
       <!-- Breadcrumb Navigation -->

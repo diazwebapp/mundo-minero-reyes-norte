@@ -2,6 +2,7 @@
 import { fichaTecnica } from "../local-data/ficha-tecnica";
 import { paginas } from "../local-data/database";
 import { Image } from 'astro:assets';
+import { getPermalink } from "../utils/config";
 ---
 
 <header id="header">
@@ -12,9 +13,11 @@ import { Image } from 'astro:assets';
 			</a>
 
 			<ul class="nav-links">
-				{paginas.map(pagina => (
-					<li><a aria-label={pagina.nombre} href={pagina.slug+'/'}> {pagina.nombre}</a></li>
-				))}
+				{paginas.map(pagina => {
+					const permalink = getPermalink([pagina.slug],true);
+					return (
+					<li><a aria-label={pagina.nombre} href={permalink}> {pagina.nombre}</a></li>
+				)})}
 				<li><a aria-label="Productos" href="/#productos"> Productos</a></li>
 				<li><a aria-label="Contacto" href="/nosotros#contacto"> Contacto</a></li>
 

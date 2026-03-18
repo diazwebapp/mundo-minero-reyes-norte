@@ -24,19 +24,15 @@ export function slugify(text: string): string {
     ;
 }
 
-export const getPermalink = (slugs:string[])=>{
+export const getPermalink = (slugs:string[],simple:boolean=false)=>{
   let permalink = ""
   for(let slug of slugs){
     permalink += slug+'/'
   }
-  return BASE_URL+permalink
+  return !simple ? BASE_URL+'/'+permalink : '/' + permalink
 }
 
 
-export const getMediaPermalink = (slugs:string[])=>{
-  let permalink = ""
-  for(let slug of slugs){
-    permalink += slug
-  }
-  return BASE_URL+permalink
+export const getMediaPermalink = (slug:string)=>{
+  return BASE_URL+slug
 }

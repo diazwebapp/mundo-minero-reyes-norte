@@ -3,25 +3,34 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import type { OrganizationSchema } from '../local-data/schemas';
-type Props={
-    /* title?:string
-    description?:string
-    lang?:string
-    searchConsoleCode?:string
-    canonical?:string
-    filtro?:boolean
-    schemas:any[]
-	urlimage?:string */
+import { BASE_URL, getMediaPermalink } from '../utils/config';
+export interface Props {
+  title: string;
+  description: string;
+  canonical: string; // Debe ser la URL absoluta
+  image?: string; // Debe ser la URL absoluta de la imagen
+  schemas?: any[]; // Array de schemas JSON-LD
+  searchConsoleCode?:string
 }
 
-//const {title,description,lang="es",searchConsoleCode,canonical,filtro,schemas,urlimage} = Astro.props as Props
+const {
+  title,
+  description,
+  canonical,
+  image = getMediaPermalink("/logo-claro.jpeg"), // Imagen por defecto para redes sociales
+  schemas = [],
+  searchConsoleCode = ''
+} = Astro.props;
+
+const siteName = "Mundo Minero LOS Reyes del Norte";
+const formattedTitle = `${title} | ${siteName}`;
 
 const company : OrganizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Mundo Minero Los Reyes del Norte',
-  url: 'https://mmreyesdelnorte.com',
-  logo: 'https://mmreyesdelnorte.com/favicon.svg',
+  url: BASE_URL,
+  logo: BASE_URL+'favicon.svg',
   sameAs: [
 	'https://www.facebook.com/mmlosreyesdelnorte',
 	'https://www.instagram.com/mmreyesdelnorte',
@@ -43,8 +52,40 @@ const company : OrganizationSchema = {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		
+		<!-- SEO Básico -->
+<title>{formattedTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<!-- Open Graph (para Facebook, LinkedIn, etc.) -->
+<meta property="og:title" content={formattedTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:type" content="website" />
+<meta property="og:image" content={image} />
+<meta property="og:image:alt" content={title} />
+
+<!-- Twitter Card (para Twitter) -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={formattedTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<meta name="twitter:image:alt" content={title} />
+
+<!-- JSON-LD Schemas -->
+{
+  schemas.length > 0 && (
+    <script type="application/ld+json" set:html={JSON.stringify(schemas.length === 1 ? schemas[0] : schemas)} />
+  )
+}
+
+<!-- Favicon - Asegúrate de tener estos archivos en tu carpeta `public` -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+<meta name="msapplication-TileColor" content="#004d99" />
+<meta name="theme-color" content="#f9f9f9" />
 	</head>
 	<body>
 		<Header />

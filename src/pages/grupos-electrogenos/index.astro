@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro"
 import { categorias, productos } from "../../local-data/database"
 import ProductCard from "../../components/ProductCard.astro"
-import { BASE_URL } from "../../utils/config"
+import { BASE_URL, getMediaPermalink, getPermalink } from "../../utils/config"
 import type { Article, OrganizationSchema } from "../../local-data/schemas"
 import { fichaTecnica } from "../../local-data/ficha-tecnica"
 import Image from "astro/components/Image.astro"
@@ -11,12 +11,15 @@ import Image from "astro/components/Image.astro"
 const grupoElectrogenos = categorias.find(categoria => categoria.id === "cat_5")
 const productosGrupoElectrogenos = productos.filter(producto => producto.categoria_id === "cat_5")
 
+const imagenp = getMediaPermalink(grupoElectrogenos?.imagen_portada || "");
+const canonical = getPermalink([grupoElectrogenos?.slug || ""])
+
 const organization: OrganizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": fichaTecnica.informacion_general.nombre_corto,
     "url": BASE_URL,
-    "logo": `${BASE_URL}logo-claro.jpeg`,
+    "logo": `${BASE_URL}/logo-claro.jpeg`,
     "sameAs": [
         "https://www.facebook.com/mmlosreyesdelnorte",
         "https://www.instagram.com/mmreyesdelnorte",
@@ -27,7 +30,7 @@ const schemaArticle: Article = {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": grupoElectrogenos?.nombre || "Grupos Electrógenos",
-    "image": [grupoElectrogenos?.imagen_portada || `${BASE_URL}/default-image.jpg`],
+    "image": [imagenp],
     "datePublished": "2024-01-01",
     "dateModified": "2024-01-01",
     "author": {
@@ -41,7 +44,7 @@ const schemaArticle: Article = {
 
 ---
 
-<Layout title={grupoElectrogenos?.nombre || "Grupos Electrógenos"} description="Descubre todo lo que necesitas saber sobre grupos electrógenos, desde tipos y comparativas hasta consejos de compra. Encuentra el generador eléctrico perfecto para tus necesidades." canonical="" schemas={[schemaArticle]}>
+<Layout title={grupoElectrogenos?.nombre || "Grupos Electrógenos"} description="Descubre todo lo que necesitas saber sobre grupos electrógenos, desde tipos y comparativas hasta consejos de compra. Encuentra el generador eléctrico perfecto para tus necesidades." canonical={canonical} schemas={[schemaArticle]}>
     <main class="grupos-electrogenos">
     <section class="hero">
         <div class="hero-content">
