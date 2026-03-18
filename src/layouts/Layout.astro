@@ -47,6 +47,9 @@ const company : OrganizationSchema = {
   },
   foundingDate: '2004-01-01'
 };
+
+schemas.push(company);
+
 ---
 <html lang="es">
 	<head>
@@ -296,7 +299,7 @@ const company : OrganizationSchema = {
 
 	.footer-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 		gap: 3rem;
 		margin-bottom: 3rem;
 	}
@@ -304,9 +307,6 @@ const company : OrganizationSchema = {
 	.footer-section h3 {
 		font-size: 1.5rem;
 		margin-bottom: 1rem;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
 	}
 
 	.footer-section h4 {

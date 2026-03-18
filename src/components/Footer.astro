@@ -1,6 +1,5 @@
 ---
 import { fichaTecnica } from "../local-data/ficha-tecnica";
-import NavPage from "./NavPage.astro";
 const { informacion_general, datos_contacto, domicilio_fiscal } = fichaTecnica;
 ---
 
@@ -10,22 +9,14 @@ const { informacion_general, datos_contacto, domicilio_fiscal } = fichaTecnica;
 			<div class="footer-section">
 				<h3>{informacion_general.nombre_corto}</h3>
 				<p>
-					Especialistas en distribución y comercialización de equipos para la industria minera
-					desde 2020.
+					Expertos en soluciones integrales para minería. Venta y alquiler de maquinaria con tecnología de punta, transporte de carga pesada y comercio exterior desde 2020.
 				</p>
 			</div>
 
-			<div class="footer-section">
-				<h4>Enlaces Rápidos</h4>
-				<NavPage/>
-			</div>
 
 			<div class="footer-section">
-				<h4>Contacto</h4>
+				<h4>Ubicación</h4>
 				<ul>
-					<li>
-						<a href={`https://wa.me/${datos_contacto.telefono_ventas}`}>{datos_contacto.telefono_ventas}</a>
-					</li>
 					<li><a href={`mailto:${datos_contacto.correo_electronico}`}>{datos_contacto.correo_electronico}</a></li>
 					<li>{domicilio_fiscal.direccion}</li>
 					<li>{domicilio_fiscal.distrito}, Perú</li>
