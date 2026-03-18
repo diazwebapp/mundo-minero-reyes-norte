@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { fichaTecnica } from "../local-data/ficha-tecnica";
-import { BASE_URL } from './slugify';
+import { BASE_URL } from '../utils/config';
 import Contact from './Contact.astro';
 ---
 
@@ -27,7 +27,7 @@ import Contact from './Contact.astro';
     <h2>Quienes somos</h2></div>
       <div class="text">
         <p>Desde nuestro inicio en 2024 hemos combinado experiencia técnica con un compromiso inquebrantable por la calidad, 
-        la fiabilidad y el servicio al cliente. Nuestra razón social MUNDO MINERO LOS REYES DEL NORTE E.I.R.L. respalda cada proyecto que emprendemos.</p>
+        la fiabilidad y el servicio al cliente. Nuestra razón social {fichaTecnica.informacion_general.nombre_o_razon_social} respalda cada proyecto que emprendemos.</p>
       </div>
        
     </div>

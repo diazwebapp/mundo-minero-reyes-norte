@@ -31,3 +31,12 @@ export const getPermalink = (slugs:string[])=>{
   }
   return BASE_URL+permalink
 }
+
+
+export const getMediaPermalink = (slugs:string[])=>{
+  let permalink = ""
+  for(let slug of slugs){
+    permalink += slug
+  }
+  return BASE_URL+permalink
+}

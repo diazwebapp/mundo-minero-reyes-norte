@@ -1,12 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import About from '../components/About.astro';
-import { categorias } from '../local-data/database.ts';
-import type { ProductItemListSchema } from '../local-data/schemas'
-import { BASE_URL } from '../components/slugify';
+import { BASE_URL } from '../utils/config';
 
 ---
 
-<Layout title="La empresa" description="Maquinaria y equipos para minería. MUNDO MINERO LOS REYES DEL NORTE, Lideres en equipos de extracción minera." canonical={BASE_URL} urlimage={BASE_URL+"logo-claro.jpeg"} schemas={[]}>
+<Layout title="La empresa" description="Maquinaria y equipos para minería. MUNDO MINERO LOS REYES DEL NORTE, Lideres en equipos de extracción minera." canonical={BASE_URL} schemas={[]}>
   <About/>
 </Layout>

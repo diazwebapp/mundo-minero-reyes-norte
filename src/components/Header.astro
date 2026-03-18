@@ -13,8 +13,11 @@ import { Image } from 'astro:assets';
 
 			<ul class="nav-links">
 				{paginas.map(pagina => (
-					<li><a href={pagina.slug}> {pagina.nombre}</a></li>
+					<li><a aria-label={pagina.nombre} href={pagina.slug+'/'}> {pagina.nombre}</a></li>
 				))}
+				<li><a aria-label="Productos" href="/#productos"> Productos</a></li>
+				<li><a aria-label="Contacto" href="/nosotros#contacto"> Contacto</a></li>
+
 				<li><a href="/search" aria-label="Buscar producto" title="Buscar producto">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" viewBox="0 0 24 24"  class="nav-icons">
 				

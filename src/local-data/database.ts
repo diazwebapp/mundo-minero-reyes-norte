@@ -465,18 +465,4 @@ export const paginas: Pagina[] = [
     "imagen_portada": "/images/paginas/nosotros.webp",
     "description": "Conoce más sobre Mundo Minero Los Reyes del Norte, especialistas en equipos mineros."
   },
-  {
-    "id": "pag_3",
-    "nombre": "Productos",
-    "slug": slugify("#Productos"),
-    "imagen_portada": "/images/paginas/productos.webp",
-    "description": "Catálogo completo de equipos y maquinaria para la industria minera."
-  },
-  {
-    "id": "pag_4",
-    "nombre": "Contacto",
-    "slug": slugify("nosotros#Contacto"),
-    "imagen_portada": "/images/paginas/contacto.webp",
-    "description": "Ponte en contacto con nuestro equipo de ventas."
-  }
 ]

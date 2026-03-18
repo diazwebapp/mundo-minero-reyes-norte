@@ -1,26 +1,47 @@
 ---
 import { categorias, productos } from '../../local-data/database';
 import Layout from '../../layouts/Layout.astro';
-import {BASE_URL} from '../../utils/config'
-console.log(BASE_URL)
+import { getPermalink } from '../../utils/config';
+import {get_products} from '../../utils/consultas'
+import ProductCard from '../../components/ProductCard.astro';
 
 const { categoria: catSlug } = Astro.params;
 // 2. Limpiamos y GUARDAMOS el resultado (quitamos la barra inicial)
 catSlug?.replace(/^\//, '') || '';
 
 const categoria = categorias.find(cat => cat.slug === catSlug);
+/* SI NECESITAMOS UNA PAGINACION:
 const url = new URL(Astro.url);
 const page = parseInt(url.searchParams.get('page') || '1');
+ */
 if (!categoria) {
   return Astro.redirect('/404');
 }
 
+const permalink = getPermalink([categoria.slug]);
+
+const catProducts = get_products(productos,1,8,categoria.id)
 ---
 
 <Layout>
   <section class="container">
-    
-    
+    <div class="section-header">
+        <span class="section-label">Categoría</span>
+        <h1 class="titulos" >{categoria.nombre}</h1>
+        <p class="subtitle">
+          Explora todos nuestros productos en la categoría de {categoria.nombre}.
+        </p>
+      </div>
+
+      {catProducts.length > 0 ? (
+        <div class="products-grid">
+          {catProducts.map(producto => (
+            <ProductCard producto={producto} categorySlug={categoria.slug} />
+          ))}
+        </div>
+      ) : (
+        <p class="no-products">No hay productos disponibles en esta categoría por el momento.</p>
+      )}    
   </section>
 </Layout>
 
