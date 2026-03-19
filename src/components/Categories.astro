@@ -1,12 +1,9 @@
 ---
-import type { Categoria } from '../local-data/database.types';
+import { categorias } from '../local-data/database';
 import ProductCard from './ProductCard.astro';
 
-interface CategoriesProps {
-	categories: Categoria[];
-}
+const categoriasFilter = categorias.filter(c => (c.show === true && c.parent_id === null))
 
-const { categories } = Astro.props as CategoriesProps;
 ---
 
 <section id="productos" class="container">
@@ -19,7 +16,7 @@ const { categories } = Astro.props as CategoriesProps;
 	</div>
 
 		<div class="categories-grid">
-			{categories.map(categoria => (
+			{categoriasFilter.map(categoria => (
 				<ProductCard producto={categoria} />
 			))}
 		</div>

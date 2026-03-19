@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Categories from '../components/Categories.astro';
-import { categorias } from '../local-data/database.ts';
 import { BASE_URL } from '../utils/config.ts';
 
 const canonicalUrl = `${BASE_URL}/`;
@@ -12,5 +11,5 @@ const canonicalUrl = `${BASE_URL}/`;
 
 <Layout title='Venta, Alquiler e Importación de Maquinaria Pesada' canonical={canonicalUrl} description='Expertos en soluciones integrales para minería. Venta y alquiler de maquinaria con tecnología de punta, transporte de carga pesada y comercio exterior. ¡Contáctenos!'>
 	<Hero/>
-	<Categories categories={categorias}/>
+	<Categories/>
 </Layout>

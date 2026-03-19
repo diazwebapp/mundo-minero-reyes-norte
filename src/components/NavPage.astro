@@ -1,14 +1,14 @@
 ---
-import { paginas } from "../local-data/database"; 
+import { navItems } from "../local-data/database"; 
 import { getPermalink } from "../utils/config";
 ---
 <ul class="nav-links">
-    <li><a aria-label="Inicio" href="/">Inicio</a></li>
+    <!-- <li><a aria-label="Inicio" href="/">Inicio</a></li> -->
     <li><a aria-label="Productos" href="/#productos">Productos</a></li>
-	{paginas.map(pagina => {
-		const permalink = getPermalink([pagina.slug],true);
+	{navItems.map(item => {
+		const permalink = getPermalink([item.slug],true);
 		return (
-		<li><a aria-label={pagina.nombre} href={permalink}>{pagina.nombre}</a></li>
+		<li><a aria-label={item.nombre} href={permalink}>{item.nombre}</a></li>
 	)})}
 	
 	<li><a aria-label="Contacto" href="/nosotros#contacto">Contacto</a></li>

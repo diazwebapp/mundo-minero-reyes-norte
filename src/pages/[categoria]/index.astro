@@ -2,8 +2,9 @@
 import { categorias, productos } from '../../local-data/database';
 import Layout from '../../layouts/Layout.astro';
 import { getMediaPermalink, getPermalink } from '../../utils/config';
-import {get_products} from '../../utils/consultas'
+import {get_products,get_categories} from '../../utils/consultas'
 import ProductCard from '../../components/ProductCard.astro';
+import type { Categoria, Producto } from '../../local-data/database.types';
 
 const { categoria: catSlug } = Astro.params;
 // 2. Limpiamos y GUARDAMOS el resultado (quitamos la barra inicial)
@@ -20,9 +21,15 @@ if (!categoria) {
 
 const permalink = getPermalink([categoria.slug]);
 const imagenCategoria = getMediaPermalink(categoria.imagen_portada)
-console.log(imagenCategoria)
-
-const catProducts = get_products(productos,1,8,categoria.id)
+let catProducts:Producto[] | Categoria[] =[];
+if(categoria.show === true ){
+  console.log(categoria.parent_id)
+  catProducts = get_products(productos,1,8,categoria.id);
+}
+if(categoria.show === false){
+  console.log(categoria.parent_id)
+  catProducts = get_categories(categorias,1,8,categoria.id);
+}
 
 const categorySchema = {
   '@context': 'https://schema.org',
