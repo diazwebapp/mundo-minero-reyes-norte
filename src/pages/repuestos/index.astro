@@ -6,13 +6,15 @@ import {get_products,get_categories} from '../../utils/consultas'
 import ProductCard from '../../components/ProductCard.astro';
 import type { Categoria, Producto } from '../../local-data/database.types';
 
-const { categoria: catSlug } = Astro.params;
-// 2. Limpiamos y GUARDAMOS el resultado (quitamos la barra inicial)
-catSlug?.replace(/^\//, '') || '';
+const url = new URL(Astro.url);
+let catSlug = url.pathname
+// 2. Limpiamos y GUARDAMOS el resultado (quitamos la barra inicial y final si existe)
+catSlug = catSlug.replace(/^\/|\/$/g, '');
 
+console.log("slug = ",catSlug)
 const categoria = categorias.find(cat => cat.slug === catSlug);
 // SI NECESITAMOS UNA PAGINACION:
-const url = new URL(Astro.url);
+
 const page = parseInt(url.searchParams.get('page') || '1');
 
 if (!categoria) {

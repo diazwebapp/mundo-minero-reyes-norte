@@ -16,7 +16,7 @@ export const categorias: Categoria[] = [
     id: 2,
     nombre: "Repuestos",
     description: "Repuestos especializados para minería: llantas, rines, sistemas de frenos y brocas alta gama. Asegure la operatividad con tecnología de punta.",
-    slug: slugify("Repuestos"),
+    slug: slugify("repuestos"),
     show: false,
     parent_id: null,
     imagen_portada: "/images/cat-repuestos.png"
@@ -76,14 +76,14 @@ export const categorias: Categoria[] = [
     imagen_portada: "/images/productos/carretillas-electricas.png"
   },
   // Subcategorías de Repuestos (parent_id: 2)
-  { id: 9, nombre: "Llantas", description: "", parent_id: 2, slug: slugify("llantas"), show: true, imagen_portada: "/images/productos/mini-dumper-diesel-1.5tn.png" },
-  { id: 10, nombre: "Motores", description: "", parent_id: 2, slug: slugify("Motores"), show: true, imagen_portada: "/images/productos/mini-dumper-diesel-1.5tn.png" },
-  { id: 11, nombre: "Aceleradores y frenos", description: "", parent_id: 2, slug: slugify("aceleradores-frenos"), show: true, imagen_portada: "/images/productos/mini-dumper-diesel-1.5tn.png" },
-  { id: 12, nombre: "Cargadores", description: "", parent_id: 2, slug: slugify("Cargadores"), show: true, imagen_portada: "/images/productos/mini-dumper-diesel-1.5tn.png" },
-  { id: 13, nombre: "Brocas", description: "", parent_id: 2, slug: slugify("Brocas"), show: true, imagen_portada: "/images/productos/mini-dumper-diesel-1.5tn.png" },
-  { id: 14, nombre: "Cilindros", description: "", parent_id: 2, slug: slugify("Cilindros"), show: true, imagen_portada: "/images/productos/mini-dumper-diesel-1.5tn.png" },
-  { id: 15, nombre: "switchs", description: "", parent_id: 2, slug: slugify("switchs"), show: true, imagen_portada: "/images/productos/mini-dumper-diesel-1.5tn.png" },
-  { id: 16, nombre: "palancas", description: "", parent_id: 2, slug: slugify("palancas"), show: true, imagen_portada: "/images/productos/mini-dumper-diesel-1.5tn.png" },
+  { id: 9, nombre: "Llantas", description: "", parent_id: 2, slug: slugify("llantas"), show: true, imagen_portada: "/images/productos/repuestos/llantas.png" },
+  { id: 10, nombre: "Motores", description: "", parent_id: 2, slug: slugify("Motores"), show: true, imagen_portada: "/images/productos/repuestos/motores.png" },
+  { id: 11, nombre: "Aceleradores y frenos", description: "", parent_id: 2, slug: slugify("aceleradores-frenos"), show: true, imagen_portada: "/images/productos/repuestos/aceleradores.png" },
+  { id: 12, nombre: "Cargadores", description: "", parent_id: 2, slug: slugify("Cargadores"), show: true, imagen_portada: "/images/productos/repuestos/cargadores.png" },
+  { id: 13, nombre: "Brocas", description: "", parent_id: 2, slug: slugify("Brocas"), show: true, imagen_portada: "/images/productos/repuestos/brocas.png" },
+  { id: 14, nombre: "Cilindros de frenos", description: "", parent_id: 2, slug: slugify("Cilindros-frenos"), show: true, imagen_portada: "/images/productos/repuestos/cilindros-frenos.png" },
+  { id: 15, nombre: "switchs", description: "", parent_id: 2, slug: slugify("switchs"), show: true, imagen_portada: "/images/productos/repuestos/switch.png" },
+  { id: 16, nombre: "palancas", description: "", parent_id: 2, slug: slugify("palancas"), show: true, imagen_portada: "/images/productos/repuestos/palancas.png" },
 ];
 
 export const productos: Producto[] = [

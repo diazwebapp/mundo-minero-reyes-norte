@@ -8,8 +8,8 @@ import { fichaTecnica } from "../../local-data/ficha-tecnica"
 import Image from "astro/components/Image.astro"
 
 
-const grupoElectrogenos = categorias.find(categoria => categoria.id === "cat_5")
-const productosGrupoElectrogenos = productos.filter(producto => producto.categoria_id === "cat_5")
+const grupoElectrogenos = categorias.find(categoria => categoria.id === 5)
+const productosGrupoElectrogenos = productos.filter(producto => producto.categoria_id === 5)
 
 const imagenp = getMediaPermalink(grupoElectrogenos?.imagen_portada || "");
 const canonical = getPermalink([grupoElectrogenos?.slug || ""])
