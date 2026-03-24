@@ -1,6 +1,6 @@
 ---
 import AdminLayout from "../../../layouts/AdminLayout.astro";
-import { supabase } from "../../../lib/supabase";
+import { supabaseClient } from "../../../lib/supabase";
 import ImagePicker from "../../../components/admin/ImagePicker.astro";
 import MultiImagePicker from "../../../components/admin/MultiImagePicker.astro";
 import CaracteristicasForm from "../../../components/admin/CaracteristicasForm.astro";
@@ -11,7 +11,7 @@ if (!id) {
     return Astro.redirect('/admin/productos');
 }
 
-const { data: producto, error: fetchError } = await supabase
+const { data: producto, error: fetchError } = await supabaseClient
     .from('productos')
     .select('*')
     .eq('id', id)
@@ -22,7 +22,7 @@ if (fetchError || !producto) {
     return Astro.redirect('/admin/productos');
 }
 
-const { data: allCategorias, error: dropdownError } = await supabase.from('categorias').select('id, nombre');
+const { data: allCategorias, error: dropdownError } = await supabaseClient.from('categorias').select('id, nombre');
 
 ---
 <AdminLayout title={`Editar Producto: ${producto.nombre}`}>
