@@ -1,7 +1,5 @@
 import type { APIRoute } from "astro";
 import { createClient } from "@supabase/supabase-js";
-import path from 'path';
-import mime from 'mime-types';
 
 const BUCKET_NAME = 'media_assets';
 
@@ -27,7 +25,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     // Sanitize filename to be URL-friendly, though Supabase handles most of this
     const cleanFileName = fileName.replace(/[^a-zA-Z0-9-._]/g, '_');
     const storagePath = `uploads/${Date.now()}-${cleanFileName}`;
-    const contentType = file.type || mime.lookup(fileName) || 'application/octet-stream';
+    const contentType = file.type || 'application/octet-stream';
 
     // 1. Upload to Storage
     const { error: uploadError } = await supabaseAdmin.storage
