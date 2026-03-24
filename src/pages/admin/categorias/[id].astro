@@ -1,8 +1,7 @@
 ---
 import AdminLayout from "../../../layouts/AdminLayout.astro";
-import { supabase } from "../../../lib/supabase";
+import { supabaseClient } from "../../../lib/supabase";
 import ImagePicker from "../../../components/admin/ImagePicker.astro";
-import type { Categoria } from "../../../local-data/database.types";
 
 const { id } = Astro.params;
 
@@ -11,7 +10,7 @@ if (!id) {
 }
 
 // Fetch the specific category to edit
-const { data: categoria, error: fetchError } = await supabase
+const { data: categoria, error: fetchError } = await supabaseClient
     .from('categorias')
     .select('*')
     .eq('id', id)
@@ -24,7 +23,7 @@ if (fetchError || !categoria) {
 }
 
 // Fetch all categories for the parent dropdown
-const { data: allCategorias, error: dropdownError } = await supabase.from('categorias').select('id, nombre');
+const { data: allCategorias, error: dropdownError } = await supabaseClient.from('categorias').select('id, nombre');
 
 ---
 <AdminLayout title={`Editar Categoría: ${categoria.nombre}`}>
