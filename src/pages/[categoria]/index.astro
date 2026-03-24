@@ -8,6 +8,7 @@ import type { Article,  OrganizationSchema, TSGCategorySchema } from '../../loca
 import { fichaTecnica } from '../../local-data/ficha-tecnica';
 import type { ProductItemListSchema } from '../../local-data/schemas';
 import Pagination from '../../components/Pagination.astro';
+import { getImage } from 'astro:assets';
 
 const { categoria: catSlug } = Astro.params;
 const currentCatSlug = catSlug?.replace(/^\//, '') || '';
@@ -27,6 +28,17 @@ if (catError || !categoria) {
 
 const permalink = getPermalink([categoria.slug]);
 const imagenCategoria = getMediaPermalink(categoria.imagen_portada)
+// 1. Definimos la optimización
+const optimizedImage = await getImage({
+  src: imagenCategoria,
+  width: 1200,
+  height: 630,
+  format: 'jpg', // Forzamos JPG para máxima compatibilidad con redes sociales
+});
+
+// 2. Creamos la URL absoluta (Importante para OG)
+const ogImageUrl = new URL(optimizedImage.src, Astro.site).toString();
+
 let catProducts:Producto[] | Categoria[] =[];
 
 if(categoria.show === true ){
@@ -102,7 +114,7 @@ const schemaArticle: Article = {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": categoria.nombre ,
-    "image": [imagenCategoria],
+    "image": [ogImageUrl],
     "datePublished": "2024-01-01",
     "dateModified": "2024-01-01",
     "author": {
@@ -132,7 +144,7 @@ const totalPageSchema:TSGCategorySchema = {
 
 ---
 
-<Layout title={categoria.nombre} canonical={permalink} description={categoria.description} image={imagenCategoria} schemas={[totalPageSchema]} >
+<Layout title={categoria.nombre} canonical={permalink} description={categoria.description} image={ogImageUrl} schemas={[totalPageSchema]} >
   <section class="container">
     <div class="section-header">
         <span class="section-label">Categoría</span>
