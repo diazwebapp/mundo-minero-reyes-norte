@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Específicamente para Facebook si persiste el problema
+User-agent: facebookexternalhit
+Allow: /
