@@ -1,0 +1,57 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+}
+
+const { currentPage, totalPages } = Astro.props;
+
+const getPageUrl = (page: number) => {
+  const url = new URL(Astro.request.url);
+  url.searchParams.set('page', String(page));
+  return url.pathname + url.search;
+};
+
+---
+
+<div class="pagination">
+  {currentPage > 1 && (
+    <a href={getPageUrl(currentPage - 1)} class="btn btn-secondary">Anterior</a>
+  )}
+  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+    <a
+      href={getPageUrl(page)}
+      class={`btn ${page === currentPage ? 'btn-primary' : 'btn-secondary'}`}
+    >
+      {page}
+    </a>
+  ))}
+  {currentPage < totalPages && (
+    <a href={getPageUrl(currentPage + 1)} class="btn btn-secondary">Siguiente</a>
+  )}
+</div>
+
+<style>
+  .pagination {
+    display: flex;
+    flex-flow:row wrap;
+    gap: 0.5rem;
+    margin:auto;
+    width:fit-content;
+    max-width: 800px;
+    margin-top: 2rem;
+  }
+  .pagination .btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+  }
+  .btn-primary {
+    background-color: var(--clr-primary); /* Assuming a primary color variable exists */
+    color: white;
+  }
+  .btn-secondary {
+    background-color: var(--clr-bg-alt); /* Assuming a secondary color variable exists */
+    color: var(--clr-text);
+    border: 1px solid var(--clr-border);
+  }
+</style>

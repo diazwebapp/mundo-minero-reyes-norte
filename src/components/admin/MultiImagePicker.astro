@@ -1,0 +1,123 @@
+---
+interface Props {
+    name: string;
+    currentImages?: {id: number, url: string}[] | null;
+}
+const { name, currentImages } = Astro.props;
+---
+<div class="multi-image-picker-container">
+    <input type="hidden" name={name} value={JSON.stringify(currentImages || [])} />
+    <div class="previews-wrapper">
+        {currentImages && currentImages.map(image => (
+            <div class="preview-item" data-url={image.url}>
+                <img src={image.url} alt="Preview" class="preview-image" />
+                <button type="button" class="remove-btn">&times;</button>
+            </div>
+        ))}
+    </div>
+    <div class="controls">
+        <button type="button" class="btn btn-secondary select-btn">Seleccionar Imágenes</button>
+    </div>
+</div>
+
+<script>
+    import '/src/components/admin/MediaPickerModal.js';
+
+    document.querySelectorAll('.multi-image-picker-container').forEach(container => {
+        const selectBtn = container.querySelector('.select-btn');
+        const hiddenInput = container.querySelector('input[type="hidden"]');
+        const previewsWrapper = container.querySelector('.previews-wrapper');
+        const modal = document.querySelector('media-picker-modal');
+
+        const updateState = (images) => {
+            hiddenInput.value = JSON.stringify(images);
+            renderPreviews(images);
+        };
+
+        const renderPreviews = (images) => {
+            previewsWrapper.innerHTML = '';
+            images.forEach(image => {
+                const previewItem = document.createElement('div');
+                previewItem.classList.add('preview-item');
+                previewItem.dataset.url = image.url;
+                previewItem.innerHTML = `
+                    <img src="${image.url}" width="100" alt="Preview" class="preview-image" />
+                    <button type="button" class="remove-btn">&times;</button>
+                `;
+                previewItem.querySelector('.remove-btn').addEventListener('click', () => {
+                    const currentImages = JSON.parse(hiddenInput.value);
+                    const newImages = currentImages.filter(img => img.url !== image.url);
+                    updateState(newImages);
+                });
+                previewsWrapper.appendChild(previewItem);
+            });
+        };
+        
+        selectBtn.addEventListener('click', () => {
+            modal.open({ multiple: true });
+        });
+
+        modal.addEventListener('images-selected', (e) => {
+            const { urls } = e.detail;
+            const newImages = urls.map((url, index) => ({ id: index + 1, url: url }));
+            updateState(newImages);
+        });
+
+        // Initial render
+        try {
+            renderPreviews(JSON.parse(hiddenInput.value));
+        } catch (e) {
+            renderPreviews([]);
+        }
+    });
+</script>
+
+<style>
+    .multi-image-picker-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .previews-wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-md);
+        background: var(--clr-bg);
+        min-height: 120px;
+    }
+    .preview-item {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+    }
+    .preview-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .remove-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        font-size: 1rem;
+        line-height: 24px;
+        text-align: center;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+    .preview-item:hover .remove-btn {
+        opacity: 1;
+    }
+</style>

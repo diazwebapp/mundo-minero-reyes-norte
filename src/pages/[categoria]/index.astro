@@ -1,37 +1,80 @@
 ---
-import { categorias, productos } from '../../local-data/database';
+import { supabase } from '../../lib/supabase';
 import Layout from '../../layouts/Layout.astro';
-import { getMediaPermalink, getPermalink } from '../../utils/config';
-import {get_products,get_categories} from '../../utils/consultas'
+import { getMediaPermalink, getPermalink, BASE_URL } from '../../utils/config';
 import ProductCard from '../../components/ProductCard.astro';
 import type { Categoria, Producto } from '../../local-data/database.types';
+import type { Article,  OrganizationSchema, TSGCategorySchema } from '../../local-data/schemas';
+import { fichaTecnica } from '../../local-data/ficha-tecnica';
+import type { ProductItemListSchema } from '../../local-data/schemas';
+import Pagination from '../../components/Pagination.astro';
 
 const { categoria: catSlug } = Astro.params;
-// 2. Limpiamos y GUARDAMOS el resultado (quitamos la barra inicial)
-catSlug?.replace(/^\//, '') || '';
+const currentCatSlug = catSlug?.replace(/^\//, '') || '';
 
-const categoria = categorias.find(cat => cat.slug === catSlug);
+const { data: categoria, error: catError } = await supabase.from('categorias').select('*').eq('slug', currentCatSlug).single();
+
 // SI NECESITAMOS UNA PAGINACION:
 const url = new URL(Astro.url);
 const page = parseInt(url.searchParams.get('page') || '1');
+const pageSize = 8;
+const startIndex = (page - 1) * pageSize;
+let totalItems = 0;
 
-if (!categoria) {
+if (catError || !categoria) {
   return Astro.redirect('/404');
 }
 
 const permalink = getPermalink([categoria.slug]);
 const imagenCategoria = getMediaPermalink(categoria.imagen_portada)
 let catProducts:Producto[] | Categoria[] =[];
+
 if(categoria.show === true ){
-  console.log(categoria.parent_id)
-  catProducts = get_products(productos,page,8,categoria.id);
-}
-if(categoria.show === false){
-  console.log(categoria.parent_id)
-  catProducts = get_categories(categorias,page,8,categoria.id);
+    const { count: productsCountResponse, error: countError } = await supabase
+        .from('productos')
+        .select('*', { count: 'exact', head: true })
+        .eq('categoria_id', categoria.id);
+
+    if (productsCountResponse !== null) totalItems = productsCountResponse;
+
+    const { data: products, error: productsError } = await supabase
+        .from('productos')
+        .select('*')
+        .eq('categoria_id', categoria.id)
+        .range(startIndex, startIndex + pageSize - 1); // Pagination
+
+    if (products) catProducts = products;
+} else { // categoria.show === false
+    const { count: categoriesCountResponse, error: countError } = await supabase
+        .from('categorias')
+        .select('*', { count: 'exact', head: true })
+        .eq('parent_id', categoria.id);
+
+    if (categoriesCountResponse !== null) totalItems = categoriesCountResponse;
+
+    const { data: categories, error: categoriesError } = await supabase
+        .from('categorias')
+        .select('*')
+        .eq('parent_id', categoria.id)
+        .range(startIndex, startIndex + pageSize - 1); // Pagination
+    
+    if (categories) catProducts = categories;
 }
 
-const categorySchema = {
+const totalPages = totalItems ? Math.ceil(totalItems / pageSize) : 0; // Pagination
+
+const organization: OrganizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": fichaTecnica.informacion_general.nombre_corto,
+    "url": BASE_URL,
+    "logo": `${BASE_URL}/logo-claro.jpeg`,
+    "sameAs": [
+        "https://www.facebook.com/mmlosreyesdelnorte",
+        "https://www.instagram.com/mmreyesdelnorte",
+    ]
+}
+const categorySchema:ProductItemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: categoria.nombre,
@@ -55,9 +98,41 @@ const categorySchema = {
     }
   }))
 };
+const schemaArticle: Article = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": categoria.nombre ,
+    "image": [imagenCategoria],
+    "datePublished": "2024-01-01",
+    "dateModified": "2024-01-01",
+    "author": {
+       "@type": "Person",
+        "name": "MM Reyes del norte",
+        "url": permalink
+    },
+    "publisher":organization,
+    "description": "Descubre todo lo que necesitas saber sobre grupos electrógenos, desde tipos y comparativas hasta consejos de compra. Encuentra el generador eléctrico perfecto para tus necesidades."
+}
+
+const totalPageSchema:TSGCategorySchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": categoria.nombre,
+  "url": permalink,
+  "description": schemaArticle.description,
+
+  "publisher": organization,
+
+  "mainEntity": categorySchema,
+
+  "hasPart": [
+    schemaArticle
+  ]
+};
+
 ---
 
-<Layout title={categoria.nombre} canonical={permalink} description={categoria.description} image={imagenCategoria} schemas={[categorySchema]} >
+<Layout title={categoria.nombre} canonical={permalink} description={categoria.description} image={imagenCategoria} schemas={[totalPageSchema]} >
   <section class="container">
     <div class="section-header">
         <span class="section-label">Categoría</span>
@@ -68,14 +143,19 @@ const categorySchema = {
       </div>
 
       {catProducts.length > 0 ? (
-        <div class="products-grid">
-          {catProducts.map(producto => (
-            <ProductCard producto={producto} categorySlug={categoria.slug} />
-          ))}
-        </div>
+        <>
+          <div class="products-grid">
+            {catProducts.map(producto => (
+              <ProductCard producto={producto} categorySlug={categoria.slug} />
+            ))}
+          </div>
+          
+        </>
       ) : (
         <p class="no-products">No hay productos disponibles en esta categoría por el momento.</p>
-      )}    
+      )}  
+      
+      <Pagination totalPages={totalPages} currentPage={page} />
   </section>
 </Layout>
 
@@ -87,7 +167,7 @@ const categorySchema = {
     text-align: center;
     margin-bottom: 4rem;
   }
-  
+
   .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));

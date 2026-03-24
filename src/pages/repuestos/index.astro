@@ -1,53 +1,69 @@
 ---
-import { categorias, productos } from '../../local-data/database';
+import { supabase } from '../../lib/supabase';
 import Layout from '../../layouts/Layout.astro';
 import { getMediaPermalink, getPermalink } from '../../utils/config';
-import {get_products,get_categories} from '../../utils/consultas'
 import ProductCard from '../../components/ProductCard.astro';
 import type { Categoria, Producto } from '../../local-data/database.types';
+import type { ProductItemListSchema } from '../../local-data/schemas';
 
-const url = new URL(Astro.url);
-let catSlug = url.pathname
-// 2. Limpiamos y GUARDAMOS el resultado (quitamos la barra inicial y final si existe)
-catSlug = catSlug.replace(/^\/|\/$/g, '');
+const { data: repuestosCategoryData, error: repuestosError } = await supabase
+  .from('categorias')
+  .select('*')
+  .eq('slug', 'repuestos')
+  .single();
 
-console.log("slug = ",catSlug)
-const categoria = categorias.find(cat => cat.slug === catSlug);
-// SI NECESITAMOS UNA PAGINACION:
-
-const page = parseInt(url.searchParams.get('page') || '1');
-
-if (!categoria) {
+if (repuestosError || !repuestosCategoryData) {
   return Astro.redirect('/404');
 }
+const repuestosCategory = repuestosCategoryData;
 
-const permalink = getPermalink([categoria.slug]);
-const imagenCategoria = getMediaPermalink(categoria.imagen_portada)
-let catProducts:Producto[] | Categoria[] =[];
-if(categoria.show === true ){
-  console.log(categoria.parent_id)
-  catProducts = get_products(productos,page,8,categoria.id);
-}
-if(categoria.show === false){
-  console.log(categoria.parent_id)
-  catProducts = get_categories(categorias,page,8,categoria.id);
+const { data: repuestosSubcategoriesData, error: subcategoriesError } = await supabase
+  .from('categorias')
+  .select('*')
+  .eq('parent_id', repuestosCategory.id);
+
+const repuestosSubcategories = repuestosSubcategoriesData || [];
+
+const url = new URL(Astro.url);
+const itemSlug = url.searchParams.get('item');
+
+let currentSubcategory = repuestosSubcategories.find(sc => sc.slug === itemSlug);
+
+if (!currentSubcategory) {
+    currentSubcategory = repuestosSubcategories[0];
 }
 
-const categorySchema = {
+const page = parseInt(url.searchParams.get('page') || '1');
+let catProducts: Producto[] = [];
+if (currentSubcategory) {
+    const pageSize = 20;
+    const startIndex = (page - 1) * pageSize;
+    const { data: productsData, error: productsError } = await supabase
+        .from('productos')
+        .select('*')
+        .eq('categoria_id', currentSubcategory.id)
+        .range(startIndex, startIndex + pageSize - 1);
+    if(productsData) catProducts = productsData;
+}
+
+const permalink = getPermalink([repuestosCategory.slug]);
+const imagenCategoria = getMediaPermalink(repuestosCategory.imagen_portada);
+
+const categorySchema: ProductItemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: categoria.nombre,
+  name: currentSubcategory?.nombre || repuestosCategory.nombre,
   url: permalink,
   numberOfItems: catProducts.length,
   itemListElement: catProducts.map((producto, index) => ({
     '@type': 'ListItem',
     position: index + 1,
-    "item": {
+    item: {
       '@type': 'Product',
       name: producto.nombre,
       description: producto.description,
-      url: getPermalink([categoria.slug,producto.slug]),
-      image:getMediaPermalink(producto.imagen_portada),
+      url: getPermalink([repuestosCategory.slug, producto.slug]),
+      image: getMediaPermalink(producto.imagen_portada),
       offers: {
         '@type': 'Offer',
         priceCurrency: 'USD',
@@ -59,40 +75,237 @@ const categorySchema = {
 };
 ---
 
-<Layout title={categoria.nombre} canonical={permalink} description={categoria.description} image={imagenCategoria} schemas={[categorySchema]} >
-  <section class="container">
-    <div class="section-header">
-        <span class="section-label">Categoría</span>
-        <h1 class="titulos" >{categoria.nombre}</h1>
+<Layout 
+  title={currentSubcategory ? `${currentSubcategory.nombre} - Repuestos` : 'Repuestos'} 
+  canonical={permalink} 
+  description={currentSubcategory?.description || repuestosCategory.description} 
+  image={imagenCategoria} 
+  schemas={[categorySchema]}
+>
+  <div class="page-container">
+    <button class="mobile-menu-toggle">
+      <span class="hamburger"></span>
+    </button>
+
+    <aside class="sidebar">
+      <nav class="category-nav">
+        <h2 class="titulos-small">Categorías</h2>
+        <ul>
+          {repuestosSubcategories.map(subCat => (
+            <li>
+              <a 
+                href={`/repuestos?item=${subCat.slug}`} 
+                class:list={{ active: subCat.id === currentSubcategory?.id }}
+              >
+                {subCat.nombre}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div class="section-header">
+        <span class="section-label">Repuestos</span>
+        <h1 class="titulos">{currentSubcategory?.nombre}</h1>
         <p class="subtitle">
-          Explora todos nuestros productos en la categoría de {categoria.nombre}.
+          {currentSubcategory?.description || `Explora todos nuestros productos en la categoría de ${currentSubcategory?.nombre}.`}
         </p>
       </div>
 
       {catProducts.length > 0 ? (
         <div class="products-grid">
           {catProducts.map(producto => (
-            <ProductCard producto={producto} categorySlug={categoria.slug} />
+            <ProductCard producto={producto} categorySlug={currentSubcategory?.slug || ''} />
           ))}
         </div>
       ) : (
         <p class="no-products">No hay productos disponibles en esta categoría por el momento.</p>
       )}    
-  </section>
+    </main>
+  </div>
 </Layout>
 
 <style>
-  .container{
-    padding:calc(var(--hheader) + 1rem) 1rem;
+  :root {
+    --sidebar-width-desktop: 280px;
   }
-  .section-header {
-    text-align: center;
-    margin-bottom: 4rem;
+
+  /* --- BASE (MOBILE-FIRST) STYLES --- */
+
+  .page-container {
+    padding: calc(var(--hheader) + 1rem) 1rem 1rem;
   }
-  
+
+  /* Sidebar is a slide-in menu on mobile */
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: var(--sidebar-width-desktop);
+    max-height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    border-radius: 0;
+    z-index: 1010;
+    
+    /* Visual styles */
+    background: var(--darkh);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    overflow-y: auto;
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  }
+
+  .category-nav h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--clr-accent);
+    padding-bottom: 0.5rem;
+    padding-top: calc(var(--hheader) + 1rem);
+  }
+
+  .category-nav ul { list-style: none; padding: 0; margin: 0; }
+  .category-nav a {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s, color 0.2s;
+    font-weight: 500;
+    color: var(--clr-bg); /* Text color on dark background */
+  }
+  .category-nav a:hover { 
+    background-color: rgba(255, 255, 255, 0.1); 
+  }
+  .category-nav a.active {
+    background-color: var(--clr-accent);
+    color: var(--clr-bg);
+    font-weight: 700;
+  }
+
+  /* Content takes full width on mobile */
+  .content {
+    flex: 1;
+    min-width: 0;
+    padding: 1rem;
+  }
+
+  .section-header { text-align: center; margin-bottom: 4rem; }
   .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1rem;
+    gap: 1.5rem;
+  }
+  .no-products {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--clr-text-secondary);
+      margin-top: 4rem;
+  }
+
+  /* Mobile Menu Toggle Button */
+  .mobile-menu-toggle {
+    display: flex;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1020;
+    background-color: white;
+    border: 1px solid var(--clr-border);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hamburger {
+    width: 24px;
+    height: 2px;
+    background: var(--clr-text);
+    position: relative;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--clr-text);
+    transition: transform 0.3s, top 0.3s;
+  }
+  .hamburger::before { top: -8px; }
+  .hamburger::after { top: 8px; }
+  
+  .is-open .hamburger { background-color: transparent; }
+  .is-open .hamburger::before { top: 0; transform: rotate(45deg); }
+  .is-open .hamburger::after { top: 0; transform: rotate(-45deg); }
+
+  /* --- DESKTOP STYLES (min-width) --- */
+  @media (min-width: 769px) {
+    .page-container {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      padding: calc(var(--hheader) + 2rem) 1rem 2rem;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: calc(var(--hheader) + 2rem);
+      transform: translateX(0);
+      z-index: 1; /* Reset z-index for sticky positioning */
+      height: auto;
+      max-height: calc(100vh - var(--hheader) - 4rem);
+      width: var(--sidebar-width-desktop);
+      border-radius: var(--radius-lg);
+    }
+    
+    .category-nav h2 {
+      padding-top: 0;
+    }
+
+    .content {
+      padding: 2rem;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+    }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.querySelector('.mobile-menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (toggleButton && sidebar) {
+      toggleButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('is-open');
+        toggleButton.classList.toggle('is-open');
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (sidebar?.classList.contains('is-open') && !sidebar.contains(target) && !toggleButton?.contains(target)) {
+        sidebar.classList.remove('is-open');
+        toggleButton?.classList.remove('is-open');
+      }
+    });
+  });
+</script>

@@ -1,0 +1,113 @@
+---
+interface Props {
+    currentCaracteristicas?: Record<string, string> | null;
+}
+
+const { currentCaracteristicas } = Astro.props;
+
+// Convert the object to an array of { key: string, value: string } for easier handling
+const initialCaracteristicas = Object.entries(currentCaracteristicas || {}).map(([key, value]) => ({ key, value }));
+---
+
+<div class="caracteristicas-form-container">
+    <div class="caracteristicas-list">
+        {initialCaracteristicas.map((char, index) => (
+            <div class="caracteristica-item" data-index={index}>
+                <input type="text" name={`caracteristicas_key_${index}`} value={char.key} placeholder="Clave" />
+                <input type="text" name={`caracteristicas_value_${index}`} value={char.value} placeholder="Valor" />
+                <button type="button" class="remove-char-btn btn btn-danger">X</button>
+            </div>
+        ))}
+    </div>
+    <button type="button" class="add-char-btn btn btn-secondary">Añadir Característica</button>
+</div>
+
+<script>
+    document.querySelectorAll('.caracteristicas-form-container').forEach(container => {
+        const list = container.querySelector('.caracteristicas-list');
+        const addBtn = container.querySelector('.add-char-btn');
+        let charIndex = list.children.length; // Start index from existing items
+
+        const reindexCharacteristics = () => {
+            Array.from(list.children).forEach((item, index) => {
+                item.dataset.index = String(index);
+                (item.querySelector('input[name^="caracteristicas_key_"]') as HTMLInputElement).name = `caracteristicas_key_${index}`;
+                (item.querySelector('input[name^="caracteristicas_value_"]') as HTMLInputElement).name = `caracteristicas_value_${index}`;
+            });
+            charIndex = list.children.length; // Update charIndex after re-indexing
+        };
+
+        const addCharacteristicRow = (key = '', value = '') => {
+            const item = document.createElement('div');
+            item.classList.add('caracteristica-item');
+            item.dataset.index = String(charIndex);
+            item.innerHTML = `
+                <input type="text" name="caracteristicas_key_${charIndex}" value="${key}" placeholder="Clave" />
+                <input type="text" name="caracteristicas_value_${charIndex}" value="${value}" placeholder="Valor" />
+                <button type="button" class="remove-char-btn btn btn-danger">X</button>
+            `;
+            item.querySelector('.remove-char-btn')?.addEventListener('click', () => {
+                item.remove();
+                reindexCharacteristics(); // Re-index after removing
+            });
+            list.appendChild(item);
+            charIndex++;
+        };
+
+        // Add event listener for existing remove buttons (if any)
+        list.querySelectorAll('.remove-char-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.target.closest('.caracteristica-item')?.remove();
+                reindexCharacteristics(); // Re-index after removing
+            });
+        });
+
+        addBtn.addEventListener('click', () => addCharacteristicRow());
+    });
+</script>
+
+<style>
+    .caracteristicas-form-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .caracteristicas-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-md);
+        background: var(--clr-bg);
+    }
+    .caracteristica-item {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    .caracteristica-item input[type="text"] {
+        width: 100%;
+        padding: 0.6rem 1rem;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--clr-border);
+        background: var(--clr-bg-alt);
+        color: var(--clr-text);
+        font-size: 0.9rem;
+    }
+    .remove-char-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        font-size: 0.9rem;
+    }
+    .add-char-btn {
+        align-self: flex-start;
+        padding: 0.6rem 1rem;
+    }
+</style>

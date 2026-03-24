@@ -104,10 +104,9 @@ import LayoutSearch from '../layouts/LayoutSearch.astro';
   interface Producto {
     nombre: string;
     description: string;
-    modelo_o_capacidad: string;
+    caracteristicas: { [key: string]: string }; // Updated to flat key-value
     imagen_portada: string;
     slug: string;
-    motor?: { potencia?: string };
   }
 
   const searchInput = document.getElementById('main-search') as HTMLInputElement;

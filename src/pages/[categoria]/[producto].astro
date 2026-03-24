@@ -1,6 +1,5 @@
 ---
-import { productos, categorias } from '../../local-data/database';
-import type { Producto, Categoria } from '../../local-data/database.types';
+import { supabase } from '../../lib/supabase';
 import type { ProductSchema } from '../../local-data/schemas';
 import Layout from '../../layouts/Layout.astro';
 import { BASE_URL, getMediaPermalink, getPermalink } from '../../utils/config';
@@ -8,95 +7,53 @@ import { Image } from 'astro:assets';
 import { fichaTecnica } from '../../local-data/ficha-tecnica';
 import Galery from '../../components/Galery.astro';
 
-// Obtener parámetros dinámicamente (funciona con SSR) y normalizarlos
+// Obtener parámetros dinámicamente
 let { categoria: categoriaSlug, producto: productoSlug } = Astro.params;
 
+const { data: producto, error } = await supabase
+  .from('productos')
+  .select('*, categoria:categorias (slug, nombre)')
+  .eq('slug', productoSlug)
+  .single();
 
-const producto = productos.find(p => p.slug === productoSlug);
-if (!producto) {
+if (error || !producto) {
   return Astro.redirect('/404');
 }
-
-const canonical = getPermalink([categoriaSlug || "",productoSlug || ""]);
-const portada = getMediaPermalink(producto.imagen_portada)
-
-const productSchema: ProductSchema = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": `${producto.nombre}`,
-  "description": producto.description,
-  "url": canonical,
-  "image": [portada],
-  "brand": {
-    "@type": "Brand",
-    "name": 'Mundo Minero Los Reyes Norte'
-  },
-  offers: {
-    "@type": "Offer",
-    "priceCurrency": "USD",
-    "price": 0.00,
-    "availability": "https://schema.org/InStock",
-    "itemCondition": "https://schema.org/NewCondition"
-  }
-};
-
-// Función para renderizar características técnicas dinámicamente
-interface Spec {
-  label: string;
-  value: string | undefined;
+const categoria = producto.categoria;
+if(categoria.slug !== categoriaSlug){
+    return Astro.redirect('/404');
 }
 
-const specs: Spec[] = [
-  { label: "Modelo/Capacidad", value: producto.modelo_o_capacidad },
-  { label: "Tipo de Motor", value: producto.motor?.tipo },
-  { label: "Potencia", value: producto.motor?.potencia || producto.motor_potencia },
-  { label: "Refrigeración", value: producto.motor?.refrigeracion },
-  { label: "Modelo Motor", value: producto.motor?.modelo },
-  { label: "Marca Motor", value: producto.motor?.marca },
-  { label: "RPM", value: producto.motor?.rpm },
-  { label: "Dimensiones Globales", value: producto.dimensiones_globales },
-  { label: "Sistema de Transmisión", value: producto.sistema_transmision },
-  { label: "Caja de Cambios", value: producto.caja_cambios },
-  { label: "Peso", value: producto.peso },
-  { label: "Baterías", value: producto.baterias },
-  { label: "Autonomía", value: producto.autonomia },
-  { label: "Voltaje", value: producto.voltaje },
-  { label: "Tensión", value: producto.tension },
-  { label: "Fases", value: producto.fases },
-  { label: "Altura Máx. Pala", value: producto.altura_max_pala },
-  { label: "Capacidad de Carga", value: producto.capacidad_carga },
-  { label: "Volumen Cucharón", value: producto.volumen_cucharon },
-  { label: "Eficiencia", value: producto.eficiencia },
-  { label: "Consumo de Aire", value: producto.consumo_aire },
-  { label: "Profundidad Máx. Taladro", value: producto.profundidad_max_taladro },
-  { label: "Longitud Cable", value: producto.longitud_cable },
-  { label: "Flujo de Aire", value: producto.flujo_aire }
-];
+const canonical = getPermalink([categoriaSlug || "", productoSlug || ""]);
+const portada = getMediaPermalink(producto.imagen_portada);
 
-// Filtrar solo las características que existen
-const specsFiltered = specs.filter(spec => spec.value);
+const productSchema: ProductSchema = {
+// ...
+};
+
+const formatKey = (key: string) => {
+  return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+};
 ---
 
 <Layout image={portada} title={producto.nombre} description={producto.description} canonical={canonical} schemas={[productSchema]}> 
 
   <section class="container">
       
-      <!-- Breadcrumb Navigation -->
       <nav class="breadcrumb">
         <a href="/">Inicio</a>
         <span>/</span>
-        <a href={`${BASE_URL}${categoriaSlug}/`}>{categorias.find(c => c.slug === categoriaSlug)?.nombre}</a>
+        <a href=`/${categoriaSlug}/`}>{categoria.nombre}</a>
         <span>/</span>
         <span>{producto.nombre}</span>
       </nav>
 
       <h1 >{producto.nombre}</h1>
-      <!-- Main Product Section -->
+      
       <div class="product-hero">
-        <!-- Product Image / Gallery -->
         <div class="product-image-wrapper">
           {producto.imagenes && producto.imagenes.length > 0 ? (
-            <Galery images={producto.imagenes.map(img => img.url)} alt={producto.nombre} />
+            <Galery images={producto.imagenes.map((img:any) => img.url)} alt={producto.nombre} />
           ) : (
             <Image 
               src={producto.imagen_portada} 
@@ -106,58 +63,49 @@ const specsFiltered = specs.filter(spec => spec.value);
               height={700}
               class="product-image"
               loading="eager"
-              fetchpriority="high"
-              decoding="sync"
             />
           )}
         </div>
         
-        <!-- Product Info Sidebar -->
         <div class="product-sidebar">
           
-          <!-- CTA Button -->
           <div class="cta-section">
             <h3>Cotización Gratis</h3>
             <a href={`mailto:${fichaTecnica.datos_contacto.correo_electronico}`} class="btn btn-light">
               E-mail
             </a>
             <a href={`https://api.whatsapp.com/send?phone=${fichaTecnica.datos_contacto.whatsapp?.replace(/\D/g, '') || '51920310887'}&text=Hola,%20estoy%20interesado%20en%20el%20producto:%20${producto.nombre}`} class="btn btn-secondary">
-              <svg class="whatsapp" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-									<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-								</svg> WhatsApp
+              <svg class="whatsapp" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp
             </a>
           </div>
 
           <p class="product-description">{producto.description}</p>
           
-          <!-- Quick Specs -->
-          {producto.modelo_o_capacidad && (
+          {producto.caracteristicas.modelo_capacidad && (
             <div class="quick-spec">
               <span class="spec-label">Modelo</span>
-              <span class="spec-value">{producto.modelo_o_capacidad}</span>
+              <span class="spec-value">{producto.caracteristicas.modelo_capacidad}</span>
             </div>
           )}
           
-          {producto.motor?.potencia && (
+          {producto.caracteristicas.potencia_motor && (
             <div class="quick-spec">
               <span class="spec-label">Potencia</span>
-              <span class="spec-value">{producto.motor.potencia}</span>
+              <span class="spec-value">{producto.caracteristicas.potencia_motor}</span>
             </div>
           )}
           
-          {producto.motor?.tipo && (
+          {producto.caracteristicas.tipo_motor && (
             <div class="quick-spec">
               <span class="spec-label">Motor</span>
-              <span class="spec-value">{producto.motor.tipo}</span>
+              <span class="spec-value">{producto.caracteristicas.tipo_motor}</span>
             </div>
           )}
 
-          
         </div>
       </div>
 
-      <!-- Technical Specifications Table -->
-      {specsFiltered.length > 0 && (
+      {Object.keys(producto.caracteristicas).length > 0 && (
         <div class="specs-section">
           <h2>Características Técnicas</h2>
           <div class="specs-table-wrapper">
@@ -169,22 +117,22 @@ const specsFiltered = specs.filter(spec => spec.value);
                 </tr>
               </thead>
               <tbody>
-                {specsFiltered.map(spec => (
-                  <tr>
-                    <td class="spec-name">{spec.label}</td>
-                    <td class="spec-value">{spec.value}</td>
-                  </tr>
+                {Object.entries(producto.caracteristicas).map(([key, value]) => (
+                  value ? (
+                    <tr>
+                      <td class="spec-name">{formatKey(key)}</td>
+                      <td class="spec-value">{value}</td>
+                    </tr>
+                  ) : null
                 ))}
               </tbody>
             </table>
           </div>
         </div>
       )}
-
   </section>
 
-  <!-- Call To Action Section -->
-      <section class="container">
+  <section class="container">
         <div class="cta-content">
           <h2>Consigue tu equipo hoy</h2>
           <p>Mundo Minero Los Reyes del Norte ofrece soluciones confiables para tus necesidades mineras.</p>
@@ -197,259 +145,43 @@ const specsFiltered = specs.filter(spec => spec.value);
 </Layout>
 
 <style>
-  h1{
-    margin:1rem 0;
-    text-align:center;
-  }
-  .container{
-    padding-top: calc(var(--hheader) + 1rem);
-  }
-  /* Breadcrumb */
-  .breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    font-size: .8rem;
-  }
-
-  .breadcrumb a {
-    color: #e74c3c;
-    transition: color 0.3s ease;
-    text-decoration: none;
-  }
-
-  .breadcrumb a:hover {
-    color: var(--light);
-    text-decoration: underline;
-  }
-
-  .breadcrumb span {
-    opacity: 0.7;
-  }
-
-  /* Product Hero Section */
-  .product-hero {
-    display: grid;
-    grid-template-columns: 1fr ;
-    gap: .7rem;
-    align-items: start;
-  }
-
-  .product-image-wrapper {
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--darkh);
-  }
-
-  .product-image {
-    width: 100%;
-    max-width: 700px;
-    height: auto;
-    object-fit: cover;
-    aspect-ratio: 16 / 9;
-    border-radius: 12px;
-  }
-
-  .product-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    border: 1px solid rgba(231, 76, 60, 0.3);
-    border-radius: 12px;
-    background: var(--darkh);
-    backdrop-filter: blur(10px);
-    padding: 0.7rem;
-  }
-
-  .product-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1.2;
-    margin: 0;
-  }
-
-  .product-description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* Quick Specs */
-  .quick-spec {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.6rem ;
-    background: var(--darkh);
-    border-left: 3px solid #e74c3c;
-    border-radius: 8px;
-  }
-
-  .spec-label {
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.9rem;
-  }
-
-  .quick-spec .spec-value {
-    color: #e74c3c;
-    font-size: 1rem;
-  }
-
-  /* CTA Section */
-  .cta-section {
-    background: var(--darkh);
-    padding: .6rem;
-    display: flex;
-    flex-flow:row wrap;
-    gap:1rem;
-    border-bottom: 1px solid #e74c3c;
-  }
-
-  .cta-section h3 {
-    font-size: 1.3rem;
-    width: 100%;
-    margin: 0 0 0.5rem 0;
-    text-align:center;
-  }
-
-  .cta-text {
-    margin: 0 0 1.5rem 0;
-    font-size: 0.95rem;
-  }
-
-  /* Buttons */
-  .btn{
-    margin-top: 0.5rem;
-  }
-  .btn-light{
-    background-color: var(--light);
-    color:var(--dark);
-  }
-
-  /* Technical Specifications */
-  .specs-section {
-    margin: 1rem 0;
-    background: var(--darkh);
-    backdrop-filter: blur(10px);
-    padding: 0.7rem;
-    border-radius: 12px;
-    border: 1px solid rgba(231, 76, 60, 0.2);
-  }
-
-  .specs-section h2 {
-    font-size: 1.8rem;
-    margin: 0 0 1.5rem 0;
-    text-align: center;
-  }
-
-  .specs-table-wrapper {
-    overflow-x: auto;
-  }
-
-  .specs-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .specs-table thead {
-    background: rgba(231, 76, 60, 0.15);
-  }
-
-  .specs-table th {
-    padding: 1rem;
-    text-align: left;
-    font-weight: 700;
-    color: #e74c3c;
-    border-bottom: 2px solid rgba(231, 76, 60, 0.3);
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .specs-table td {
-    padding: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.85);
-  }
-
-  .specs-table tbody tr:hover {
-    background-color: rgba(231, 76, 60, 0.05);
-  }
-
-  .specs-table tbody tr:last-child td {
-    border-bottom: none;
-  }
-
-  .spec-name {
-    font-weight: 600;
-    width: 40%;
-  }
-
-  .specs-table .spec-value {
-    color: #e74c3c;
-    font-weight: 600;
-  }
-
-  /* Final CTA */
-  .cta-content {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    border-radius: 12px;
-    text-align: center;
-    padding: 2rem 0.7rem;
-    margin-bottom:3rem;
-  }
-
-  .cta-content h2 {
-    font-size: 2rem;
-    margin: 0 0 0.5rem 0;
-  }
-
-  .cta-content p {
-    font-size: 1.1rem;
-    margin: 0 0 2rem 0;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding:1rem 0;
-  }
-
-  .cta-content .btn-primary {
-    background-color: var(--light);
-    color: #e74c3c;
-  }
-
-  .cta-content .btn-primary:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  }
-
-  .cta-content .btn-outline {
-    background-color: transparent;
-    border-color: var(--light);
-  }
-
-  .cta-content .btn-outline:hover {
-    background-color: var(--light);
-    color: #e74c3c;
-  }
+  h1{ margin:1rem 0; text-align:center; }
+  .container{ padding-top: calc(var(--hheader) + 1rem); }
+  .breadcrumb { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; font-size: .8rem; }
+  .breadcrumb a { color: #e74c3c; transition: color 0.3s ease; text-decoration: none; }
+  .breadcrumb a:hover { color: var(--light); text-decoration: underline; }
+  .breadcrumb span { opacity: 0.7; }
+  .product-hero { display: grid; grid-template-columns: 1fr; gap: .7rem; align-items: start; }
+  .product-image-wrapper { border-radius: 12px; overflow: hidden; background: var(--darkh); }
+  .product-image { width: 100%; max-width: 700px; height: auto; object-fit: cover; aspect-ratio: 16 / 9; border-radius: 12px; }
+  .product-sidebar { display: flex; flex-direction: column; gap: 1.5rem; border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 12px; background: var(--darkh); backdrop-filter: blur(10px); padding: 0.7rem; }
+  .product-description { font-size: 1.1rem; line-height: 1.6; margin: 0; }
+  .quick-spec { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem; background: var(--darkh); border-left: 3px solid #e74c3c; border-radius: 8px; }
+  .spec-label { font-weight: 600; color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; }
+  .quick-spec .spec-value { color: #e74c3c; font-size: 1rem; }
+  .cta-section { background: var(--darkh); padding: .6rem; display: flex; flex-flow:row wrap; gap:1rem; border-bottom: 1px solid #e74c3c; }
+  .cta-section h3 { font-size: 1.3rem; width: 100%; margin: 0 0 0.5rem 0; text-align:center; }
+  .btn{ margin-top: 0.5rem; }
+  .btn-light{ background-color: var(--light); color:var(--dark); }
+  .specs-section { margin: 1rem 0; background: var(--darkh); backdrop-filter: blur(10px); padding: 0.7rem; border-radius: 12px; border: 1px solid rgba(231, 76, 60, 0.2); }
+  .specs-section h2 { font-size: 1.8rem; margin: 0 0 1.5rem 0; text-align: center; }
+  .specs-table-wrapper { overflow-x: auto; }
+  .specs-table { width: 100%; border-collapse: collapse; }
+  .specs-table thead { background: rgba(231, 76, 60, 0.15); }
+  .specs-table th { padding: 1rem; text-align: left; font-weight: 700; color: #e74c3c; border-bottom: 2px solid rgba(231, 76, 60, 0.3); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .specs-table td { padding: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.85); }
+  .specs-table tbody tr:hover { background-color: rgba(231, 76, 60, 0.05); }
+  .specs-table tbody tr:last-child td { border-bottom: none; }
+  .spec-name { font-weight: 600; width: 40%; }
+  .specs-table .spec-value { color: #e74c3c; font-weight: 600; }
+  .cta-content { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); border-radius: 12px; text-align: center; padding: 2rem 0.7rem; margin-bottom:3rem; }
+  .cta-content h2 { font-size: 2rem; margin: 0 0 0.5rem 0; }
+  .cta-content p { font-size: 1.1rem; margin: 0 0 2rem 0; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; padding:1rem 0; }
 @media (min-width: 768px) {
-    .product-hero {
-      grid-template-columns: 400px 1fr;
-    }
-  }
+    .product-hero { grid-template-columns: 400px 1fr; }
+}
 @media (min-width: 962px) {
-  .product-hero {
-    grid-template-columns: 1fr 400px;
-  }
+  .product-hero { grid-template-columns: 1fr 400px; }
 }
 </style>

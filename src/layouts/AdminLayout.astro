@@ -1,0 +1,144 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Admin: {title}</title>
+	</head>
+	<body>
+    <div class="admin-layout">
+      <aside class="admin-sidebar">
+        <h1 class="logo">Mundo Minero</h1>
+        <nav class="admin-nav">
+          <ul>
+            <li><a href="/admin">Dashboard</a></li>
+            <li><a href="/admin/categorias">Categorías</a></li>
+            <li><a href="/admin/productos">Productos</a></li>
+            <li><a href="/admin/media">Media</a></li>
+            <li><a href="/" target="_blank">Ver Sitio</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <main class="admin-main-content">
+        <header class="admin-header">
+          <h2>{title}</h2>
+        </header>
+        <div class="content-wrapper">
+          <slot />
+        </div>
+      </main>
+    </div>
+		<style is:global>
+			:root {
+				--clr-bg: #111827;
+        --clr-bg-alt: #1f2937;
+        --clr-border: #374151;
+        --clr-text: #d1d5db;
+        --clr-text-alt: #9ca3af;
+        --clr-accent: #e74c3c;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+			}
+			*, *::before, *::after {
+        box-sizing: border-box;
+      }
+			body {
+				margin: 0;
+				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				background: var(--clr-bg);
+				color: var(--clr-text);
+        font-size: 16px;
+			}
+      h1, h2, h3, h4, h5, h6 {
+        margin: 0 0 1rem 0;
+        font-weight: 700;
+      }
+      a {
+        color: var(--clr-accent);
+        text-decoration: none;
+      }
+      .btn {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        border: 1px solid var(--clr-accent);
+        background-color: var(--clr-accent);
+        color: var(--clr-bg);
+        border-radius: var(--radius-md);
+        font-weight: 700;
+        text-align: center;
+        transition: all 0.2s ease;
+      }
+      .btn:hover {
+        background-color: transparent;
+        color: var(--clr-accent);
+      }
+      .btn-danger {
+        --clr-accent: #b91c1c;
+      }
+      .btn-secondary {
+        --clr-accent: #4b5563;
+      }
+		</style>
+    <style>
+      .admin-layout {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        min-height: 100vh;
+      }
+      .admin-sidebar {
+        background: var(--clr-bg-alt);
+        padding: 1.5rem;
+        border-right: 1px solid var(--clr-border);
+      }
+      .logo {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .admin-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .admin-nav a {
+        display: block;
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-md);
+        color: var(--clr-text);
+      }
+      .admin-nav a:hover {
+        background-color: var(--clr-accent);
+        color: var(--clr-bg);
+      }
+       .admin-main-content {
+        display: flex;
+        flex-direction: column;
+       }
+      .admin-header {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--clr-border);
+        background: var(--clr-bg-alt);
+      }
+      .admin-header h2 {
+        margin: 0;
+        font-size: 1.8rem;
+      }
+      .content-wrapper {
+        padding: 2rem;
+      }
+    </style>
+	</body>
+</html>

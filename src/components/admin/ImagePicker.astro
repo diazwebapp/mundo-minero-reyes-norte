@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+    name: string;
+    currentImageUrl?: string | null;
+}
+const { name, currentImageUrl } = Astro.props;
+---
+<div class="image-picker-container">
+    <input type="hidden" name={name} value={currentImageUrl || ''} />
+    <div class="preview-wrapper">
+        <Image 
+            src={currentImageUrl || 'https://via.placeholder.com/150'} 
+            alt="Preview" 
+            class="preview-image"
+            width={100}
+            height={100}
+        />
+    </div>
+    <div class="controls">
+        <button type="button" class="btn btn-secondary select-btn">Seleccionar Imagen</button>
+        <button type="button" class="btn btn-danger remove-btn">Quitar</button>
+    </div>
+</div>
+
+<media-picker-modal></media-picker-modal>
+
+<script>
+    // This script should be imported once per page, but for simplicity
+    // in this component, we include it here. Astro will handle deduplication.
+    import '/src/components/admin/MediaPickerModal.js';
+
+    document.querySelectorAll('.image-picker-container').forEach(container => {
+        const selectBtn = container.querySelector('.select-btn');
+        const removeBtn = container.querySelector('.remove-btn');
+        const previewImage = container.querySelector('.preview-image') as HTMLImageElement;
+        const hiddenInput = container.querySelector('input[type="hidden"]') as HTMLInputElement;
+        const modal = document.querySelector('media-picker-modal'); // Assumes one modal per page
+
+        selectBtn?.addEventListener('click', () => {
+            modal.open();
+        });
+
+        removeBtn?.addEventListener('click', () => {
+            hiddenInput.value = '';
+            previewImage.src = 'https://via.placeholder.com/150';
+        });
+
+        modal?.addEventListener('image-selected', (e: CustomEvent) => {
+            const { url } = e.detail;
+            hiddenInput.value = url;
+            previewImage.src = url;
+        });
+    });
+</script>
+
+<style>
+    .image-picker-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .preview-wrapper {
+        width: 150px;
+        height: 150px;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        border: 1px solid var(--clr-border);
+        background-color: var(--clr-bg);
+    }
+    .preview-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .controls {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+</style>

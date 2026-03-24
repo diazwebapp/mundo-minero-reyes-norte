@@ -1,0 +1,100 @@
+---
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+import { supabase } from "../../../lib/supabase";
+import ImagePicker from "../../../components/admin/ImagePicker.astro";
+import type { Categoria } from "../../../local-data/database.types";
+
+// Fetch all categories to populate the 'parent' dropdown
+const { data: allCategorias, error } = await supabase.from('categorias').select('id, nombre');
+
+if (error) {
+    console.error("Error fetching categories for dropdown:", error.message);
+}
+---
+<AdminLayout title="Crear Nueva Categoría">
+    <form method="POST" action="/api/admin/categorias">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea id="description" name="description" rows="4"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="slug">Slug</label>
+            <input type="text" id="slug" name="slug" required />
+            <small>Generado automáticamente si se deja en blanco.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="parent_id">Categoría Padre</label>
+            <select id="parent_id" name="parent_id">
+                <option value="">-- Ninguna --</option>
+                {allCategorias && allCategorias.map(cat => (
+                    <option value={cat.id}>{cat.nombre}</option>
+                ))}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Imagen de Portada</label>
+            <ImagePicker name="imagen_portada" />
+        </div>
+
+        <div class="form-group form-group-checkbox">
+            <input type="checkbox" id="show" name="show" checked />
+            <label for="show">Mostrar esta categoría</label>
+        </div>
+
+        <button type="submit" class="btn">Crear Categoría</button>
+    </form>
+</AdminLayout>
+
+<style>
+    form {
+        display: grid;
+        gap: 1.5rem;
+        max-width: 800px;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    label {
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--clr-text-alt);
+    }
+    input[type="text"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--clr-border);
+        background: var(--clr-bg-alt);
+        color: var(--clr-text);
+        font-size: 1rem;
+        transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+        border-color: var(--clr-accent);
+    }
+    small {
+        font-size: 0.8rem;
+        color: var(--clr-text-alt);
+    }
+    .form-group-checkbox {
+        flex-direction: row;
+        align-items: center;
+    }
+    .form-group-checkbox input {
+       width: auto;
+       margin-right: 0.5rem;
+    }
+</style>

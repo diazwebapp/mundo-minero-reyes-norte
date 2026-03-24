@@ -2,8 +2,7 @@
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import type { OrganizationSchema } from '../local-data/schemas';
-import { BASE_URL, getMediaPermalink } from '../utils/config';
+import { getMediaPermalink } from '../utils/config';
 export interface Props {
   title: string;
   description: string;
@@ -24,31 +23,6 @@ const {
 
 const siteName = "Mundo Minero LOS Reyes del Norte";
 const formattedTitle = `${title} | ${siteName}`;
-
-const company : OrganizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Mundo Minero Los Reyes del Norte',
-  url: BASE_URL,
-  logo: BASE_URL+'/favicon.svg',
-  sameAs: [
-	'https://www.facebook.com/mmlosreyesdelnorte',
-	'https://www.instagram.com/mmreyesdelnorte',
-	'https://www.tiktok.com/@mmreyesdlnorte'
-  ],
-  description: 'Maquinaria y equipos para minería. MUNDO MINERO LOS REYES DEL NORTE, Lideres en equipos de extracción minera.',
-  address: {
-	'@type': 'PostalAddress',
-	streetAddress: 'AV. AMERICA SUR Nro. 836',
-	addressLocality: 'trujillo',
-	addressRegion: 'La Libertad',
-	postalCode: '',
-	addressCountry: 'PE'
-  },
-  foundingDate: '2004-01-01'
-};
-
-schemas.push(company);
 
 ---
 <html lang="es">

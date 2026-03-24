@@ -53,11 +53,11 @@ const permalink = categorySlug === undefined? getPermalink([producto.slug],true)
     {/* sólo mostramos las specs cuando sea un Producto real */}
     {isProducto(producto) && (
       <ul class="product-specs">
-        {producto.motor?.tipo && (
-          <li><strong>Motor:</strong> {producto.motor.tipo}</li>
+        {producto.caracteristicas["Motor"]?.tipo && (
+          <li><strong>Motor:</strong> {producto.caracteristicas["Motor"].tipo}</li>
         )}
-        {producto.motor?.potencia && (
-          <li><strong>Potencia:</strong> {producto.motor.potencia}</li>
+        {producto.caracteristicas["Motor"]?.potencia && (
+          <li><strong>Potencia:</strong> {producto.caracteristicas["Motor"].potencia}</li>
         )}
         
       </ul>

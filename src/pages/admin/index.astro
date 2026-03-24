@@ -1,0 +1,58 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+
+---
+
+<AdminLayout title="Admin Dashboard">
+  <div class="dashboard-container">
+    <h1 class="titulos">Bienvenido al Panel de Administración</h1>
+    <p>Desde aquí puedes gestionar productos, categorías y otros aspectos de tu sitio.</p>
+
+    <div class="actions-grid">
+        <a href="/admin/productos" class="btn btn-dashboard">Gestionar Productos</a>
+        <a href="/admin/categorias" class="btn btn-dashboard">Gestionar Categorías</a>
+        <!-- Add more admin actions here -->
+    </div>
+  </div>
+</AdminLayout>
+
+<style>
+  .dashboard-container {
+    padding: calc(var(--hheader) + 2rem) 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .titulos {
+    margin-bottom: 1rem;
+    color: var(--clr-text);
+  }
+  p {
+    color: var(--clr-text-alt);
+    margin-bottom: 2rem;
+  }
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .btn-dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    background-color: var(--clr-primary);
+    color: white;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .btn-dashboard:hover {
+    background-color: var(--clr-primary-dark);
+    transform: translateY(-2px);
+  }
+</style>

@@ -9,7 +9,13 @@ export type ListItem = {
     name: string;
     image: string;
     url: string;
-    // Puedes agregar description?: string o offers?: any si los tienes
+    description: string;
+    offers?: {
+      '@type': 'Offer';
+      priceCurrency: string;
+      price: string;
+      availability: string;
+    };
   };
 };
 
@@ -149,3 +155,19 @@ export type FAQPageSchema = {
     };
   }>;
 };
+
+// 3. Interfaz Principal para la página de categoría
+export interface TSGCategorySchema {
+  "@context": "https://schema.org";
+  "@type": "CollectionPage";
+  name: string;
+  url: string;
+  description: string;
+  publisher: OrganizationSchema;
+  
+  // El listado de productos (Tu ItemList)
+  mainEntity: ProductItemListSchema;
+
+  // La parte informativa de la guía
+  hasPart: Article[];
+}

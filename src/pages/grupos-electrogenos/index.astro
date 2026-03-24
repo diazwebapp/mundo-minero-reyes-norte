@@ -1,15 +1,40 @@
 ---
 import Layout from "../../layouts/Layout.astro"
-import { categorias, productos } from "../../local-data/database"
 import ProductCard from "../../components/ProductCard.astro"
 import { BASE_URL, getMediaPermalink, getPermalink } from "../../utils/config"
 import type { Article, OrganizationSchema } from "../../local-data/schemas"
-import { fichaTecnica } from "../../local-data/ficha-tecnica"
 import Image from "astro/components/Image.astro"
+import { supabase } from "../../lib/supabase" // Correct import
 
+// Temporary fichaTecnica until migration is complete
+const fichaTecnica = {
+    informacion_general: { nombre_corto: "MUNDO MINERO LOS REYES DEL NORTE" },
+    datos_contacto: { correo_electronico: "mmreyesdelnorte@gmail.com", whatsapp: "+51920310887", facebook: "mmlosreyesdelnorte", instagram: "mmreyesdelnorte" },
+};
 
-const grupoElectrogenos = categorias.find(categoria => categoria.id === 5)
-const productosGrupoElectrogenos = productos.filter(producto => producto.categoria_id === 5)
+const { data: grupoElectrogenosData, error: catError } = await supabase
+  .from('categorias')
+  .select('*')
+  .eq('id', 5) // Assuming ID 5 is "Grupos Electrógenos"
+  .single();
+
+if (catError || !grupoElectrogenosData) {
+  // Handle error or redirect
+  console.error("Error fetching 'Grupos Electrógenos' category:", catError?.message);
+  return Astro.redirect('/404');
+}
+const grupoElectrogenos = grupoElectrogenosData;
+
+const { data: productosGrupoElectrogenos, error: productsError } = await supabase
+  .from('productos')
+  .select('*')
+  .eq('categoria_id', grupoElectrogenos.id);
+
+if (productsError) {
+  console.error("Error fetching products for 'Grupos Electrógenos':", productsError?.message);
+  // productsGrupoElectrogenos will be null, handled in template
+}
+
 
 const imagenp = getMediaPermalink(grupoElectrogenos?.imagen_portada || "");
 const canonical = getPermalink([grupoElectrogenos?.slug || ""])
