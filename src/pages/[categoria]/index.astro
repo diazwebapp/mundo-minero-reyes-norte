@@ -33,11 +33,10 @@ const optimizedImage = await getImage({
   src: imagenCategoria,
   width: 1200,
   height: 630,
-  format: 'jpg', // Forzamos JPG para máxima compatibilidad con redes sociales
 });
 
 // 2. Creamos la URL absoluta (Importante para OG)
-const ogImageUrl = imagenCategoria;
+const ogImageUrl = new URL(optimizedImage.src, Astro.site).toString();
 
 let catProducts:Producto[] | Categoria[] =[];
 
