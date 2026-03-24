@@ -1,11 +1,5 @@
 import type { APIRoute } from "astro";
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_KEY;
-
-
-const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+import { supabaseClient } from "../../../../lib/supabase";
 
 const slugify = (text: string) => {
     return text.toString().toLowerCase().trim()
@@ -20,7 +14,7 @@ export const POST: APIRoute = async ({ params, request, redirect }) => {
     const method = formData.get('_method')?.toString().toUpperCase();
 
     if (method === 'DELETE') {
-        const { error } = await supabaseAdmin.from('categorias').delete().eq('id', id);
+        const { error } = await supabaseClient.from('categorias').delete().eq('id', id);
 
         if (error) {
             return new Response(JSON.stringify({ error: error.message }), { status: 500 });
@@ -49,7 +43,7 @@ export const POST: APIRoute = async ({ params, request, redirect }) => {
             show,
         };
 
-        const { error } = await supabaseAdmin
+        const { error } = await supabaseClient
             .from('categorias')
             .update(updatedCategory)
             .eq('id', id);

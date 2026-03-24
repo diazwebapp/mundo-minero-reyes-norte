@@ -4,7 +4,8 @@ import ProductCard from "../../components/ProductCard.astro"
 import { BASE_URL, getMediaPermalink, getPermalink } from "../../utils/config"
 import type { Article, OrganizationSchema } from "../../local-data/schemas"
 import Image from "astro/components/Image.astro"
-import { supabase } from "../../lib/supabase" // Correct import
+import { supabaseClient } from "../../lib/supabase" // Correct import
+import type { Categoria, Producto } from "../../local-data/database.types"
 
 // Temporary fichaTecnica until migration is complete
 const fichaTecnica = {
@@ -12,7 +13,7 @@ const fichaTecnica = {
     datos_contacto: { correo_electronico: "mmreyesdelnorte@gmail.com", whatsapp: "+51920310887", facebook: "mmlosreyesdelnorte", instagram: "mmreyesdelnorte" },
 };
 
-const { data: grupoElectrogenosData, error: catError } = await supabase
+const { data: grupoElectrogenosData, error: catError } = await supabaseClient
   .from('categorias')
   .select('*')
   .eq('id', 5) // Assuming ID 5 is "Grupos Electrógenos"
@@ -23,9 +24,9 @@ if (catError || !grupoElectrogenosData) {
   console.error("Error fetching 'Grupos Electrógenos' category:", catError?.message);
   return Astro.redirect('/404');
 }
-const grupoElectrogenos = grupoElectrogenosData;
+const grupoElectrogenos:Categoria = grupoElectrogenosData ;
 
-const { data: productosGrupoElectrogenos, error: productsError } = await supabase
+const { data: productosGrupoElectrogenos, error: productsError } = await supabaseClient
   .from('productos')
   .select('*')
   .eq('categoria_id', grupoElectrogenos.id);
@@ -85,17 +86,15 @@ const schemaArticle: Article = {
         <p>
             Si buscas un <strong>generador de energía eléctrica</strong>, la elección depende directamente de la potencia y el entorno <strong>(minería, construcción, residencial)</strong> donde se ubicará la <strong>planta eléctrica</strong>. 
         </p>
-        <div class="product-grid">
-            {productosGrupoElectrogenos.length > 0 ? (
+        
+        
         <div class="products-grid">
-          {productosGrupoElectrogenos.map(producto => (
+          {productosGrupoElectrogenos?.map(producto => (
             <ProductCard producto={producto} categorySlug={grupoElectrogenos?.slug} />
           ))}
         </div>
-      ) : (
-        <p class="no-products">No hay productos disponibles en esta categoría por el momento.</p>
-      )}
-        </div>
+      
+        
     </section>
     <!-- <section>
         

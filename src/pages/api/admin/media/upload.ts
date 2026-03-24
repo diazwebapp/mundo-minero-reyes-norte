@@ -1,15 +1,12 @@
 import type { APIRoute } from "astro";
-import { createClient } from "@supabase/supabase-js";
+import { supabaseClient } from "../../../../lib/supabase";
 
 const BUCKET_NAME = 'media_assets';
 
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_KEY;
-
-
-const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
 export const POST: APIRoute = async ({ request, redirect }) => {
+
+
   const formData = await request.formData();
   const files = formData.getAll('files') as File[];
 
@@ -28,7 +25,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const contentType = file.type || 'application/octet-stream';
 
     // 1. Upload to Storage
-    const { error: uploadError } = await supabaseAdmin.storage
+    const { error: uploadError } = await supabaseClient.storage
       .from(BUCKET_NAME)
       .upload(storagePath, fileBuffer, {
         contentType,
@@ -42,7 +39,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     }
 
     // 2. Get Public URL
-    const { data: urlData } = supabaseAdmin.storage
+    const { data: urlData } = supabaseClient.storage
       .from(BUCKET_NAME)
       .getPublicUrl(storagePath);
     
@@ -52,7 +49,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     }
 
     // 3. Save metadata to DB
-    const { error: dbError } = await supabaseAdmin
+    const { error: dbError } = await supabaseClient
       .from('media_files')
       .insert({
         file_path: storagePath,

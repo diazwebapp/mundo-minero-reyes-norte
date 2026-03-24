@@ -1,5 +1,5 @@
 ---
-import { supabase } from '../../lib/supabase';
+import { supabaseClient } from '../../lib/supabase';
 import Layout from '../../layouts/Layout.astro';
 import { getMediaPermalink, getPermalink, BASE_URL } from '../../utils/config';
 import ProductCard from '../../components/ProductCard.astro';
@@ -12,7 +12,7 @@ import Pagination from '../../components/Pagination.astro';
 const { categoria: catSlug } = Astro.params;
 const currentCatSlug = catSlug?.replace(/^\//, '') || '';
 
-const { data: categoria, error: catError } = await supabase.from('categorias').select('*').eq('slug', currentCatSlug).single();
+const { data: categoria, error: catError } = await supabaseClient.from('categorias').select('*').eq('slug', currentCatSlug).single();
 
 // SI NECESITAMOS UNA PAGINACION:
 const url = new URL(Astro.url);
@@ -30,14 +30,14 @@ const imagenCategoria = getMediaPermalink(categoria.imagen_portada)
 let catProducts:Producto[] | Categoria[] =[];
 
 if(categoria.show === true ){
-    const { count: productsCountResponse, error: countError } = await supabase
+    const { count: productsCountResponse, error: countError } = await supabaseClient
         .from('productos')
         .select('*', { count: 'exact', head: true })
         .eq('categoria_id', categoria.id);
 
     if (productsCountResponse !== null) totalItems = productsCountResponse;
 
-    const { data: products, error: productsError } = await supabase
+    const { data: products, error: productsError } = await supabaseClient
         .from('productos')
         .select('*')
         .eq('categoria_id', categoria.id)
@@ -45,14 +45,14 @@ if(categoria.show === true ){
 
     if (products) catProducts = products;
 } else { // categoria.show === false
-    const { count: categoriesCountResponse, error: countError } = await supabase
+    const { count: categoriesCountResponse, error: countError } = await supabaseClient
         .from('categorias')
         .select('*', { count: 'exact', head: true })
         .eq('parent_id', categoria.id);
 
     if (categoriesCountResponse !== null) totalItems = categoriesCountResponse;
 
-    const { data: categories, error: categoriesError } = await supabase
+    const { data: categories, error: categoriesError } = await supabaseClient
         .from('categorias')
         .select('*')
         .eq('parent_id', categoria.id)

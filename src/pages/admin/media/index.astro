@@ -1,6 +1,6 @@
 ---
 import AdminLayout from "../../../layouts/AdminLayout.astro";
-import { supabase } from "../../../lib/supabase";
+import { supabaseClient } from "../../../lib/supabase";
 import Pagination from "../../../components/Pagination.astro";
 
 const url = new URL(Astro.url);
@@ -9,7 +9,7 @@ const pageSize = 12; // Adjusted for a grid layout
 const startIndex = (page - 1) * pageSize;
 let totalItems = 0;
 
-const { count: mediaCount, error: countError } = await supabase
+const { count: mediaCount, error: countError } = await supabaseClient
   .from('media_files')
   .select('*', { count: 'exact', head: true });
 
@@ -17,7 +17,7 @@ if (mediaCount !== null) {
   totalItems = mediaCount;
 }
 
-const { data: mediaFiles, error } = await supabase
+const { data: mediaFiles, error } = await supabaseClient
   .from('media_files')
   .select('*')
   .order('created_at', { ascending: false })
@@ -33,7 +33,7 @@ if (error) {
   
   <div class="upload-section">
     <h3>Subir Nuevos Archivos</h3>
-    <form action="/api/admin/media/upload" method="POST" enctype="multipart/form-data">
+    <form id="upload-media-form" enctype="multipart/form-data">
       <div class="form-group">
         <label for="media-upload">Seleccionar archivos</label>
         <input type="file" id="media-upload" name="files" multiple required>
@@ -72,6 +72,43 @@ if (error) {
   </div>
   <Pagination currentPage={page} totalPages={totalPages} />
 </AdminLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const uploadForm = document.getElementById('upload-media-form');
+    if (uploadForm) {
+      uploadForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        const formData = new FormData(uploadForm);
+        const submitButton = uploadForm.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Subiendo...';
+
+        try {
+          const response = await fetch('/api/admin/media/upload', {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            alert('Archivos subidos exitosamente!');
+            window.location.reload(); // Reload the page to show new files
+          } else {
+            const errorData = await response.json();
+            alert(`Error al subir archivos: ${errorData.message || response.statusText}`);
+          }
+        } catch (error) {
+          console.error('Error durante la subida:', error);
+          alert('Ocurrió un error inesperado al subir los archivos.');
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Subir';
+        }
+      });
+    }
+  });
+</script>
 
 <style>
   .upload-section {

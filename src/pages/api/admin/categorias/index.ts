@@ -1,15 +1,6 @@
 import type { APIRoute } from "astro";
-import { createClient } from "@supabase/supabase-js";
+import { supabaseClient } from "../../../../lib/supabase";
 
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_KEY;
-
-if (!supabaseUrl || !supabaseServiceKey) {
-  throw new Error("Supabase URL and Service Key are required.");
-}
-
-// Use the service key here for admin-level operations
-const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
 const slugify = (text: string) => {
     return text.toString().toLowerCase().trim()
@@ -42,7 +33,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     show,
   };
 
-  const { error } = await supabaseAdmin.from("categorias").insert(newCategory);
+  const { error } = await supabaseClient.from("categorias").insert(newCategory);
 
   if (error) {
     console.error("Error inserting category:", error.message);

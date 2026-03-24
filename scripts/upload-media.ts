@@ -9,8 +9,8 @@ import mime from 'mime-types';
 const BUCKET_NAME = 'media_assets';
 
 // --- Supabase Admin Client Initialization ---
-const supabaseUrl = process.env.PUBLIC_SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_KEY;
 
 if (!supabaseUrl || !supabaseServiceKey) {
   throw new Error("Supabase URL and Service Key are required.");

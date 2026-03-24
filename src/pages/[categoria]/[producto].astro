@@ -1,6 +1,5 @@
 ---
-import { supabase } from '../../lib/supabase';
-import type { ProductSchema } from '../../local-data/schemas';
+import { supabaseClient } from '../../lib/supabase';
 import Layout from '../../layouts/Layout.astro';
 import { BASE_URL, getMediaPermalink, getPermalink } from '../../utils/config';
 import { Image } from 'astro:assets';
@@ -10,7 +9,7 @@ import Galery from '../../components/Galery.astro';
 // Obtener parámetros dinámicamente
 let { categoria: categoriaSlug, producto: productoSlug } = Astro.params;
 
-const { data: producto, error } = await supabase
+const { data: producto, error } = await supabaseClient
   .from('productos')
   .select('*, categoria:categorias (slug, nombre)')
   .eq('slug', productoSlug)
@@ -27,16 +26,13 @@ if(categoria.slug !== categoriaSlug){
 const canonical = getPermalink([categoriaSlug || "", productoSlug || ""]);
 const portada = getMediaPermalink(producto.imagen_portada);
 
-const productSchema: ProductSchema = {
-// ...
-};
 
 const formatKey = (key: string) => {
   return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 };
 ---
 
-<Layout image={portada} title={producto.nombre} description={producto.description} canonical={canonical} schemas={[productSchema]}> 
+<Layout image={portada} title={producto.nombre} description={producto.description} canonical={canonical} schemas={[]}> 
 
   <section class="container">
       

@@ -1,6 +1,6 @@
 ---
 import AdminLayout from "../../../layouts/AdminLayout.astro";
-import { supabase } from "../../../lib/supabase";
+import { supabaseClient } from "../../../lib/supabase";
 import Pagination from "../../../components/Pagination.astro";
 
 const url = new URL(Astro.url);
@@ -9,7 +9,7 @@ const pageSize = 10;
 const startIndex = (page - 1) * pageSize;
 let totalItems = 0;
 
-const { count: productsCount, error: countError } = await supabase
+const { count: productsCount, error: countError } = await supabaseClient
   .from('productos')
   .select('*', { count: 'exact', head: true });
 
@@ -17,7 +17,7 @@ if (productsCount !== null) {
   totalItems = productsCount;
 }
 
-const { data: productos, error } = await supabase
+const { data: productos, error } = await supabaseClient
   .from('productos')
   .select('id, nombre, slug, categoria_id')
   .order('id', { ascending: true })

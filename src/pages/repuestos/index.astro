@@ -1,12 +1,12 @@
 ---
-import { supabase } from '../../lib/supabase';
+import { supabaseClient } from '../../lib/supabase';
 import Layout from '../../layouts/Layout.astro';
 import { getMediaPermalink, getPermalink } from '../../utils/config';
 import ProductCard from '../../components/ProductCard.astro';
 import type { Categoria, Producto } from '../../local-data/database.types';
 import type { ProductItemListSchema } from '../../local-data/schemas';
 
-const { data: repuestosCategoryData, error: repuestosError } = await supabase
+const { data: repuestosCategoryData, error: repuestosError } = await supabaseClient
   .from('categorias')
   .select('*')
   .eq('slug', 'repuestos')
@@ -17,7 +17,7 @@ if (repuestosError || !repuestosCategoryData) {
 }
 const repuestosCategory = repuestosCategoryData;
 
-const { data: repuestosSubcategoriesData, error: subcategoriesError } = await supabase
+const { data: repuestosSubcategoriesData, error: subcategoriesError } = await supabaseClient
   .from('categorias')
   .select('*')
   .eq('parent_id', repuestosCategory.id);
@@ -38,7 +38,7 @@ let catProducts: Producto[] = [];
 if (currentSubcategory) {
     const pageSize = 20;
     const startIndex = (page - 1) * pageSize;
-    const { data: productsData, error: productsError } = await supabase
+    const { data: productsData, error: productsError } = await supabaseClient
         .from('productos')
         .select('*')
         .eq('categoria_id', currentSubcategory.id)

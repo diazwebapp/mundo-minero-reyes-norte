@@ -1,9 +1,8 @@
 ---
-import { supabase } from '../lib/supabase';
+import { supabaseClient } from '../lib/supabase';
 import ProductCard from './ProductCard.astro';
-import type { Categoria } from '../local-data/database.types';
 
-const { data: categoriasFilter, error } = await supabase
+const { data: categoriasFilter, error } = await supabaseClient
   .from('categorias')
   .select('*')
   .eq('show', true)
@@ -25,7 +24,7 @@ if (error) {
 	</div>
 
 		<div class="categories-grid">
-			{categoriasFilter.map(categoria => (
+			{categoriasFilter?.map(categoria => (
 				<ProductCard producto={categoria} />
 			))}
 		</div>

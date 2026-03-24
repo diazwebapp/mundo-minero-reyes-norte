@@ -1,12 +1,12 @@
 import type { APIRoute } from 'astro';
 import { getPermalink } from '../../utils/config';
-import { supabase } from '../../lib/supabase';
+import { supabaseClient } from '../../lib/supabase';
 
 
 export const GET: APIRoute = async ({ url }) => {
   const searchTerm = url.searchParams.get('text')?.toLowerCase() || '';
 
-  let query = supabase.from('productos').select('*, categoria:categorias(slug)');
+  let query = supabaseClient.from('productos').select('*, categoria:categorias(slug)');
 
   if (searchTerm) {
     query = query.or(`nombre.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%`);
