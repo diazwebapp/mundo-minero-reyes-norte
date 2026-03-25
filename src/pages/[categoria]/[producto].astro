@@ -36,9 +36,6 @@ const optimizedImage = await getImage({
 // 2. Creamos la URL absoluta (Importante para OG)
 const portada = new URL(optimizedImage.src, Astro.site).toString();
 
-const = (ey: string) => {
-  return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
-};
 ---
 
 <Layout image={portada} title={producto.nombre} description={producto.description} canonical={canonical} schemas={[]}> 
