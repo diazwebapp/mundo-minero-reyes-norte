@@ -6,6 +6,7 @@ import type { Article, OrganizationSchema } from "../../local-data/schemas"
 import Image from "astro/components/Image.astro"
 import { supabaseClient } from "../../lib/supabase" // Correct import
 import type { Categoria, Producto } from "../../local-data/database.types"
+import { getImage } from "astro:assets"
 
 // Temporary fichaTecnica until migration is complete
 const fichaTecnica = {
@@ -20,10 +21,9 @@ const { data: grupoElectrogenosData, error: catError } = await supabaseClient
   .single();
 
 if (catError || !grupoElectrogenosData) {
-  // Handle error or redirect
-  console.error("Error fetching 'Grupos Electrógenos' category:", catError?.message);
   return Astro.redirect('/404');
 }
+let catProducts:Producto[] =[];
 const grupoElectrogenos:Categoria = grupoElectrogenosData ;
 
 const { data: productosGrupoElectrogenos, error: productsError } = await supabaseClient
@@ -36,10 +36,16 @@ if (productsError) {
   // productsGrupoElectrogenos will be null, handled in template
 }
 
+const canonical = getPermalink([grupoElectrogenos.slug])
+// 1. Definimos la optimización
+const optimizedImage = await getImage({
+  src: getMediaPermalink(grupoElectrogenos.imagen_portada),
+  width: 1200,
+  height: 675,
+});
 
-const imagenp = getMediaPermalink(grupoElectrogenos?.imagen_portada || "");
-const canonical = getPermalink([grupoElectrogenos?.slug || ""])
-
+// 2. Creamos la URL absoluta (Importante para OG)
+const imagenp = new URL(optimizedImage.src, Astro.site).toString();
 const organization: OrganizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",

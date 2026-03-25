@@ -27,12 +27,12 @@ if (catError || !categoria) {
 }
 
 const permalink = getPermalink([categoria.slug]);
-const imagenCategoria = getMediaPermalink(categoria.imagen_portada)
+
 // 1. Definimos la optimización
 const optimizedImage = await getImage({
-  src: imagenCategoria,
+  src: getMediaPermalink(categoria.imagen_portada),
   width: 1200,
-  height: 630,
+  height: 675,
 });
 
 // 2. Creamos la URL absoluta (Importante para OG)

@@ -57,4 +57,5 @@ export const getMediaPermalink = (slug:string)=>{
   const cleanSlug = slug.startsWith('/') ? slug : '/' + slug;
 
   return `${cleanBase}${cleanSlug}`;
+
 }
