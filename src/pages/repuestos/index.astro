@@ -5,6 +5,7 @@ import { getMediaPermalink, getPermalink } from '../../utils/config';
 import ProductCard from '../../components/ProductCard.astro';
 import type { Categoria, Producto } from '../../local-data/database.types';
 import type { ProductItemListSchema } from '../../local-data/schemas';
+import { getImage } from 'astro:assets';
 
 const { data: repuestosCategoryData, error: repuestosError } = await supabaseClient
   .from('categorias')
@@ -47,8 +48,16 @@ if (currentSubcategory) {
 }
 
 const permalink = getPermalink([repuestosCategory.slug]);
-const imagenCategoria = getMediaPermalink(repuestosCategory.imagen_portada);
 
+// 1. Definimos la optimización
+const optimizedImage = await getImage({
+  src: getMediaPermalink(repuestosCategory.imagen_portada),
+  width: 1200,
+  height: 675,
+});
+
+// 2. Creamos la URL absoluta (Importante para OG)
+const imagenCategoria = new URL(optimizedImage.src, Astro.site).toString();
 const categorySchema: ProductItemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
