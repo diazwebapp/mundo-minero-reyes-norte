@@ -1,16 +1,19 @@
-// @ts-check
+
 import { defineConfig } from 'astro/config';
+import { loadEnv } from 'vite';
 import vercel from '@astrojs/vercel';
+
+const {DOMAIN} = loadEnv(process.env.NODE_ENV || 'development', process.cwd(), '');
 
 // https://astro.build/config
 export default defineConfig({
   output:'server',
-  site: 'https://mundo-minero-reyes-del-norte.vercel.app',
+  site: DOMAIN,
     image: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'mmreyesdelnorte.com',
+        hostname: DOMAIN,
       },
       {
         protocol: 'https',

@@ -1,27 +1,10 @@
 
 
-let dev, devUrl, prodUrl;
-
-if (typeof import.meta !== 'undefined' && import.meta.env) {
-    // Astro environment
-    dev = import.meta.env.DEV;
-    devUrl = import.meta.env.DEVURL;
-    prodUrl = import.meta.env.PRODURL;
-} else if (typeof process !== 'undefined' && process.env) {
-    // Node.js environment (for seeding)
-    dev = process.env.NODE_ENV === 'development';
-    devUrl = process.env.DEVURL;
-    prodUrl = process.env.PRODURL;
-}
-
-
 /**
  * URL base del sitio. Se usa para generar URLs absolutas.
  * example: "https://mmreyesdelnorte.com/".
  */
-export const BASE_URL = dev
-  ? devUrl
-  : prodUrl;
+export const BASE_URL = process.env.DOMAIN || import.meta.env.DOMAIN ;
 
 export function slugify(text: string): string {
   // Produce un slug limpio sin barras finales. Las rutas se construyen
