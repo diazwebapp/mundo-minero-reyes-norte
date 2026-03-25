@@ -6,6 +6,7 @@ import { Image } from 'astro:assets';
 import { fichaTecnica } from '../../local-data/ficha-tecnica';
 import Galery from '../../components/Galery.astro';
 import { getImage } from 'astro:assets';
+import type { ProductSchema } from '../../local-data/schemas';
 
 // Obtener parámetros dinámicamente
 let { categoria: categoriaSlug, producto: productoSlug } = Astro.params;
@@ -36,9 +37,29 @@ const optimizedImage = await getImage({
 // 2. Creamos la URL absoluta (Importante para OG)
 const portada = new URL(optimizedImage.src, Astro.site).toString();
 
+const schemaProduct:ProductSchema={
+  "@context":"https://schema.org",
+  "@type":"Product",
+  "brand":{
+    "@type":"Brand",
+    name:"mm reyes del norte"
+  },
+  description:producto.description,
+  image:[portada],
+  name:producto.nombre,
+  url:canonical,
+  offers:{
+    "@type":"Offer",
+    availability:"https://schema.org/InStock",
+    itemCondition:"https://schema.org/NewCondition",
+    price:0.00,
+    priceCurrency:"PEN",
+  }
+}
+
 ---
 
-<Layout image={portada} title={producto.nombre} description={producto.description} canonical={canonical} schemas={[]}> 
+<Layout image={portada} title={producto.nombre} description={producto.description} canonical={canonical} schemas={[schemaProduct]}> 
 
   <section class="container">
       
