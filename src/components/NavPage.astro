@@ -5,7 +5,7 @@ const navItems = [
 import { getPermalink } from "../utils/config";
 ---
 <ul class="nav-links">
-    <!-- <li><a aria-label="Inicio" href="/">Inicio</a></li> -->
+    <li><a aria-label="Inicio" href="/">Inicio</a></li>
     <li><a aria-label="Productos" href="/#productos">Productos</a></li>
 	{navItems.map(item => {
 		const permalink = getPermalink([item.slug],true);
