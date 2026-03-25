@@ -7,6 +7,7 @@ import Image from "astro/components/Image.astro"
 import { supabaseClient } from "../../lib/supabase" // Correct import
 import type { Categoria, Producto } from "../../local-data/database.types"
 import { getImage } from "astro:assets"
+import Pagination from "../../components/Pagination.astro"
 
 // Temporary fichaTecnica until migration is complete
 const fichaTecnica = {
@@ -24,19 +25,31 @@ if (catError || !categoria) {
   return Astro.redirect('/404');
 }
 
+const url = new URL(Astro.url);
+const page = parseInt(url.searchParams.get('page') || '1');
+const pageSize = 8;
+const startIndex = (page - 1) * pageSize;
+let totalItems = 0;
+
 const grupoElectrogenos:Categoria = categoria ;
 let catProducts:Producto[]=[]
 const { data: productos, error: productsError } = await supabaseClient
   .from('productos')
   .select('*')
-  .eq('categoria_id', grupoElectrogenos.id);
+  .eq('categoria_id', grupoElectrogenos.id)
+  .range(startIndex, startIndex + pageSize - 1);
 
+if (productos) catProducts = productos;
+const totalPages = totalItems ? Math.ceil(totalItems / pageSize) : 0; // Pagination
 if (productsError) {
   console.error("Error fetching products for 'Grupos Electrógenos':", productsError?.message);
   // productsGrupoElectrogenos will be null, handled in template
 }
 catProducts = productos || []
-const canonical = getPermalink([grupoElectrogenos.slug])
+const baseCanonical = getPermalink([grupoElectrogenos.slug])
+const canonical = page > 1 
+    ? `${baseCanonical}?page=${page}` 
+    : baseCanonical;
 // 1. Definimos la optimización
 const optimizedImage = await getImage({
   src: getMediaPermalink(grupoElectrogenos.imagen_portada),
@@ -139,7 +152,7 @@ const totalPageSchema:TSGCategorySchema = {
           ))}
         </div>
       
-        
+        <Pagination totalPages={totalPages} currentPage={page} />
     </section>
     <!-- <section>
         
