@@ -97,7 +97,7 @@ const categorySchema: ProductItemListSchema = {
   image={imagenCategoria} 
   schemas={[categorySchema]}
 >
-  <div class="page-container">
+  <main class="page-container">
     <button class="mobile-menu-toggle">
       <span class="hamburger"></span>
     </button>
@@ -120,7 +120,7 @@ const categorySchema: ProductItemListSchema = {
       </nav>
     </aside>
 
-    <main class="content">
+    <section class="content">
       <div class="section-header">
         <span class="section-label">Repuestos</span>
         <h1 class="titulos">{currentSubcategory?.nombre}</h1>
@@ -138,8 +138,8 @@ const categorySchema: ProductItemListSchema = {
       ) : (
         <p class="no-products">No hay productos disponibles en esta categoría por el momento.</p>
       )}    
-    </main>
-  </div>
+    </section>
+  </main>
 </Layout>
 
 <style>
