@@ -61,8 +61,8 @@ const portada = new URL(optimizedImage.src, Astro.site).toString();
               src={producto.imagen_portada} 
               alt={producto.nombre} 
               title={producto.nombre}
-              width={700}
-              height={700}
+              width={854}
+              height={480}
               class="product-image"
               loading="eager"
             />
@@ -154,8 +154,8 @@ const portada = new URL(optimizedImage.src, Astro.site).toString();
   .breadcrumb a:hover { color: var(--light); text-decoration: underline; }
   .breadcrumb span { opacity: 0.7; }
   .product-hero { display: grid; grid-template-columns: 1fr; gap: .7rem; align-items: start; }
-  .product-image-wrapper { border-radius: 12px; overflow: hidden; background: var(--darkh); }
-  .product-image { width: 100%; max-width: 700px; height: auto; object-fit: cover; aspect-ratio: 16 / 9; border-radius: 12px; }
+  .product-image-wrapper {width: 100%; max-width: 854px; border-radius: 12px; overflow: hidden; background: var(--darkh); }
+  .product-image { width: 100%; height: auto; object-fit: cover; border-radius: 12px; }
   .product-sidebar { display: flex; flex-direction: column; gap: 1.5rem; border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 12px; background: var(--darkh); backdrop-filter: blur(10px); padding: 0.7rem; }
   .product-description { font-size: 1.1rem; line-height: 1.6; margin: 0; }
   .quick-spec { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem; background: var(--darkh); border-left: 3px solid #e74c3c; border-radius: 8px; }

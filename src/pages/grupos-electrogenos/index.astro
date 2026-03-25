@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro"
 import ProductCard from "../../components/ProductCard.astro"
 import { BASE_URL, getMediaPermalink, getPermalink } from "../../utils/config"
-import type { Article, OrganizationSchema } from "../../local-data/schemas"
+import type { Article, OrganizationSchema, ProductItemListSchema, TSGCategorySchema } from "../../local-data/schemas"
 import Image from "astro/components/Image.astro"
 import { supabaseClient } from "../../lib/supabase" // Correct import
 import type { Categoria, Producto } from "../../local-data/database.types"
@@ -14,19 +14,19 @@ const fichaTecnica = {
     datos_contacto: { correo_electronico: "mmreyesdelnorte@gmail.com", whatsapp: "+51920310887", facebook: "mmlosreyesdelnorte", instagram: "mmreyesdelnorte" },
 };
 
-const { data: grupoElectrogenosData, error: catError } = await supabaseClient
+const { data: categoria, error: catError } = await supabaseClient
   .from('categorias')
   .select('*')
   .eq('id', 5) // Assuming ID 5 is "Grupos Electrógenos"
   .single();
 
-if (catError || !grupoElectrogenosData) {
+if (catError || !categoria) {
   return Astro.redirect('/404');
 }
-let catProducts:Producto[] =[];
-const grupoElectrogenos:Categoria = grupoElectrogenosData ;
 
-const { data: productosGrupoElectrogenos, error: productsError } = await supabaseClient
+const grupoElectrogenos:Categoria = categoria ;
+let catProducts:Producto[]=[]
+const { data: productos, error: productsError } = await supabaseClient
   .from('productos')
   .select('*')
   .eq('categoria_id', grupoElectrogenos.id);
@@ -35,7 +35,7 @@ if (productsError) {
   console.error("Error fetching products for 'Grupos Electrógenos':", productsError?.message);
   // productsGrupoElectrogenos will be null, handled in template
 }
-
+catProducts = productos || []
 const canonical = getPermalink([grupoElectrogenos.slug])
 // 1. Definimos la optimización
 const optimizedImage = await getImage({
@@ -57,22 +57,61 @@ const organization: OrganizationSchema = {
         "https://www.instagram.com/mmreyesdelnorte",
     ]
 }
-
+const categorySchema:ProductItemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: categoria.nombre,
+  url: canonical,
+  numberOfItems: catProducts.length,
+  itemListElement: catProducts.map((producto, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    "item": {
+      '@type': 'Product',
+      name: producto.nombre,
+      description: producto.description,
+      url: getPermalink([categoria.slug,producto.slug]),
+      image:getMediaPermalink(producto.imagen_portada),
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'USD',
+        price: "0.00",
+        availability: 'https://schema.org/InStock'
+      }
+    }
+  }))
+};
 const schemaArticle: Article = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": grupoElectrogenos?.nombre || "Grupos Electrógenos",
+    "headline": categoria.nombre ,
     "image": [imagenp],
     "datePublished": "2024-01-01",
     "dateModified": "2024-01-01",
     "author": {
        "@type": "Person",
         "name": "MM Reyes del norte",
-        "url": BASE_URL
+        "url": canonical
     },
     "publisher":organization,
     "description": "Descubre todo lo que necesitas saber sobre grupos electrógenos, desde tipos y comparativas hasta consejos de compra. Encuentra el generador eléctrico perfecto para tus necesidades."
 }
+
+const totalPageSchema:TSGCategorySchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": categoria.nombre,
+  "url": canonical,
+  "description": schemaArticle.description,
+
+  "publisher": organization,
+
+  "mainEntity": categorySchema,
+
+  "hasPart": [
+    schemaArticle
+  ]
+};
 
 ---
 
@@ -95,7 +134,7 @@ const schemaArticle: Article = {
         
         
         <div class="products-grid">
-          {productosGrupoElectrogenos?.map(producto => (
+          {catProducts?.map(producto => (
             <ProductCard producto={producto} categorySlug={grupoElectrogenos?.slug} />
           ))}
         </div>
