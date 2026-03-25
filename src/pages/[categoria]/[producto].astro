@@ -36,7 +36,7 @@ const optimizedImage = await getImage({
 // 2. Creamos la URL absoluta (Importante para OG)
 const portada = new URL(optimizedImage.src, Astro.site).toString();
 
-const formatKey = (key: string) => {
+const = (ey: string) => {
   return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 };
 ---
@@ -125,7 +125,7 @@ const formatKey = (key: string) => {
                 {Object.entries(producto.caracteristicas).map(([key, value]) => (
                   value ? (
                     <tr>
-                      <td class="spec-name">{formatKey(key)}</td>
+                      <td class="spec-name">{key}</td>
                       <td class="spec-value">{value}</td>
                     </tr>
                   ) : null
