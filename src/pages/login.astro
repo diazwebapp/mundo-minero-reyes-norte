@@ -1,0 +1,34 @@
+---
+import AdminLayout from "../layouts/AdminLayout.astro";
+---
+<AdminLayout title="Login">
+  <form id="login-form">
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <button type="submit">Entrar</button>
+  </form>
+</AdminLayout>
+
+<script>
+  const form = document.getElementById("login-form") as HTMLFormElement;
+  
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    
+    // Enviamos los datos directos a nuestra API interna
+    const response = await fetch("/api/auth/signin", {
+      method: "POST",
+      body: formData, // Enviamos FormData directamente
+    });
+
+    if (response.ok) {
+      // Si el API dice que todo ok, vamos al admin
+      window.location.assign("/admin");
+    } else {
+      const errorData = await response.json();
+      alert("Error: " + errorData.message);
+    }
+  });
+</script>
