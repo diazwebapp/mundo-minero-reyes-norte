@@ -30,7 +30,10 @@ const page = parseInt(url.searchParams.get('page') || '1');
 const pageSize = 8;
 const startIndex = (page - 1) * pageSize;
 let totalItems = 0;
-
+// 1. REDIRECCIÓN 301: Si alguien entra a ?page=1, lo mandamos a la limpia
+if (page === 1) {
+  return Astro.redirect(getPermalink([categoria.slug]), 301);
+}
 const grupoElectrogenos:Categoria = categoria ;
 let catProducts:Producto[]=[]
 const { data: productos, error: productsError } = await supabaseClient
