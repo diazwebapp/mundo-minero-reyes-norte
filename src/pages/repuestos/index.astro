@@ -1,7 +1,7 @@
 ---
 import { supabaseClient } from '../../lib/supabase';
 import Layout from '../../layouts/Layout.astro';
-import { getMediaPermalink, getPermalink } from '../../utils/config';
+import { getMediaPermalink, getPermalink, getCategoryPermalink } from '../../utils/config';
 import ProductCard from '../../components/ProductCard.astro';
 import type { Producto } from '../../local-data/database.types';
 import type { ProductItemListSchema } from '../../local-data/schemas';
@@ -23,10 +23,16 @@ const { data: repuestosSubcategoriesData, error: subcategoriesError } = await su
   .select('*')
   .eq('parent_id', repuestosCategory.id);
 
-const repuestosSubcategories = repuestosSubcategoriesData || [];
+const repuestosSubcategories = (repuestosSubcategoriesData || []).map(sc => ({
+  ...sc,
+  parent: repuestosCategory
+}));
 
 const url = new URL(Astro.url);
-const itemSlug = url.searchParams.get('item');
+const itemParam = url.searchParams.get('item');
+const itemSlug = itemParam || Array.from(url.searchParams.keys()).find(key => 
+  key !== 'page' && repuestosSubcategories.some(sc => sc.slug === key)
+);
 
 let currentSubcategory = repuestosSubcategories.find(sc => sc.slug === itemSlug);
 
@@ -103,7 +109,7 @@ const categorySchema: ProductItemListSchema = {
           {repuestosSubcategories.map(subCat => (
             <li>
               <a 
-                href={`/repuestos?item=${subCat.slug}`} 
+                href={getCategoryPermalink(subCat)} 
                 class:list={{ active: subCat.id === currentSubcategory?.id }}
               >
                 {subCat.nombre}
