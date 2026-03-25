@@ -1,10 +1,11 @@
 ---
 import { supabaseClient } from '../../lib/supabase';
 import Layout from '../../layouts/Layout.astro';
-import { BASE_URL, getMediaPermalink, getPermalink } from '../../utils/config';
+import {  getMediaPermalink, getPermalink } from '../../utils/config';
 import { Image } from 'astro:assets';
 import { fichaTecnica } from '../../local-data/ficha-tecnica';
 import Galery from '../../components/Galery.astro';
+import { getImage } from 'astro:assets';
 
 // Obtener parámetros dinámicamente
 let { categoria: categoriaSlug, producto: productoSlug } = Astro.params;
@@ -24,8 +25,16 @@ if(categoria.slug !== categoriaSlug){
 }
 
 const canonical = getPermalink([categoriaSlug || "", productoSlug || ""]);
-const portada = getMediaPermalink(producto.imagen_portada);
 
+// 1. Definimos la optimización
+const optimizedImage = await getImage({
+  src: getMediaPermalink(producto.imagen_portada),
+  width: 1200,
+  height: 630,
+});
+
+// 2. Creamos la URL absoluta (Importante para OG)
+const portada = new URL(optimizedImage.src, Astro.site).toString();
 
 const formatKey = (key: string) => {
   return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
