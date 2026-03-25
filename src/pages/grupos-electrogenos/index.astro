@@ -25,13 +25,15 @@ if (catError || !categoria) {
   return Astro.redirect('/404');
 }
 
+// SI NECESITAMOS UNA PAGINACION:
 const url = new URL(Astro.url);
-const page = parseInt(url.searchParams.get('page') || '1');
-const pageSize = 8;
+const pageParam = url.searchParams.get('page');
+const page = pageParam? parseInt(pageParam) : 1;
+const pageSize = 4;
 const startIndex = (page - 1) * pageSize;
 let totalItems = 0;
 // 1. REDIRECCIÓN 301: Si alguien entra a ?page=1, lo mandamos a la limpia
-if (page === 1) {
+if (pageParam === "1") {
   return Astro.redirect(getPermalink([categoria.slug]), 301);
 }
 const grupoElectrogenos:Categoria = categoria ;
