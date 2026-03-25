@@ -136,7 +136,8 @@ const totalPageSchema:TSGCategorySchema = {
 ---
 
 <Layout title={categoria.nombre} canonical={canonical} description={categoria.description} image={ogImageUrl} schemas={[totalPageSchema]} >
-  <section class="container">
+  <main>
+    <section class="container">
     <div class="section-header">
         <span class="section-label">Categoría</span>
         <h1 class="titulos" >{categoria.nombre}</h1>
@@ -160,6 +161,7 @@ const totalPageSchema:TSGCategorySchema = {
       
       <Pagination totalPages={totalPages} currentPage={page} />
   </section>
+  </main>
 </Layout>
 
 <style>
