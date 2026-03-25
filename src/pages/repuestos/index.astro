@@ -227,21 +227,20 @@ const categorySchema: ProductItemListSchema = {
     bottom: 20px;
     right: 20px;
     z-index: 1020;
-    background-color: white;
-    border: 1px solid var(--clr-border);
+    background-color: var(--plata);
     border-radius: 50%;
     width: 60px;
     height: 60px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     align-items: center;
     justify-content: center;
+    border:none;
   }
   
   .hamburger {
     width: 24px;
     height: 2px;
-    background: var(--clr-text);
+    background: var(--dark);
     position: relative;
     transition: transform 0.3s, background-color 0.3s;
   }
@@ -252,7 +251,7 @@ const categorySchema: ProductItemListSchema = {
     left: 0;
     width: 100%;
     height: 2px;
-    background: var(--clr-text);
+    background: var(--dark);
     transition: transform 0.3s, top 0.3s;
   }
   .hamburger::before { top: -8px; }
