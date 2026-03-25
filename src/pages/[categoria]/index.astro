@@ -13,7 +13,7 @@ import { getImage } from 'astro:assets';
 const { categoria: catSlug } = Astro.params;
 const currentCatSlug = catSlug?.replace(/^\//, '') || '';
 
-const { data: categoria, error: catError } = await supabaseClient.from('categorias').select('*').eq('slug', currentCatSlug).single();
+const { data: categoria, error: catError } = await supabaseClient.from('categorias').select('*').eq('slug', currentCatSlug).is('parent_id', null).single();
 
 // SI NECESITAMOS UNA PAGINACION:
 const url = new URL(Astro.url);
@@ -62,21 +62,6 @@ if(categoria.show === true ){
         .range(startIndex, startIndex + pageSize - 1); // Pagination
 
     if (products) catProducts = products;
-} else { // categoria.show === false
-    const { count: categoriesCountResponse, error: countError } = await supabaseClient
-        .from('categorias')
-        .select('*', { count: 'exact', head: true })
-        .eq('parent_id', categoria.id);
-
-    if (categoriesCountResponse !== null) totalItems = categoriesCountResponse;
-
-    const { data: categories, error: categoriesError } = await supabaseClient
-        .from('categorias')
-        .select('*')
-        .eq('parent_id', categoria.id)
-        .range(startIndex, startIndex + pageSize - 1); // Pagination
-    
-    if (categories) catProducts = categories;
 }
 
 const totalPages = totalItems ? Math.ceil(totalItems / pageSize) : 0; // Pagination
