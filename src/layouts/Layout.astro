@@ -9,7 +9,6 @@ export interface Props {
   canonical: string; // Debe ser la URL absoluta
   image?: string; // Debe ser la URL absoluta de la imagen
   schemas?: any[]; // Array de schemas JSON-LD
-  searchConsoleCode?:string
 }
 
 const {
@@ -18,7 +17,6 @@ const {
   canonical,
   image = getMediaPermalink("/logo-claro.jpeg"), // Imagen por defecto para redes sociales
   schemas = [],
-  searchConsoleCode = ''
 } = Astro.props;
 
 const siteName = "Mundo Minero LOS Reyes del Norte";

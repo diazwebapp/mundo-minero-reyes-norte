@@ -37,6 +37,7 @@ import { Icon } from 'astro-icon/components';
 </nav>
 <style>
 	.navbar {
+		width:100%;
 		max-width: 1200px;
 		margin: 0 auto;
 		height: var(--hheader);
@@ -46,7 +47,7 @@ import { Icon } from 'astro-icon/components';
 		display: flex;
 		list-style: none;
 		gap: 1rem;
-		justify-content: space-between;
+		justify-content: space-around;
 	}
 	.nav-links a{
 		display:flex;
@@ -57,7 +58,13 @@ import { Icon } from 'astro-icon/components';
 	.nav-links a p{
 		display:none;
 	}
-	@media (min-width: 768px) {
+	@media (min-width: 880px) {
+		.navbar{
+			width:fit-content;
+		}
+		.nav-links a{
+			gap: 0.3rem;
+		}
 		.nav-links a p{
 			display:block;
 		}
