@@ -9,11 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/vercel": "^8.0.4",
+    "@astrojs/vercel": "^10.0.3",
+    "@iconify-json/lucide": "^1.2.99",
     "@supabase/supabase-js": "^2.99.3",
-    "astro": "^5.16.8",
-    "audit": "^0.0.6",
-    "fix": "^0.0.3",
+    "astro": "^6.1.1",
+    "astro-icon": "^1.1.5",
     "mime-types": "^3.0.2",
     "sharp": "^0.34.5"
   },

@@ -1,27 +1,65 @@
 ---
-const navItems = [
-    { nombre: "Repuestos", slug: "repuestos" }
-];
-import { getPermalink } from "../utils/config";
+import { Icon } from 'astro-icon/components';
 ---
-<ul class="nav-links">
-    <li><a aria-label="Inicio" href="/">Inicio</a></li>
-    <li><a aria-label="Productos" href="/#productos">Productos</a></li>
-	{navItems.map(item => {
-		const permalink = getPermalink([item.slug],true);
-		return (
-		<li><a aria-label={item.nombre} href={permalink}>{item.nombre}</a></li>
-	)})}
-	
-	<li><a aria-label="Contacto" href="/nosotros/#contacto">Contacto</a></li>
+<nav class="navbar">
+	<ul class="nav-links">
+		<li>
+			<a aria-label="Inicio" href="/">
+				<Icon name="lucide:home" size={24}/>
+				<p>inicio</p>
+			</a>
+		</li>
+		<li>
+			<a aria-label="Productos" href="/#productos">
+				<Icon name="lucide:shopping-bag" size={24} />
+				<p>productos</p>
+			</a>
+		</li>
+		<li>
+			<a aria-label="Repuestos" href="/repuestos">
+				<Icon name="lucide:wrench" size={24} />
+				<p>repuestos</p>
+			</a>
+		</li>
+		<li>
+			<a aria-label="Contacto" href="/nosotros/#contacto">
+				<Icon name="lucide:phone" size={24} />
+				<p>contacto</p>
+			</a>
+		</li>
 
-	<li><a href="/search" aria-label="Buscar producto" title="Buscar producto">
-		<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" viewBox="0 0 24 24"  class="nav-icons">
-	
-			<circle cx="10.5" cy="10.5" r="6.5" stroke-linejoin="round"/>
-			<path d="M19.6464 20.3536C19.8417 20.5488 20.1583 20.5488 20.3536 20.3536C20.5488 20.1583 20.5488 19.8417 20.3536 19.6464L19.6464 20.3536ZM20.3536 19.6464L15.3536 14.6464L14.6464 15.3536L19.6464 20.3536L20.3536 19.6464Z" fill="#000000"/>
-	
-		</svg>
-	</a>
-	</li>
-</ul>
+		<li>
+			<a href="/search" aria-label="Buscar producto" title="Buscar producto">
+				<Icon name="lucide:search" size={24} />
+			</a>
+		</li>
+	</ul>
+</nav>
+<style>
+	.navbar {
+		max-width: 1200px;
+		margin: 0 auto;
+		height: var(--hheader);
+		place-content:center;
+	}
+	.nav-links {
+		display: flex;
+		list-style: none;
+		gap: 1rem;
+		justify-content: space-between;
+	}
+	.nav-links a{
+		display:flex;
+		align-items:center;
+		gap:1rem;
+		text-transform:uppercase;
+	}
+	.nav-links a p{
+		display:none;
+	}
+	@media (min-width: 768px) {
+		.nav-links a p{
+			display:block;
+		}
+	}
+</style>

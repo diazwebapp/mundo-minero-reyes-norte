@@ -1,22 +1,46 @@
 ---
-import { supabaseClient } from '../../lib/supabase';
-import Layout from '../../layouts/Layout.astro';
-import { getMediaPermalink, getPermalink, getCategoryPermalink } from '../../utils/config';
-import ProductCard from '../../components/ProductCard.astro';
-import type { Categoria, Producto } from '../../local-data/database.types';
-import type { ProductItemListSchema } from '../../local-data/schemas';
+import { supabaseClient } from '../../../lib/supabase';
+import Layout from '../../../layouts/Layout.astro';
+import { getMediaPermalink, getPermalink, getCategoryPermalink } from '../../../utils/config';
+import ProductCard from '../../../components/ProductCard.astro';
+import type { Categoria, Producto } from '../../../local-data/database.types';
+import type { ProductItemListSchema } from '../../../local-data/schemas';
 import { getImage } from 'astro:assets';
 
-const { data, error: repuestosError } = await supabaseClient
+
+//OPTENEMOS LA SUBCATEGORIA ACTUAL
+const { subCategoria } = Astro.params;
+const currentCatSlug = subCategoria?.replace(/^\//, '') || '';
+
+const { data: currentCategory, error: dataError } = await supabaseClient
   .from('categorias')
   .select('*')
-  .eq('slug', 'repuestos')
+  .eq('slug', currentCatSlug)
   .single();
 
-if (repuestosError || !data) {
+/* if (dataError || !currentCategory) {
   return Astro.redirect('/404');
-}
-const catRepuestos:Categoria = data
+} */
+const categoria:Categoria = currentCategory;
+
+//OBTENEMOS LA CATEGORIA PADRE
+const { data: parentCategory, error: parentError } = await supabaseClient
+  .from('categorias')
+  .select('*')
+  .eq('id', categoria.parent_id)
+  .single();
+
+/* if (parentCategory || !parentError) {
+  return Astro.redirect('/404');
+} */
+const parentCategoria:Categoria = parentCategory || {} as Categoria;
+
+//OBTENEMOS LAS CATEGORIAS HIJAS
+const { data: categoriasHijas, error: categoriasHijasErr } = await supabaseClient
+  .from('categorias')
+  .select('*')
+  .eq('parent_id', parentCategoria.id)
+
 
 // SI NECESITAMOS UNA PAGINACION:
 const url = new URL(Astro.url);
@@ -25,37 +49,40 @@ const page = pageParam? parseInt(pageParam) : 1;
 const pageSize = 8;
 const startIndex = (page - 1) * pageSize;
 let totalItems = 0;
-// 1. REDIRECCIÓN 301: Si alguien entra a ?page=1, lo mandamos a la limpia
-if (pageParam === "1") {
-  return Astro.redirect(getPermalink([catRepuestos.slug]), 301);
-}
+
+//OBTENEMOS LOS PRODUCTOS DE LA SUBCATEGORIA
 let catProducts: Producto[] = [];
-let subCategorias:Categoria[] =[]
-if (catRepuestos) {
-  const { data: subCat, error: subCatError } = await supabaseClient
-        .from('categorias')
+if (categoria) {
+    const { data: productsData, error: productsError } = await supabaseClient
+        .from('productos')
         .select('*')
-        .eq('parent_id', catRepuestos.id)
-  
-    subCategorias = subCat || []
+        .eq('categoria_id', categoria.id)
+        .range(startIndex, startIndex + pageSize - 1);
+    if(productsData) catProducts = productsData;
 }
 const totalPages = totalItems ? Math.ceil(totalItems / pageSize) : 0; // Pagination
-const permalink = getPermalink([catRepuestos.slug]);
+
+const baseCanonical = getPermalink([categoria.slug]);
+const canonical = page > 1 
+    ? `${baseCanonical}?page=${page}` 
+    : baseCanonical;
 
 // 1. Definimos la optimización
 const optimizedImage = await getImage({
-  src: getMediaPermalink(catRepuestos.imagen_portada),
+  src: getMediaPermalink(categoria.imagen_portada),
   width: 1200,
   height: 675,
 });
 
 // 2. Creamos la URL absoluta (Importante para OG)
 const imagenCategoria = new URL(optimizedImage.src, Astro.site).toString();
+
+
 const categorySchema: ProductItemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: catRepuestos.nombre,
-  url: permalink,
+  name:  categoria.nombre,
+  url: canonical,
   numberOfItems: catProducts.length,
   itemListElement: catProducts.map((producto, index) => ({
     '@type': 'ListItem',
@@ -64,7 +91,7 @@ const categorySchema: ProductItemListSchema = {
       '@type': 'Product',
       name: producto.nombre,
       description: producto.description,
-      url: getPermalink([catRepuestos.slug, producto.slug]),
+      url: getPermalink([categoria.slug, producto.slug]),
       image: getMediaPermalink(producto.imagen_portada),
       offers: {
         '@type': 'Offer',
@@ -78,9 +105,9 @@ const categorySchema: ProductItemListSchema = {
 ---
 
 <Layout 
-  title={catRepuestos.nombre} 
-  canonical={permalink} 
-  description={catRepuestos.description} 
+  title={categoria.nombre} 
+  canonical={canonical} 
+  description={categoria.description} 
   image={imagenCategoria} 
   schemas={[categorySchema]}
 >
@@ -93,10 +120,11 @@ const categorySchema: ProductItemListSchema = {
       <nav class="category-nav">
         <h2 class="titulos-small">Categorías</h2>
         <ul>
-          {subCategorias.map((subCat,i) => (
+          {categoriasHijas?.map(subCat => (
             <li>
               <a 
-                href={getPermalink([catRepuestos.slug,subCat.slug])} 
+                href={getPermalink(["repuestos",subCat.slug])} 
+                class:list={{ active: subCat.id === categoria.id }}
               >
                 {subCat.nombre}
               </a>
@@ -109,21 +137,21 @@ const categorySchema: ProductItemListSchema = {
     <section class="content">
       <div class="section-header">
         <span class="section-label">Repuestos</span>
-        <h1 class="titulos">{catRepuestos.nombre}</h1>
+        <h1 class="titulos">{categoria.nombre}</h1>
         <p class="subtitle">
-          {catRepuestos.description || `Explora todos nuestros productos en la categoría de ${catRepuestos.nombre}.`}
+          {categoria.description || `Explora todos nuestros productos en la categoría de ${categoria.nombre}.`}
         </p>
       </div>
 
-      {/* catProducts.length > 0 ? (
+      {catProducts.length > 0 ? (
         <div class="products-grid">
           {catProducts.map(producto => (
-            <ProductCard producto={producto} categorySlug={catRepuestos.slug} />
+            <ProductCard producto={producto} categorySlug={categoria.slug} />
           ))}
         </div>
       ) : (
         <p class="no-products">No hay productos disponibles en esta categoría por el momento.</p>
-      ) */}    
+      )}    
     </section>
   </main>
 </Layout>
