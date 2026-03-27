@@ -39,7 +39,7 @@ const parentCategoria:Categoria = parentCategory || {} as Categoria;
 const { data: categoriasHijas, error: categoriasHijasErr } = await supabaseClient
   .from('categorias')
   .select('*')
-  .eq('parent_id', parentCategoria.id)
+  .eq('slug', 'repuestos')
 
 
 // SI NECESITAMOS UNA PAGINACION:
@@ -62,7 +62,7 @@ if (categoria) {
 }
 const totalPages = totalItems ? Math.ceil(totalItems / pageSize) : 0; // Pagination
 
-const baseCanonical = getPermalink([categoria.slug]);
+const baseCanonical = getPermalink([parentCategoria.slug,categoria.slug]);
 const canonical = page > 1 
     ? `${baseCanonical}?page=${page}` 
     : baseCanonical;
