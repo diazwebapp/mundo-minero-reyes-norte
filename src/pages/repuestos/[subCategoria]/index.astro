@@ -39,7 +39,7 @@ const parentCategoria:Categoria = parentCategory || {} as Categoria;
 const { data: categoriasHijas, error: categoriasHijasErr } = await supabaseClient
   .from('categorias')
   .select('*')
-  .eq('slug', 'repuestos')
+  .eq('parent_id', parentCategoria.id)
 
 
 // SI NECESITAMOS UNA PAGINACION:
