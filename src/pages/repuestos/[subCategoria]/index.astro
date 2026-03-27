@@ -1,11 +1,11 @@
 ---
 import { supabaseClient } from '../../../lib/supabase';
 import Layout from '../../../layouts/Layout.astro';
-import { getMediaPermalink, getPermalink, getCategoryPermalink } from '../../../utils/config';
-import ProductCard from '../../../components/ProductCard.astro';
+import { getMediaPermalink, getPermalink } from '../../../utils/config';
 import type { Categoria, Producto } from '../../../local-data/database.types';
 import type { ProductItemListSchema } from '../../../local-data/schemas';
 import { getImage } from 'astro:assets';
+import ReplacementCard from '../../../components/ReplacementCard.astro';
 
 
 //OPTENEMOS LA SUBCATEGORIA ACTUAL
@@ -146,7 +146,7 @@ const categorySchema: ProductItemListSchema = {
       {catProducts.length > 0 ? (
         <div class="products-grid">
           {catProducts.map(producto => (
-            <ProductCard producto={producto} categorySlug={categoria.slug} />
+            <ReplacementCard producto={producto} categorySlug={categoria.slug} />
           ))}
         </div>
       ) : (
