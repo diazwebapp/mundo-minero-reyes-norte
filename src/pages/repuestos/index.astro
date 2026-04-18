@@ -1,11 +1,12 @@
 ---
 import { supabaseClient } from '../../lib/supabase';
 import Layout from '../../layouts/Layout.astro';
-import { getMediaPermalink, getPermalink, getCategoryPermalink } from '../../utils/config';
-import ProductCard from '../../components/ProductCard.astro';
+import { getMediaPermalink, getPermalink } from '../../utils/config';
 import type { Categoria, Producto } from '../../local-data/database.types';
 import type { ProductItemListSchema } from '../../local-data/schemas';
 import { getImage } from 'astro:assets';
+
+
 
 const { data, error: repuestosError } = await supabaseClient
   .from('categorias')

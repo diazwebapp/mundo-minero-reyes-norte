@@ -81,7 +81,9 @@ const galleryId = Math.random().toString(36).substring(7);
   </div>
 </div>
 
-<script define:vars={{ galleryId, images }}>
+<script define:vars={{ galleryId, images }} type="module">
+;
+
   const container = document.querySelector(`[data-gallery-id="${galleryId}"]`);
   const modal = document.querySelector(`[data-gallery-id="${galleryId}"][data-modal]`);
   let currentIndex = 0;
@@ -92,12 +94,13 @@ const galleryId = Math.random().toString(36).substring(7);
   const swipeThreshold = 50; // píxeles mínimos para detectar swipe
 
   // Actualizar imagen principal y miniaturas
-  function updateGallery(index) {
+  async function updateGallery(index) {
     currentIndex = Math.max(0, Math.min(index, images.length - 1));
     
     // Actualizar imagen featured
     const featuredImg = container.querySelector('[data-featured]');
     if (featuredImg) {
+       
       featuredImg.src = images[currentIndex];
     }
 

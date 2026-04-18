@@ -29,5 +29,5 @@ export default defineConfig({
 },
 
   adapter: vercel(),
-  integrations: [icon()]
+  integrations: [icon()],
 });

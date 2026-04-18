@@ -1,7 +1,7 @@
 ---
 import { supabaseClient } from '../../lib/supabase';
 import Layout from '../../layouts/Layout.astro';
-import {  getMediaPermalink, getPermalink, getCategoryPermalink } from '../../utils/config';
+import {  getMediaPermalink, getPermalink } from '../../utils/config';
 import { Image } from 'astro:assets';
 import { fichaTecnica } from '../../local-data/ficha-tecnica';
 import Galery from '../../components/Galery.astro';
@@ -75,11 +75,11 @@ const schemaProduct:ProductSchema={
         <span>/</span>
         {producto.categoria.parent && (
           <>
-            <a href={getPermalink([producto.categoria.parent.slug], true)}>{producto.categoria.parent.nombre}</a>
+            <a href={getPermalink([producto.categoria.parent.slug,producto.categoria.slug], true)}>{producto.categoria.parent.nombre}</a>
             <span>/</span>
           </>
         )}
-        <a href={getCategoryPermalink(producto.categoria)}>{producto.categoria.nombre}</a>
+        <a href={getPermalink([producto.categoria.slug],true)}>{producto.categoria.nombre}</a>
         <span>/</span>
         <span>{producto.nombre}</span>
       </nav>

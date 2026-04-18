@@ -34,22 +34,6 @@ export const getPermalink = (slugs:(string|undefined)[],simple:boolean=false)=>{
   return !simple ? (BASE_URL ? BASE_URL + '/' + permalink : '/' + permalink) : '/' + permalink
 }
 
-/**
- * Genera el permalink para una categoría, manejando subcategorías.
- * Si es una subcategoría (tiene parent_id), genera un link tipo /padre?hijo
- */
-export const getCategoryPermalink = (categoria: any, simple: boolean = true) => {
-  if (categoria.parent_id && categoria.parent) {
-    const parentSlug = categoria.parent.slug;
-    if (!parentSlug) return getPermalink([categoria.slug], simple);
-    
-    const parentLink = getPermalink([parentSlug], simple);
-    // Eliminar barra final si existe antes de añadir ?
-    const cleanParent = parentLink.endsWith('/') ? parentLink.slice(0, -1) : parentLink;
-    return `${cleanParent}?${categoria.slug}`;
-  }
-  return getPermalink([categoria.slug], simple);
-}
 
 export const getMediaPermalink = (slug:string)=>{
   // 1. Si el slug ya empieza con http, no le añadas la BASE_URL

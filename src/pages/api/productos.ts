@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
-import { getPermalink } from '../../utils/config';
+import { getMediaPermalink, getPermalink } from '../../utils/config';
 import { supabaseClient } from '../../lib/supabase';
+import { getImage } from 'astro:assets';
 
 
 export const GET: APIRoute = async ({ url }) => {
@@ -20,13 +21,21 @@ export const GET: APIRoute = async ({ url }) => {
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 
-  const productosConSlugCompleto = productosFiltrados.map((producto) => {
+  const productosConSlugCompleto = await Promise.all (productosFiltrados.map(async (producto) => {
     const { categoria, ...rest } = producto;
+    const optimizedImage = await getImage({
+    src: producto.imagen_portada,
+      width: 350,
+      height: 197,
+    });
+    const domain = import.meta.env.DOMAIN
+    const ogImageUrl = new URL(optimizedImage.src, domain).toString();
     return {
       ...rest,
-      slug: getPermalink([categoria.slug, producto.slug], true)
+      slug: getPermalink([categoria.slug, producto.slug], true),
+      imagen_portada: ogImageUrl,
     };
-  });
+  }))
 
   return new Response(JSON.stringify(productosConSlugCompleto), {
     status: 200,
